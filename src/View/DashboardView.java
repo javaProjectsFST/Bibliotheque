@@ -8,6 +8,7 @@ public class DashboardView extends JPanel {
     
     public DashboardView() {
         initComponents();
+        System.out.print("Hello World");
     }
     
     @SuppressWarnings("unchecked")
