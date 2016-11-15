@@ -8,7 +8,6 @@ public class DashboardView extends JPanel {
     
     public DashboardView() {
         initComponents();
-        System.out.println("Hello first commit");
     }
     
     @SuppressWarnings("unchecked")
