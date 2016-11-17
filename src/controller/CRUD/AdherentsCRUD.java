@@ -2,6 +2,9 @@
 package controller.CRUD;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Vector;
 import model.Adherent;
 import model.Livre;
@@ -14,23 +17,119 @@ public class AdherentsCRUD {
     }
     
     public boolean addAdherent(Adherent adherent){
-        return true;
+         try {
+            PreparedStatement prepare=connexion.prepareStatement("INSERT INTO adherent (MdpAdherent,Login,Prenom,Nom,Email) VALUES (?,?,?,?,?)");
+            prepare.setString(1, adherent.getMdp());
+            prepare.setString(2, adherent.getLogin());
+            prepare.setString(3,adherent.getPrenom() );
+            prepare.setString(4, adherent.getNom());
+            prepare.setString(4, adherent.getEmail());
+            
+            prepare.executeUpdate();
+            prepare.close();
+            return true;
+            
+        } catch (SQLException ex) {
+            return false;
+        }
+        
     }
     
-    public Adherent getAdherentBy(int id){
-        return null;
+    public Adherent getAdherentBy(String mdp){
+       try {
+            PreparedStatement prepare=connexion.prepareStatement("SELECT * FROM adherent WHERE MdpAdherent =?");
+            prepare.setString(1,mdp);
+             ResultSet resultat = prepare.executeQuery();
+             Adherent adherent=new Adherent();
+                 while ( resultat.next() )
+                    {
+                       
+                        adherent.setMdp(resultat.getString("MdpAdherent"));
+                        adherent.setPrenom(resultat.getString("Login"));
+                        adherent.setPrenom(resultat.getString("Prenom"));
+                        adherent.setNom(resultat.getString("Nom"));
+                        adherent.setEmail(resultat.getString("Email"));
+                        
+                     
+                    }
+             prepare.close();    
+             resultat.close();
+             return(adherent);
+             
+             
+            
+        } catch (SQLException ex) {
+            return null;
+        }
+    }
+     public Adherent getAdherentBy(String mdp,String login){
+       try {
+            PreparedStatement prepare=connexion.prepareStatement("SELECT * FROM adherent WHERE MdpAdherent =? AND Login=?");
+            prepare.setString(1,mdp);
+            prepare.setString(2,login);
+             ResultSet resultat = prepare.executeQuery();
+             Adherent adherent=new Adherent();
+                 while ( resultat.next() )
+                    {
+                       
+                        adherent.setMdp(resultat.getString("MdpAdherent"));
+                        adherent.setPrenom(resultat.getString("Login"));
+                        adherent.setPrenom(resultat.getString("Prenom"));
+                        adherent.setNom(resultat.getString("Nom"));
+                        adherent.setEmail(resultat.getString("Email"));
+                        
+                     
+                    }
+             prepare.close();    
+             resultat.close();
+             return(adherent);
+             
+             
+            
+        } catch (SQLException ex) {
+            return null;
+        }
     }
     
-    public boolean deleteAdherentBy(int id){
-        return true;
+    public boolean deleteAdherentBy(String mdp){
+       try{
+             PreparedStatement prepare=connexion.prepareStatement("DELETE FROM adherent WHERE MdpAdherent=?");
+             prepare.setString(1,mdp);
+             prepare.executeUpdate();
+             prepare.close();
+             return true;
+        }
+        catch(SQLException ex) {
+            return false;
+        }
     }
     
-    public boolean updateAdherent(int id, Adherent adherent){
-        return true;
+    public boolean updateAdherent(String mdp, Adherent adherent){
+        try{
+            PreparedStatement prepare=connexion.prepareStatement("UPDATE adherent SET mdp=?,Login=?,Prenom=?,Nom=?,Email=? WHERE MdpAdherent=?");
+             prepare.setString(1,adherent.getMdp());
+             prepare.setString(2,adherent.getLogin());
+             prepare.setString(3,adherent.getPrenom());
+             prepare.setString(4, adherent.getNom());
+             prepare.setString(5,adherent.getEmail());
+             prepare.executeUpdate();
+             prepare.close();
+             return true;
+            
+        }
+        catch(SQLException ex) {
+            return false;
+        }
     }
     
-    public Vector<Adherent> getAllAdherents(){
-        return null;
+    public ResultSet getAllAdherents(){
+         try {
+            PreparedStatement prepare=connexion.prepareStatement("select * from adherent");
+            return (prepare.executeQuery());
+        } catch (SQLException ex) {
+            return null;
+        }
+         
     }
     
     public void sendAvetMail(Livre livre){

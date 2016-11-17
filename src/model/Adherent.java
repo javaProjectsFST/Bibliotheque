@@ -9,6 +9,10 @@ public class Adherent {
     private String Email;
     private int NumbEmprent;
     private int NumbReservation;
+    
+    public  Adherent(){
+        
+    }
 
     public Adherent(String Mdp, String Login, String Prenom, String Nom, String Email) {
         this.Mdp = Mdp;
