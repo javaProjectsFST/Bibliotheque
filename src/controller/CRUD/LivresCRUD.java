@@ -18,19 +18,62 @@ public class LivresCRUD {
     }
     
     public boolean addLivre(Livre livre){
-        return true;
+        try {
+            PreparedStatement prepare=connexion.prepareStatement("INSERT INTO livre (Titre,Auteur,Editeur,DateEdition) VALUES (?,?,?,?)");
+            prepare.setString(1, livre.getTitre());
+            prepare.setString(2, livre.getAuteur());
+            prepare.setString(3, livre.getEditeur());
+            prepare.setDate(4, livre.getDateEdition());
+            
+            prepare.executeUpdate();
+            return true;
+            
+        } catch (SQLException ex) {
+            return false;
+        }
+        
     }
     
     public Livre getLivreBy(int livreId){
-        return null;
+      /* try {
+            PreparedStatement prepare=connexion.prepareStatement("SELECT * FROM livre WHERE LivreId=?");
+            prepare.setInt(1,livreId);
+           
+        } catch (SQLException ex) {
+            return null;
+        }
+*/
     }
     
     public boolean deleteLivreBy(int livreId){
-        return true;
+        try{
+             PreparedStatement prepare=connexion.prepareStatement("DELETE FROM livre WHERE LivreId=?");
+             prepare.setInt(1,livreId);
+             prepare.executeUpdate();
+             return true;
+        }
+        catch(SQLException ex) {
+            return false;
+        }
+       
     }
     
     public boolean updateLivre(int livreId, Livre livre){
-        return true;
+        try{
+            PreparedStatement prepare=connexion.prepareStatement("UPDATE livre SET Titre=?,Auteur=?,Editeur=?,DateEdition=? WHERE LivreId=?");
+             prepare.setString(1, livre.getTitre());
+             prepare.setString(2, livre.getAuteur());
+             prepare.setString(3, livre.getEditeur());
+             prepare.setDate(4, livre.getDateEdition());
+             prepare.setInt(5,livreId);
+             prepare.executeUpdate();
+             return true;
+            
+        }
+        catch(SQLException ex) {
+            return false;
+        }
+       
     }
     
     public ResultSet getAllLivres(){
