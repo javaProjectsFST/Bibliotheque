@@ -5,6 +5,7 @@ import View.LoginView;
 import controller.CRUD.AdherentsCRUD;
 import controller.CRUD.EmployesCRUD;
 import controller.GeneralController;
+import controller.MainClass;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
@@ -37,7 +38,7 @@ public class LoginController {
         loginView.getNextButton().addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
-                GeneralController.toNextView();
+                MainClass.generalController.toNextView();
             }
         });
     }

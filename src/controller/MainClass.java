@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 
 public class MainClass extends JPanel{
     public static Connection connexion;
+    public static GeneralController generalController;
     
     static Connection makeConnection(){
         try{
@@ -27,7 +28,7 @@ public class MainClass extends JPanel{
         Connection connexion;
         connexion=makeConnection();
         if(connexion!=null){
-            new GeneralController(connexion);
+            generalController=new GeneralController(connexion);
         }
     }
 }
