@@ -5,6 +5,8 @@ import View.MainFrame;
 import controller.GUI.DashboardController;
 import controller.GUI.LoginController;
 import java.sql.Connection;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 public class GeneralController{
     private Connection connexion;
@@ -13,11 +15,16 @@ public class GeneralController{
     private DashboardController dashboardController;
     
     public GeneralController(Connection connexion){
+        try{
+            UIManager.setLookAndFeel("com.jtattoo.plaf.aero.AeroLookAndFeel");
+        }catch(ClassNotFoundException | IllegalAccessException | InstantiationException | UnsupportedLookAndFeelException e){}
+        
         this.connexion=connexion;
         this.loginController=new LoginController(connexion);
         this.dashboardController=new DashboardController(connexion);
         
         this.mainFrame=new MainFrame(loginController.getLoginView(), dashboardController.getDashboardView());
+        loginController.getLoginView().requestFocusInWindow();
     }
     
     public void toNextView(){

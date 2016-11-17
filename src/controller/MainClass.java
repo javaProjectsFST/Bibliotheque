@@ -1,6 +1,7 @@
 
 package controller;
 
+import controller.CRUD.AdherentsCRUD;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
