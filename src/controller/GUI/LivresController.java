@@ -1,15 +1,16 @@
 
 package controller.GUI;
 
+import View.LivresView;
 import controller.CRUD.AdherentsCRUD;
 import controller.CRUD.EmpruntsCRUD;
 import controller.CRUD.LivresCRUD;
 import controller.CRUD.ReservationsCRUD;
 import java.sql.Connection;
-import javax.swing.JPanel;
+import net.proteanit.sql.DbUtils;
 
 public class LivresController {
-    private JPanel livreView;
+    private LivresView livreView;
     private Connection connexion;
     private int sortColumn;
     private LivresCRUD livresCrud;
@@ -17,7 +18,7 @@ public class LivresController {
     private EmpruntsCRUD emprentsCrud;
     private ReservationsCRUD reservationsCRUD;
 
-    public LivresController(JPanel livreView, Connection connexion) {
+    public LivresController(LivresView livreView, Connection connexion) {
         this.livreView = livreView;
         this.connexion = connexion;
         this.sortColumn = 1;
@@ -31,7 +32,7 @@ public class LivresController {
     }
     
     private void initView(){
-        
+        livreView.getLivresTable().setModel(DbUtils.resultSetToTableModel(livresCrud.getAllLivres()));
     }
     
     private void initController(){

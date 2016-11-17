@@ -1,16 +1,16 @@
 
 package controller.GUI;
 
+import View.EmployesView;
 import controller.CRUD.EmployesCRUD;
 import java.sql.Connection;
-import javax.swing.JPanel;
 
 public class EmployesController {
-    private JPanel employeView;
+    private EmployesView employeView;
     private Connection connexion;
     private EmployesCRUD employesCrud;
 
-    public EmployesController(JPanel employeView, Connection connexion) {
+    public EmployesController(EmployesView employeView, Connection connexion) {
         this.employeView = employeView;
         this.connexion = connexion;
         this.employesCrud = new EmployesCRUD(connexion);

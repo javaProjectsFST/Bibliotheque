@@ -1,16 +1,17 @@
 
 package controller.GUI;
 
+import View.AdherentsView;
 import controller.CRUD.AdherentsCRUD;
 import java.sql.Connection;
 import javax.swing.JPanel;
 
 public class AdherentsController {
-    private JPanel adherentView;
+    private AdherentsView adherentView;
     private Connection connexion;
     private AdherentsCRUD adherentsCrud;
 
-    public AdherentsController(JPanel adherentView, Connection connexion) {
+    public AdherentsController(AdherentsView adherentView, Connection connexion) {
         this.adherentView = adherentView;
         this.connexion = connexion;
         this.adherentsCrud = new AdherentsCRUD(connexion);

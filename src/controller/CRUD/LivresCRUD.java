@@ -1,16 +1,18 @@
 package controller.CRUD;
 
 import java.sql.Connection;
-import java.util.Vector;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import model.Livre;
 
 public class LivresCRUD {
-    private Connection Connexion;
+    private Connection connexion;
     private EmpruntsCRUD emprentCrud;
     private ReservationsCRUD reservationCrud;
 
     public LivresCRUD(Connection connexion) {
-        this.Connexion = Connexion;
+        this.connexion = connexion;
         emprentCrud=new EmpruntsCRUD(connexion);
         reservationCrud=new ReservationsCRUD(connexion);
     }
@@ -31,7 +33,12 @@ public class LivresCRUD {
         return true;
     }
     
-    public Vector<Livre> getAllLivres(){
-        return null;
+    public ResultSet getAllLivres(){
+        try {
+            PreparedStatement prepare=connexion.prepareStatement("select * from livre");
+            return (prepare.executeQuery());
+        } catch (SQLException ex) {
+            return null;
+        }
     }
 }

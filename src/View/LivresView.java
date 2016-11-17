@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
+import javax.swing.JTable;
 import javax.swing.table.TableCellRenderer;
 
 public class LivresView extends javax.swing.JPanel {
@@ -17,6 +18,10 @@ public class LivresView extends javax.swing.JPanel {
         livreTable.getTableHeader().setPreferredSize(dimension);
         livreTable.getTableHeader().setMaximumSize(dimension);
         livreTable.getTableHeader().setMinimumSize(dimension);
+    }
+    
+    public JTable getLivresTable(){
+        return livreTable;
     }
 
     @SuppressWarnings("unchecked")

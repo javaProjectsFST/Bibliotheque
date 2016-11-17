@@ -1,26 +1,33 @@
 
 package controller;
 
-import View.DashboardView;
-import java.awt.Dimension;
 import java.sql.Connection;
-import javax.swing.JFrame;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import javax.swing.JPanel;
 
 public class MainClass extends JPanel{
     public static Connection connexion;
     
+    static Connection makeConnection(){
+        try{
+                Class.forName("com.mysql.jdbc.Driver");
+
+            String url = "jdbc:mysql://localhost:3306/bibliotheque";
+            String user = "root";
+
+            connexion = DriverManager.getConnection(url, user, "");
+            return connexion;
+        }catch(ClassNotFoundException | SQLException e){
+            return null;
+        }
+    }
+    
     public static void main(String args[]){
-        JFrame frame=new JFrame("Bibliothéque");
-        frame.setPreferredSize(new Dimension(1800,700));
-        frame.setMaximumSize(new Dimension(1800, 700));
-        frame.setMinimumSize(new Dimension(1800, 700));
-        frame.setLocationRelativeTo(null);
-        frame.setResizable(false);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        
-        frame.add(new DashboardView());
-        
-        frame.setVisible(true);
+        Connection connexion;
+        connexion=makeConnection();
+        if(connexion!=null){
+            new GeneralController(connexion);
+        }
     }
 }

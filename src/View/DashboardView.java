@@ -10,12 +10,16 @@ public class DashboardView extends JPanel {
         initComponents();
     }
     
+    public LivresView getLivresView(){
+        return livresView;
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jTabbedPane2 = new javax.swing.JTabbedPane();
-        livresView1 = new View.LivresView();
+        livresView = new View.LivresView();
         jPanel1 = new javax.swing.JPanel();
 
         setMaximumSize(new java.awt.Dimension(1800, 680));
@@ -24,7 +28,7 @@ public class DashboardView extends JPanel {
         setPreferredSize(new java.awt.Dimension(1800, 680));
 
         jTabbedPane2.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
-        jTabbedPane2.addTab("Livres", livresView1);
+        jTabbedPane2.addTab("Livres", livresView);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
@@ -66,7 +70,7 @@ public class DashboardView extends JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTabbedPane jTabbedPane2;
-    private View.LivresView livresView1;
+    private View.LivresView livresView;
     // End of variables declaration//GEN-END:variables
 
 }
