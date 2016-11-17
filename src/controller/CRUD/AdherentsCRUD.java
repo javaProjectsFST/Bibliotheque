@@ -106,12 +106,13 @@ public class AdherentsCRUD {
     
     public boolean updateAdherent(String mdp, Adherent adherent){
         try{
-            PreparedStatement prepare=connexion.prepareStatement("UPDATE adherent SET mdp=?,Login=?,Prenom=?,Nom=?,Email=? WHERE MdpAdherent=?");
+            PreparedStatement prepare=connexion.prepareStatement("UPDATE adherent SET MdpAdherent=?,Login=?,Prenom=?,Nom=?,Email=? WHERE MdpAdherent=?");
              prepare.setString(1,adherent.getMdp());
              prepare.setString(2,adherent.getLogin());
              prepare.setString(3,adherent.getPrenom());
              prepare.setString(4, adherent.getNom());
              prepare.setString(5,adherent.getEmail());
+             prepare.setString(6,mdp);
              prepare.executeUpdate();
              prepare.close();
              return true;

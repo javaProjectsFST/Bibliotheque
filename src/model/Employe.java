@@ -7,6 +7,10 @@ public class Employe {
     private String Prenom;
     private String Nom;
     private boolean Ger;
+    
+    public Employe(){
+        
+    }
 
     public Employe(String Mdp, String Login, String Prenom, String Nom, boolean Ger) {
         this.Mdp = Mdp;

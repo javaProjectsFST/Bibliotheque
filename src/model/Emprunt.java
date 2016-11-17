@@ -11,6 +11,10 @@ public class Emprunt {
     private String MdpAdherent;
     private Date DateEmprent;
     private Date DateLimiteEmprent;
+    
+    public Emprunt(){
+        
+    }
 
     public Emprunt(int LivreId, String MdpAdherent) {
         this.LivreId = LivreId;

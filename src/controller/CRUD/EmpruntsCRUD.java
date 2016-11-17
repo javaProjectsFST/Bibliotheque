@@ -3,6 +3,9 @@ package controller.CRUD;
 
 import java.sql.Connection;
 import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Vector;
 import model.Emprunt;
 
@@ -14,23 +17,91 @@ public class EmpruntsCRUD {
     }
     
     public boolean addEmprent(Emprunt emprent){
-        return true;
+        try {
+            PreparedStatement prepare=connexion.prepareStatement("INSERT INTO emprunt(LivreId,MdpAdherent,DateEmprent,DateLimiteEmprent) VALUES (?,?,?,?)");
+            prepare.setInt(1, emprent.getLivreId());
+            prepare.setString(2, emprent.getMdpAdherent());
+            prepare.setDate(3, emprent.getDateEmprent());
+            prepare.setDate(4, emprent.getDateLimiteEmprent());
+            
+            prepare.executeUpdate();
+            prepare.close();
+            return true;
+            
+        } catch (SQLException ex) {
+            return false;
+        }
     }
     
     public Emprunt getEmprentByLivre(int livreId){
-        return null;
+         try {
+                PreparedStatement prepare=connexion.prepareStatement("SELECT * FROM emprunt WHERE LivreId=?");
+                prepare.setInt(1,livreId);
+                ResultSet resultat = prepare.executeQuery();
+                Emprunt emprunt=new Emprunt();
+                 while ( resultat.next() )
+                    {
+                       
+                        emprunt.setLivreId(resultat.getInt("LivreId"));
+                        emprunt.setMdpAdherent(resultat.getString("MdpAdherent"));
+                        emprunt.setDateEmprent(resultat.getDate("DateEmprent"));
+                        emprunt.setDateLimiteEmprent(resultat.getDate("DateLimiteEmprent"));
+                        
+                    }
+             prepare.close();    
+             resultat.close();
+             return(emprunt);
+             
+        } catch (SQLException ex) {
+            return null;
+        }
+
     }
     
-    public Vector<Emprunt> getEmprentsByAdherent(String mdpAdherent){
-        return null;
+    public ResultSet getEmprentsByAdherent(String mdpAdherent){
+         try {
+            PreparedStatement prepare=connexion.prepareStatement("select * from emprunt WHERE MdpAdherent=?");
+            prepare.setString(1,mdpAdherent);
+            return (prepare.executeQuery());
+        } catch (SQLException ex) {
+            return null;
+        }
     }
     
     public Emprunt getEmprentBy(int livreId, String mdpAdherent){
-        return null;
+          try {
+            PreparedStatement prepare=connexion.prepareStatement("SELECT * FROM emprunt WHERE LivreId =? AND MdpAdherent=?");
+            prepare.setInt(1,livreId);
+            prepare.setString(2,mdpAdherent);
+             ResultSet resultat = prepare.executeQuery();
+             Emprunt emprunt=new Emprunt();
+                 while ( resultat.next() )
+                    {
+                       
+                        emprunt.setLivreId(resultat.getInt("LivreId"));
+                        emprunt.setMdpAdherent(resultat.getString("MdpAdherent"));
+                        emprunt.setDateEmprent(resultat.getDate("DateEmprent"));
+                        emprunt.setDateLimiteEmprent(resultat.getDate("DateLimiteEmprent"));
+                      
+                    }
+             prepare.close();    
+             resultat.close();
+             return(emprunt);
+             
+             
+            
+        } catch (SQLException ex) {
+            return null;
+        }
     }
     
-    public Vector<Emprunt> getAllEmprents(){
-        return null;
+    public ResultSet getAllEmprents(){
+          try {
+            PreparedStatement prepare=connexion.prepareStatement("select * from emprunt");
+            return (prepare.executeQuery());
+        } catch (SQLException ex) {
+            return null;
+        }
     }
     
     public Vector<Emprunt> getDepLimEmprents(){
@@ -38,18 +109,54 @@ public class EmpruntsCRUD {
     }
     
     public boolean deleteEmprentBy(int livreId, String mdpAdherent){
-        return true;
+         try{
+             PreparedStatement prepare=connexion.prepareStatement("DELETE FROM emprunt WHERE LivreId=? AND MdpAdherent=?");
+             prepare.setInt(1,livreId);
+             prepare.setString(2,mdpAdherent);
+             prepare.executeUpdate();
+             prepare.close();
+             return true;
+        }
+        catch(SQLException ex) {
+            return false;
+        }
+       
     }
     
     public int deleteEmprentsByAdherent(String mdpAdherent){
-        return 0;
+         /*try{
+             PreparedStatement prepare=connexion.prepareStatement("DELETE FROM emprunt WHERE MdpAdherent=?");
+             prepare.setString(1,mdpAdherent);
+             prepare.executeUpdate();
+             prepare.close();
+             return true;
+        }
+        catch(SQLException ex) {
+            return false;
+        }*/
+         return 0;
     }
     
     public boolean deleteEmprentByLivre(int livreId){
-        return true;
+         try{
+             PreparedStatement prepare=connexion.prepareStatement("DELETE FROM emprunt WHERE LivreId=?");
+             prepare.setInt(1,livreId);
+             prepare.executeUpdate();
+             prepare.close();
+             return true;
+        }
+        catch(SQLException ex) {
+            return false;
+        }
     }
     
-    public Vector<Emprunt> getEmprentsAtDate(Date date){
-        return null;
+    public ResultSet getEmprentsAtDate(Date date){
+       try {
+            PreparedStatement prepare=connexion.prepareStatement("SELECT * FROM emprunt WHERE DateEmprent=?");
+            prepare.setDate(1,date);
+            return (prepare.executeQuery());
+        } catch (SQLException ex) {
+            return null;
+        }
     }
 }

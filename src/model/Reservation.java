@@ -10,6 +10,10 @@ public class Reservation {
     private String MdpAdherent;
     private Date DateReservation;
     private Date DateLimiteReservation;
+    
+    public Reservation(){
+        
+    }
 
     public Reservation(int LivreId, String MdpAdherent) {
         this.LivreId = LivreId;
