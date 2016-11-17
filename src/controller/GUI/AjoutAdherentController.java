@@ -33,7 +33,6 @@ public class AjoutAdherentController {
                 addAdherent();
             }
         });
-        //ActionListeners goes here
     }
     
     private boolean validEmail (String email){
@@ -41,7 +40,6 @@ public class AjoutAdherentController {
     }
     
     private boolean addAdherent(){
-        //Add Code Here, Using ajoutAdherentCrud
         String mdp=ajoutAdherentView.getMdpTextField().getText();
         String login=ajoutAdherentView.getLoginTextField().getText();
         String nom=ajoutAdherentView.getNomTextField().getText();
@@ -56,12 +54,9 @@ public class AjoutAdherentController {
               
                return(false);
            }   
-        }
-        else{
+        }else{
             return(false);
         }
-        
-        
         return true;
     }
 }
