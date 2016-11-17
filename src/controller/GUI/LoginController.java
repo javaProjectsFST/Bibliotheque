@@ -51,7 +51,7 @@ public class LoginController {
         loginView.getConnectButton().addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
-                login();
+                MainClass.generalController.toNextView();
             }
         });
         
