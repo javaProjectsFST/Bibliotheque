@@ -4,11 +4,16 @@ package controller.GUI;
 import View.LoginView;
 import controller.CRUD.AdherentsCRUD;
 import controller.CRUD.EmployesCRUD;
-import controller.GeneralController;
 import controller.MainClass;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.sql.Connection;
+import model.Adherent;
+import model.Employe;
 
 public class LoginController {
     private LoginView loginView;
@@ -31,19 +36,67 @@ public class LoginController {
     }
     
     private void initView(){
-        
+        reset();
     }
     
     private void initController(){
-        loginView.getNextButton().addActionListener(new ActionListener(){
+        loginView.addMouseListener(new MouseAdapter(){
+             @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseReleased(e);
+                loginView.grabFocus();
+            }
+        });
+        
+        loginView.getConnectButton().addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
-                MainClass.generalController.toNextView();
+                login();
+            }
+        });
+        
+        loginView.getResetButton().addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                reset();
+            }
+        });
+        
+        loginView.getLoginTextField().addFocusListener(new FocusListener(){
+            @Override
+            public void focusGained(FocusEvent e) {
+                loginView.getLoginTextField().setText("");
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                loginView.getLoginTextField().setText("Login");
+            }
+        });
+        
+        loginView.getMdpTextField().addFocusListener(new FocusListener(){
+            @Override
+            public void focusGained(FocusEvent e) {
+                loginView.getMdpTextField().setText("");
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                loginView.getMdpTextField().setText("Mot de passe");
             }
         });
     }
     
+    private void reset(){
+        loginView.getLoginTextField().setText("Login");
+        loginView.getMdpTextField().setText("Mot de passe");
+    }
+    
     public void login(){
-        
+//        Adherent adherent=adherentsCrud.existeAdherent(loginView.getLoginTextField().getText(), loginView.getMdpTextField().getText());
+//        if(adherent!=null){
+//            MainClass.generalController.toNextView();
+//        }else{
+//        }
     }
 }
