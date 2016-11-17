@@ -41,7 +41,7 @@ public class LivresCRUD {
             PreparedStatement prepare=connexion.prepareStatement("SELECT * FROM livre WHERE LivreId=?");
             prepare.setInt(1,livreId);
              ResultSet resultat = prepare.executeQuery();
-             Livre livre=new Livre(1,"a","b","c",new Date(12,12,2000));
+             Livre livre=new Livre();
                  while ( resultat.next() )
                     {
                        
