@@ -39,6 +39,8 @@ public class EmployesCRUD {
             PreparedStatement prepare=connexion.prepareStatement("SELECT * FROM employe WHERE MdpEmploye =?");
             prepare.setString(1,mdp);
              ResultSet resultat = prepare.executeQuery();
+             if(resultat.next()){
+                resultat.beforeFirst();
              Employe employe=new Employe();
                  while ( resultat.next() )
                     {
@@ -54,6 +56,11 @@ public class EmployesCRUD {
              prepare.close();    
              resultat.close();
              return(employe);
+             }
+             else
+             {return (null);
+             
+             }
              
              
             
@@ -67,7 +74,9 @@ public class EmployesCRUD {
             PreparedStatement prepare=connexion.prepareStatement("SELECT * FROM employe WHERE MdpEmploye =? AND Login=?");
             prepare.setString(1,mdp);
             prepare.setString(2,login);
-             ResultSet resultat = prepare.executeQuery();
+            ResultSet resultat = prepare.executeQuery();
+            if(resultat.next()){
+             resultat.beforeFirst();
              Employe employe=new Employe();
                  while ( resultat.next() )
                     {
@@ -83,6 +92,10 @@ public class EmployesCRUD {
              prepare.close();    
              resultat.close();
              return(employe);
+             }
+             else{
+                 return(null);
+             }
              
              
             
@@ -123,7 +136,22 @@ public class EmployesCRUD {
         }
     }
     
-    public Vector<Employe> getAllEmployes(){
-        return null;
+    public ResultSet getAllEmployes(){
+         try {
+            PreparedStatement prepare=connexion.prepareStatement("select * from employe");
+            ResultSet resultat=prepare.executeQuery();
+            
+            if(resultat.next()){
+                resultat.beforeFirst();
+                return (resultat);
+            }
+            else{
+                return(null);
+            }
+            
+        } catch (SQLException ex) {
+            return null;
+        }
+         
     }
 }
