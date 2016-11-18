@@ -27,7 +27,6 @@ public class EmpruntsCRUD {
             prepare.executeUpdate();
             prepare.close();
             return true;
-            
         } catch (SQLException ex) {
             return false;
         }
@@ -35,44 +34,40 @@ public class EmpruntsCRUD {
     
     public Emprunt getEmprentByLivre(int livreId){
          try {
-                PreparedStatement prepare=connexion.prepareStatement("SELECT * FROM emprunt WHERE LivreId=?");
-                prepare.setInt(1,livreId);
-                ResultSet resultat = prepare.executeQuery();
-                if(resultat.next()){
+            PreparedStatement prepare=connexion.prepareStatement("SELECT * FROM emprunt WHERE LivreId=?");
+            prepare.setInt(1,livreId);
+            ResultSet resultat = prepare.executeQuery();
+            if(resultat.next()){
                 resultat.beforeFirst();
                 Emprunt emprunt=new Emprunt();
-                 while ( resultat.next() )
-                    {
-                       
-                        emprunt.setLivreId(resultat.getInt("LivreId"));
-                        emprunt.setMdpAdherent(resultat.getString("MdpAdherent"));
-                        emprunt.setDateEmprent(resultat.getDate("DateEmprent"));
-                        emprunt.setDateLimiteEmprent(resultat.getDate("DateLimiteEmprent"));
-                        
-                    }
+                while ( resultat.next() )
+                {
+
+                    emprunt.setLivreId(resultat.getInt("LivreId"));
+                    emprunt.setMdpAdherent(resultat.getString("MdpAdherent"));
+                    emprunt.setDateEmprent(resultat.getDate("DateEmprent"));
+                    emprunt.setDateLimiteEmprent(resultat.getDate("DateLimiteEmprent"));
+
+                }
                 prepare.close();    
                 resultat.close();
                 return(emprunt);
-                }
-                else{
-                    return(null);
-                }
-                
-             
+            }else{
+                return(null);
+            }
         } catch (SQLException ex) {
             return null;
         }
-
     }
     
     public ResultSet getEmprentsByAdherent(String mdpAdherent){
-         try {
+        try {
             PreparedStatement prepare=connexion.prepareStatement("select * from emprunt WHERE MdpAdherent=?");
             prepare.setString(1,mdpAdherent);
             ResultSet resultat=prepare.executeQuery();
             if(resultat.next()){
-             resultat.beforeFirst();
-             return (resultat);
+                resultat.beforeFirst();
+                return (resultat);
             }
             else{
                 return(null);
@@ -87,29 +82,23 @@ public class EmpruntsCRUD {
             PreparedStatement prepare=connexion.prepareStatement("SELECT * FROM emprunt WHERE LivreId =? AND MdpAdherent=?");
             prepare.setInt(1,livreId);
             prepare.setString(2,mdpAdherent);
-             ResultSet resultat = prepare.executeQuery();
-             if(resultat.next()){
-             resultat.beforeFirst();
-             Emprunt emprunt=new Emprunt();
-                 while ( resultat.next() )
-                    {
-                       
-                        emprunt.setLivreId(resultat.getInt("LivreId"));
-                        emprunt.setMdpAdherent(resultat.getString("MdpAdherent"));
-                        emprunt.setDateEmprent(resultat.getDate("DateEmprent"));
-                        emprunt.setDateLimiteEmprent(resultat.getDate("DateLimiteEmprent"));
-                      
-                    }
-             prepare.close();    
-             resultat.close();
-             return(emprunt);
-             }
-             else{
-                 return(null);
-             }
-             
-             
-            
+            ResultSet resultat = prepare.executeQuery();
+            if(resultat.next()){
+                resultat.beforeFirst();
+                Emprunt emprunt=new Emprunt();
+                while ( resultat.next() )
+                {
+                    emprunt.setLivreId(resultat.getInt("LivreId"));
+                    emprunt.setMdpAdherent(resultat.getString("MdpAdherent"));
+                    emprunt.setDateEmprent(resultat.getDate("DateEmprent"));
+                    emprunt.setDateLimiteEmprent(resultat.getDate("DateLimiteEmprent"));
+                }
+                prepare.close();    
+                resultat.close();
+                return(emprunt);
+            }else{
+                return(null);
+            }
         } catch (SQLException ex) {
             return null;
         }
@@ -166,11 +155,11 @@ public class EmpruntsCRUD {
     
     public boolean deleteEmprentByLivre(int livreId){
          try{
-             PreparedStatement prepare=connexion.prepareStatement("DELETE FROM emprunt WHERE LivreId=?");
-             prepare.setInt(1,livreId);
-             prepare.executeUpdate();
-             prepare.close();
-             return true;
+            PreparedStatement prepare=connexion.prepareStatement("DELETE FROM emprunt WHERE LivreId=?");
+            prepare.setInt(1,livreId);
+            prepare.executeUpdate();
+            prepare.close();
+            return true;
         }
         catch(SQLException ex) {
             return false;
@@ -181,12 +170,11 @@ public class EmpruntsCRUD {
        try {
             PreparedStatement prepare=connexion.prepareStatement("SELECT * FROM emprunt WHERE DateEmprent=?");
             prepare.setDate(1,date);
-             ResultSet resultat=prepare.executeQuery();
+            ResultSet resultat=prepare.executeQuery();
             if(resultat.next()){
-             resultat.beforeFirst();
-             return (resultat);
-            }
-            else{
+                resultat.beforeFirst();
+                return (resultat);
+            }else{
                 return(null);
             }
         } catch (SQLException ex) {

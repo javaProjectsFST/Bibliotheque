@@ -27,7 +27,6 @@ public class ReservationsCRUD {
             prepare.executeUpdate();
             prepare.close();
             return true;
-            
         } catch (SQLException ex) {
             return false;
         }
@@ -35,34 +34,28 @@ public class ReservationsCRUD {
     
     public Reservation getReservationByLivre(int livreId){
         try {
-                PreparedStatement prepare=connexion.prepareStatement("SELECT * FROM reservation WHERE LivreId=?");
-                prepare.setInt(1,livreId);
-                ResultSet resultat = prepare.executeQuery();
-                 if(resultat.next()){
+            PreparedStatement prepare=connexion.prepareStatement("SELECT * FROM reservation WHERE LivreId=?");
+            prepare.setInt(1,livreId);
+            ResultSet resultat = prepare.executeQuery();
+            if(resultat.next()){
                 resultat.beforeFirst();
                 Reservation reservation=new Reservation();
-                 while ( resultat.next() )
-                    {
-                       
-                        reservation.setLivreId(resultat.getInt("LivreId"));
-                        reservation.setMdpAdherent(resultat.getString("MdpAdherent"));
-                        reservation.setDateReservation(resultat.getDate("DateReservation"));
-                        reservation.setDateLimiteReservation(resultat.getDate("DateLimiteReservation"));
-                        
-                    }
-             prepare.close();    
-             resultat.close();
-             return(reservation);
-           
-             }
-            else{
-                     return(null);
-                 }
-             
-             
-                 
-             
-        } catch (SQLException ex) {
+                while ( resultat.next() )
+                {
+
+                    reservation.setLivreId(resultat.getInt("LivreId"));
+                    reservation.setMdpAdherent(resultat.getString("MdpAdherent"));
+                    reservation.setDateReservation(resultat.getDate("DateReservation"));
+                    reservation.setDateLimiteReservation(resultat.getDate("DateLimiteReservation"));
+
+                }
+                prepare.close();    
+                resultat.close();
+                return(reservation);
+            }else{
+                return(null);
+            }
+        }catch (SQLException ex) {
             return null;
         }
     }
@@ -72,14 +65,12 @@ public class ReservationsCRUD {
             PreparedStatement prepare=connexion.prepareStatement("select * from reservation WHERE MdpAdherent=?");
             prepare.setString(1,mdpAdherent);
             ResultSet resultat=prepare.executeQuery();
-             if(resultat.next()){
-             resultat.beforeFirst();
-            return (resultat);
-             }
-             else{
-                 return(null);
-             }
-                 
+            if(resultat.next()){
+                resultat.beforeFirst();
+                return (resultat);
+            }else{
+                return(null);
+            } 
         } catch (SQLException ex) {
             return null;
         }
@@ -90,29 +81,22 @@ public class ReservationsCRUD {
             PreparedStatement prepare=connexion.prepareStatement("SELECT * FROM reservationt WHERE LivreId =? AND MdpAdherent=?");
             prepare.setInt(1,livreId);
             prepare.setString(2,mdpAdherent);
-             ResultSet resultat = prepare.executeQuery();
-             if(resultat.next()){
-             resultat.beforeFirst(); 
-             Reservation reservation=new Reservation();
-                 while ( resultat.next() )
-                    {
-                       
-                        reservation.setLivreId(resultat.getInt("LivreId"));
-                        reservation.setMdpAdherent(resultat.getString("MdpAdherent"));
-                        reservation.setDateReservation(resultat.getDate("DateReservation"));
-                        reservation.setDateLimiteReservation(resultat.getDate("DateLimiteReservation"));
-                      
-                    }
-             prepare.close();    
-             resultat.close();
-             return(reservation);
-             }
-             else{
-                 return(null);
-             }
-             
-             
-            
+            ResultSet resultat = prepare.executeQuery();
+            if(resultat.next()){
+                resultat.beforeFirst(); 
+                Reservation reservation=new Reservation();
+                while ( resultat.next() ){
+                    reservation.setLivreId(resultat.getInt("LivreId"));
+                    reservation.setMdpAdherent(resultat.getString("MdpAdherent"));
+                    reservation.setDateReservation(resultat.getDate("DateReservation"));
+                    reservation.setDateLimiteReservation(resultat.getDate("DateLimiteReservation"));
+                }
+                prepare.close();    
+                resultat.close();
+                return(reservation);
+            }else{
+                return(null);
+            }
         } catch (SQLException ex) {
             return null;
         }
@@ -121,12 +105,11 @@ public class ReservationsCRUD {
     public ResultSet getAllReservations(){
          try {
             PreparedStatement prepare=connexion.prepareStatement("select * from reservation");
-             ResultSet resultat=prepare.executeQuery();
+            ResultSet resultat=prepare.executeQuery();
             if(resultat.next()){
-             resultat.beforeFirst();
-            return (resultat);
-            }
-            else{
+                resultat.beforeFirst();
+                return (resultat);
+            }else{
                 return(null);
             }
         } catch (SQLException ex) {
@@ -140,14 +123,13 @@ public class ReservationsCRUD {
     
     public boolean deleteReservationBy(int livreId, String mdpAdherent){
          try{
-             PreparedStatement prepare=connexion.prepareStatement("DELETE FROM reservation WHERE LivreId=? AND MdpAdherent=?");
-             prepare.setInt(1,livreId);
-             prepare.setString(2,mdpAdherent);
-             prepare.executeUpdate();
-             prepare.close();
-             return true;
-        }
-        catch(SQLException ex) {
+            PreparedStatement prepare=connexion.prepareStatement("DELETE FROM reservation WHERE LivreId=? AND MdpAdherent=?");
+            prepare.setInt(1,livreId);
+            prepare.setString(2,mdpAdherent);
+            prepare.executeUpdate();
+            prepare.close();
+            return true;
+        }catch(SQLException ex) {
             return false;
         }
     }
@@ -158,13 +140,12 @@ public class ReservationsCRUD {
     
     public boolean deleteReservationByLivre(int livreId){
          try{
-             PreparedStatement prepare=connexion.prepareStatement("DELETE FROM reservation WHERE LivreId=?");
-             prepare.setInt(1,livreId);
-             prepare.executeUpdate();
-             prepare.close();
-             return true;
-        }
-        catch(SQLException ex) {
+            PreparedStatement prepare=connexion.prepareStatement("DELETE FROM reservation WHERE LivreId=?");
+            prepare.setInt(1,livreId);
+            prepare.executeUpdate();
+            prepare.close();
+            return true;
+        }catch(SQLException ex) {
             return false;
         }
     }
@@ -175,10 +156,9 @@ public class ReservationsCRUD {
             prepare.setDate(1,date);
             ResultSet resultat=prepare.executeQuery();
             if(resultat.next()){
-             resultat.beforeFirst();
-            return (resultat);
-            }
-            else{
+                resultat.beforeFirst();
+                return (resultat);
+            }else{
                 return(null);
             }
         } catch (SQLException ex) {

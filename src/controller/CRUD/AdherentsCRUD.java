@@ -90,11 +90,11 @@ public class AdherentsCRUD {
     
     public boolean deleteAdherentBy(String mdp){
        try{
-             PreparedStatement prepare=connexion.prepareStatement("DELETE FROM adherent WHERE MdpAdherent=?");
-             prepare.setString(1,mdp);
-             prepare.executeUpdate();
-             prepare.close();
-             return true;
+            PreparedStatement prepare=connexion.prepareStatement("DELETE FROM adherent WHERE MdpAdherent=?");
+            prepare.setString(1,mdp);
+            prepare.executeUpdate();
+            prepare.close();
+            return true;
         }
         catch(SQLException ex) {
             return false;
@@ -104,18 +104,16 @@ public class AdherentsCRUD {
     public boolean updateAdherent(String mdp, Adherent adherent){
         try{
             PreparedStatement prepare=connexion.prepareStatement("UPDATE adherent SET MdpAdherent=?,Login=?,Prenom=?,Nom=?,Email=? WHERE MdpAdherent=?");
-             prepare.setString(1,adherent.getMdp());
-             prepare.setString(2,adherent.getLogin());
-             prepare.setString(3,adherent.getPrenom());
-             prepare.setString(4, adherent.getNom());
-             prepare.setString(5,adherent.getEmail());
-             prepare.setString(6,mdp);
-             prepare.executeUpdate();
-             prepare.close();
-             return true;
-            
-        }
-        catch(SQLException ex) {
+            prepare.setString(1,adherent.getMdp());
+            prepare.setString(2,adherent.getLogin());
+            prepare.setString(3,adherent.getPrenom());
+            prepare.setString(4, adherent.getNom());
+            prepare.setString(5,adherent.getEmail());
+            prepare.setString(6,mdp);
+            prepare.executeUpdate();
+            prepare.close();
+            return true;
+        }catch(SQLException ex) {
             return false;
         }
     }
@@ -127,10 +125,9 @@ public class AdherentsCRUD {
             if(resultat.next()){
                 resultat.beforeFirst();
                 return (resultat);
-             }
-             else{
-                 return(null);
-             }
+            }else{
+                return(null);
+            }
         } catch (SQLException ex) {
             return null;
         }
