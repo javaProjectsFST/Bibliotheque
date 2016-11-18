@@ -25,6 +25,7 @@ public class GeneralController{
         
         this.mainFrame=new MainFrame(loginController.getLoginView(), dashboardController.getDashboardView());
         loginController.getLoginView().requestFocusInWindow();
+        loginController.getLoginView().getRootPane().setDefaultButton(loginController.getLoginView().getConnectButton());
     }
     
     public void toNextView(){
