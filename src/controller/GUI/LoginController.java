@@ -40,27 +40,9 @@ public class LoginController {
     }
     
     private void initController(){
-        loginView.addMouseListener(new MouseAdapter(){
-             @Override
-            public void mouseClicked(MouseEvent e) {
-                super.mouseReleased(e);
-                loginView.grabFocus();
-            }
-        });
+        loginView.getConnectButton().addActionListener(e -> MainClass.generalController.toNextView());
         
-        loginView.getConnectButton().addActionListener(new ActionListener(){
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                MainClass.generalController.toNextView();
-            }
-        });
-        
-        loginView.getResetButton().addActionListener(new ActionListener(){
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                reset();
-            }
-        });
+        loginView.getResetButton().addActionListener(e -> reset());
         
         loginView.getLoginTextField().addFocusListener(new FocusListener(){
             @Override
@@ -85,6 +67,14 @@ public class LoginController {
                 loginView.getMdpTextField().setText("Mot de passe");
             }
         });
+        
+        loginView.addMouseListener(new MouseAdapter(){
+             @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseReleased(e);
+                loginView.grabFocus();
+            }
+        });
     }
     
     private void reset(){
@@ -93,10 +83,16 @@ public class LoginController {
     }
     
     public void login(){
-//        Adherent adherent=adherentsCrud.existeAdherent(loginView.getLoginTextField().getText(), loginView.getMdpTextField().getText());
-//        if(adherent!=null){
-//            MainClass.generalController.toNextView();
-//        }else{
-//        }
+        String mdp=loginView.getMdpTextField().getText();
+        String login=loginView.getLoginTextField().getText();
+        Adherent adherent=adherentsCrud.getAdherentBy(mdp, login);
+        if(adherent!=null){
+            MainClass.generalController.toNextView();
+        }else{
+            Employe employe=employesCrud.getEmployeBy(mdp, login);
+            if(employe!=null){
+                MainClass.generalController.toNextView();
+            }
+        }
     }
 }

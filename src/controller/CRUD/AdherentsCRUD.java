@@ -36,29 +36,27 @@ public class AdherentsCRUD {
     }
     
     public Adherent getAdherentBy(String mdp){
-       try {
+        try {
             PreparedStatement prepare=connexion.prepareStatement("SELECT * FROM adherent WHERE MdpAdherent =?");
             prepare.setString(1,mdp);
-             ResultSet resultat = prepare.executeQuery();
-             Adherent adherent=new Adherent();
-                 while ( resultat.next() )
-                    {
-                       
-                        adherent.setMdp(resultat.getString("MdpAdherent"));
-                        adherent.setPrenom(resultat.getString("Login"));
-                        adherent.setPrenom(resultat.getString("Prenom"));
-                        adherent.setNom(resultat.getString("Nom"));
-                        adherent.setEmail(resultat.getString("Email"));
-                        
-                     
-                    }
-             prepare.close();    
-             resultat.close();
-             return(adherent);
-             
-             
-            
-        } catch (SQLException ex) {
+            ResultSet resultat = prepare.executeQuery();
+            if(resultat.next()){
+                resultat.beforeFirst(); //reinitialisation du pointeur sur l'element avant premier
+                Adherent adherent=new Adherent();
+                while (resultat.next()){
+                    adherent.setMdp(resultat.getString("MdpAdherent"));
+                    adherent.setPrenom(resultat.getString("Login"));
+                    adherent.setPrenom(resultat.getString("Prenom"));
+                    adherent.setNom(resultat.getString("Nom"));
+                    adherent.setEmail(resultat.getString("Email"));
+                }
+                prepare.close();    
+                resultat.close();
+                return(adherent);
+            }else{
+                return null;
+            }
+        }catch (SQLException ex) {
             return null;
         }
     }
