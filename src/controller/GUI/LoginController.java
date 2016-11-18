@@ -40,7 +40,7 @@ public class LoginController {
     }
     
     private void initController(){
-        loginView.getConnectButton().addActionListener(e -> MainClass.generalController.toNextView());
+        loginView.getConnectButton().addActionListener(e -> login());
         
         loginView.getResetButton().addActionListener(e -> reset());
         
@@ -89,10 +89,11 @@ public class LoginController {
         if(adherent!=null){
             MainClass.generalController.toNextView();
         }else{
-            Employe employe=employesCrud.getEmployeBy(mdp, login);
-            if(employe!=null){
-                MainClass.generalController.toNextView();
-            }
+//            Employe employe=employesCrud.getEmployeBy(mdp, login);
+//            if(employe!=null){
+//                MainClass.generalController.toNextView();
+//            }
+            System.out.println("Hello");
         }
     }
 }
