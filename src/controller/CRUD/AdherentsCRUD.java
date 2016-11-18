@@ -66,6 +66,8 @@ public class AdherentsCRUD {
             prepare.setString(1,mdp);
             prepare.setString(2,login);
              ResultSet resultat = prepare.executeQuery();
+            if(resultat.next()){
+             resultat.beforeFirst();
              Adherent adherent=new Adherent();
                  while ( resultat.next() )
                     {
@@ -81,6 +83,10 @@ public class AdherentsCRUD {
              prepare.close();    
              resultat.close();
              return(adherent);
+            }
+            else{
+                return(null);
+            }
              
              
             
@@ -124,7 +130,14 @@ public class AdherentsCRUD {
     public ResultSet getAllAdherents(){
          try {
             PreparedStatement prepare=connexion.prepareStatement("select * from adherent");
-            return (prepare.executeQuery());
+            ResultSet resultat=prepare.executeQuery();
+            if(resultat.next()){
+                resultat.beforeFirst();
+                return (resultat);
+             }
+             else{
+                 return(null);
+             }
         } catch (SQLException ex) {
             return null;
         }
