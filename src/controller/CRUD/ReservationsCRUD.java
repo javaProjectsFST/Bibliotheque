@@ -38,6 +38,8 @@ public class ReservationsCRUD {
                 PreparedStatement prepare=connexion.prepareStatement("SELECT * FROM reservation WHERE LivreId=?");
                 prepare.setInt(1,livreId);
                 ResultSet resultat = prepare.executeQuery();
+                 if(resultat.next()){
+                resultat.beforeFirst();
                 Reservation reservation=new Reservation();
                  while ( resultat.next() )
                     {
@@ -51,6 +53,11 @@ public class ReservationsCRUD {
              prepare.close();    
              resultat.close();
              return(reservation);
+           
+             }
+            else{
+                     return(null);
+                 }
              
              
                  
@@ -64,7 +71,15 @@ public class ReservationsCRUD {
         try {
             PreparedStatement prepare=connexion.prepareStatement("select * from reservation WHERE MdpAdherent=?");
             prepare.setString(1,mdpAdherent);
-            return (prepare.executeQuery());
+            ResultSet resultat=prepare.executeQuery();
+             if(resultat.next()){
+             resultat.beforeFirst();
+            return (resultat);
+             }
+             else{
+                 return(null);
+             }
+                 
         } catch (SQLException ex) {
             return null;
         }
@@ -76,6 +91,8 @@ public class ReservationsCRUD {
             prepare.setInt(1,livreId);
             prepare.setString(2,mdpAdherent);
              ResultSet resultat = prepare.executeQuery();
+             if(resultat.next()){
+             resultat.beforeFirst(); 
              Reservation reservation=new Reservation();
                  while ( resultat.next() )
                     {
@@ -89,6 +106,10 @@ public class ReservationsCRUD {
              prepare.close();    
              resultat.close();
              return(reservation);
+             }
+             else{
+                 return(null);
+             }
              
              
             
@@ -100,7 +121,14 @@ public class ReservationsCRUD {
     public ResultSet getAllReservations(){
          try {
             PreparedStatement prepare=connexion.prepareStatement("select * from reservation");
-            return (prepare.executeQuery());
+             ResultSet resultat=prepare.executeQuery();
+            if(resultat.next()){
+             resultat.beforeFirst();
+            return (resultat);
+            }
+            else{
+                return(null);
+            }
         } catch (SQLException ex) {
             return null;
         }
@@ -145,7 +173,14 @@ public class ReservationsCRUD {
         try {
             PreparedStatement prepare=connexion.prepareStatement("SELECT * FROM reservation WHERE DateReservation=?");
             prepare.setDate(1,date);
-            return (prepare.executeQuery());
+            ResultSet resultat=prepare.executeQuery();
+            if(resultat.next()){
+             resultat.beforeFirst();
+            return (resultat);
+            }
+            else{
+                return(null);
+            }
         } catch (SQLException ex) {
             return null;
         }

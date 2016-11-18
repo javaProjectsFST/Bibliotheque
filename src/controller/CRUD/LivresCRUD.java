@@ -41,6 +41,8 @@ public class LivresCRUD {
             PreparedStatement prepare=connexion.prepareStatement("SELECT * FROM livre WHERE LivreId=?");
             prepare.setInt(1,livreId);
              ResultSet resultat = prepare.executeQuery();
+             if(resultat.next()){
+             resultat.beforeFirst();
              Livre livre=new Livre();
                  while ( resultat.next() )
                     {
@@ -55,6 +57,10 @@ public class LivresCRUD {
              prepare.close();    
              resultat.close();
              return(livre);
+             }
+             else{
+                 return(null);
+             }
              
              
             
@@ -100,7 +106,15 @@ public class LivresCRUD {
     public ResultSet getAllLivres(){
         try {
             PreparedStatement prepare=connexion.prepareStatement("select * from livre");
-            return (prepare.executeQuery());
+            ResultSet resultat=prepare.executeQuery();
+            if(resultat.next()){
+            
+            resultat.beforeFirst();
+            return (resultat);
+            }
+            else{
+                return(null);
+            }
         } catch (SQLException ex) {
             return null;
         }
