@@ -47,24 +47,30 @@ public class LoginController {
         loginView.getLoginTextField().addFocusListener(new FocusListener(){
             @Override
             public void focusGained(FocusEvent e) {
-                loginView.getLoginTextField().setText("");
+                if(loginView.getLoginTextField().getText().equals("Login")){
+                    loginView.getLoginTextField().setText("");
+                }
             }
 
             @Override
             public void focusLost(FocusEvent e) {
-                loginView.getLoginTextField().setText("Login");
+                if(loginView.getLoginTextField().getText().isEmpty())
+                    loginView.getLoginTextField().setText("Login");
             }
         });
         
         loginView.getMdpTextField().addFocusListener(new FocusListener(){
             @Override
             public void focusGained(FocusEvent e) {
-                loginView.getMdpTextField().setText("");
+                if(loginView.getMdpTextField().getText().equals("Mot de passe")){
+                    loginView.getMdpTextField().setText("");
+                }
             }
 
             @Override
             public void focusLost(FocusEvent e) {
-                loginView.getMdpTextField().setText("Mot de passe");
+                if(loginView.getMdpTextField().getText().isEmpty())
+                    loginView.getMdpTextField().setText("Mot de passe");
             }
         });
         
@@ -89,11 +95,12 @@ public class LoginController {
         if(adherent!=null){
             MainClass.generalController.toNextView();
         }else{
-//            Employe employe=employesCrud.getEmployeBy(mdp, login);
-//            if(employe!=null){
-//                MainClass.generalController.toNextView();
-//            }
-            System.out.println("Hello");
+            Employe employe=employesCrud.getEmployeBy(mdp, login);
+            if(employe!=null){
+                MainClass.generalController.toNextView();
+            }else{
+                System.out.println("Hello!");
+            }
         }
     }
 }
