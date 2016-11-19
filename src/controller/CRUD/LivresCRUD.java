@@ -99,7 +99,7 @@ public class LivresCRUD {
             if(!details){
                 prepare=connexion.prepareStatement("select * from livre");
             }else{
-                prepare=connexion.prepareStatement("select * from livre l left join emprunt e on l.LivreId=e.LivreId");
+                prepare=connexion.prepareStatement("select * from livre l full outer join emprunt e on l.LivreId=e.LivreId");
             }
             ResultSet resultat=prepare.executeQuery();
             if(resultat.next()){
