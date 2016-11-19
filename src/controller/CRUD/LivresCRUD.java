@@ -96,7 +96,11 @@ public class LivresCRUD {
     public ResultSet getAllLivres(boolean details){
         try {
             PreparedStatement prepare;
-            prepare=connexion.prepareStatement("select * from livre");
+            if(!details){
+                prepare=connexion.prepareStatement("select * from livre");
+            }else{
+                prepare=connexion.prepareStatement("select * from livre l left join emprunt e on l.LivreId=e.LivreId");
+            }
             ResultSet resultat=prepare.executeQuery();
             if(resultat.next()){
                 resultat.beforeFirst();
