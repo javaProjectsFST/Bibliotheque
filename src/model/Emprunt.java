@@ -8,7 +8,7 @@ import java.util.Calendar;
 
 public class Emprunt {
     private int LivreId;
-    private String MdpAdherent;
+    private String Login;
     private Date DateEmprent;
     private Date DateLimiteEmprent;
     
@@ -16,9 +16,9 @@ public class Emprunt {
         
     }
 
-    public Emprunt(int LivreId, String MdpAdherent) {
+    public Emprunt(int LivreId, String Login) {
         this.LivreId = LivreId;
-        this.MdpAdherent = MdpAdherent;
+        this.Login = Login;
         
         this.DateEmprent = new Date(System.currentTimeMillis());
         
@@ -38,12 +38,12 @@ public class Emprunt {
         this.LivreId = LivreId;
     }
 
-    public String getMdpAdherent() {
-        return MdpAdherent;
+    public String getLogin() {
+        return Login;
     }
 
-    public void setMdpAdherent(String MdpAdherent) {
-        this.MdpAdherent = MdpAdherent;
+    public void setLogin(String Login) {
+        this.Login = Login;
     }
 
     public Date getDateEmprent() {

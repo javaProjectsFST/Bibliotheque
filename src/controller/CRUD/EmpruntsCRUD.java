@@ -18,9 +18,9 @@ public class EmpruntsCRUD {
     
     public boolean addEmprent(Emprunt emprent){
         try {
-            PreparedStatement prepare=connexion.prepareStatement("INSERT INTO emprunt(LivreId,MdpAdherent,DateEmprent,DateLimiteEmprent) VALUES (?,?,?,?)");
+            PreparedStatement prepare=connexion.prepareStatement("INSERT INTO emprunt(LivreId,Login,DateEmprent,DateLimiteEmprent) VALUES (?,?,?,?)");
             prepare.setInt(1, emprent.getLivreId());
-            prepare.setString(2, emprent.getMdpAdherent());
+            prepare.setString(2, emprent.getLogin());
             prepare.setDate(3, emprent.getDateEmprent());
             prepare.setDate(4, emprent.getDateLimiteEmprent());
             
@@ -44,7 +44,7 @@ public class EmpruntsCRUD {
                 {
 
                     emprunt.setLivreId(resultat.getInt("LivreId"));
-                    emprunt.setMdpAdherent(resultat.getString("MdpAdherent"));
+                    emprunt.setLogin(resultat.getString("Login"));
                     emprunt.setDateEmprent(resultat.getDate("DateEmprent"));
                     emprunt.setDateLimiteEmprent(resultat.getDate("DateLimiteEmprent"));
 
@@ -60,10 +60,10 @@ public class EmpruntsCRUD {
         }
     }
     
-    public ResultSet getEmprentsByAdherent(String mdpAdherent){
+    public ResultSet getEmprentsByAdherent(String Login){
         try {
-            PreparedStatement prepare=connexion.prepareStatement("select * from emprunt WHERE MdpAdherent=?");
-            prepare.setString(1,mdpAdherent);
+            PreparedStatement prepare=connexion.prepareStatement("select * from emprunt WHERE Login=?");
+            prepare.setString(1,Login);
             ResultSet resultat=prepare.executeQuery();
             if(resultat.next()){
                 resultat.beforeFirst();
@@ -77,11 +77,11 @@ public class EmpruntsCRUD {
         }
     }
     
-    public Emprunt getEmprentBy(int livreId, String mdpAdherent){
+    public Emprunt getEmprentBy(int livreId, String Login){
           try {
-            PreparedStatement prepare=connexion.prepareStatement("SELECT * FROM emprunt WHERE LivreId =? AND MdpAdherent=?");
+            PreparedStatement prepare=connexion.prepareStatement("SELECT * FROM emprunt WHERE LivreId =? AND Login=?");
             prepare.setInt(1,livreId);
-            prepare.setString(2,mdpAdherent);
+            prepare.setString(2,Login);
             ResultSet resultat = prepare.executeQuery();
             if(resultat.next()){
                 resultat.beforeFirst();
@@ -89,7 +89,7 @@ public class EmpruntsCRUD {
                 while ( resultat.next() )
                 {
                     emprunt.setLivreId(resultat.getInt("LivreId"));
-                    emprunt.setMdpAdherent(resultat.getString("MdpAdherent"));
+                    emprunt.setLogin(resultat.getString("Login"));
                     emprunt.setDateEmprent(resultat.getDate("DateEmprent"));
                     emprunt.setDateLimiteEmprent(resultat.getDate("DateLimiteEmprent"));
                 }
@@ -124,11 +124,11 @@ public class EmpruntsCRUD {
         return null;
     }
     
-    public boolean deleteEmprentBy(int livreId, String mdpAdherent){
+    public boolean deleteEmprentBy(int livreId, String Login){
          try{
-             PreparedStatement prepare=connexion.prepareStatement("DELETE FROM emprunt WHERE LivreId=? AND MdpAdherent=?");
+             PreparedStatement prepare=connexion.prepareStatement("DELETE FROM emprunt WHERE LivreId=? AND Login=?");
              prepare.setInt(1,livreId);
-             prepare.setString(2,mdpAdherent);
+             prepare.setString(2,Login);
              prepare.executeUpdate();
              prepare.close();
              return true;
@@ -139,10 +139,10 @@ public class EmpruntsCRUD {
        
     }
     
-    public int deleteEmprentsByAdherent(String mdpAdherent){
+    public int deleteEmprentsByAdherent(String Login){
          /*try{
-             PreparedStatement prepare=connexion.prepareStatement("DELETE FROM emprunt WHERE MdpAdherent=?");
-             prepare.setString(1,mdpAdherent);
+             PreparedStatement prepare=connexion.prepareStatement("DELETE FROM emprunt WHERE Login=?");
+             prepare.setString(1,Login);
              prepare.executeUpdate();
              prepare.close();
              return true;

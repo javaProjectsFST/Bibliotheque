@@ -17,9 +17,9 @@ public class EmployesCRUD {
     
     public boolean addEmploye(Employe employe){
          try {
-            PreparedStatement prepare=connexion.prepareStatement("INSERT INTO employe (MdpEmploye,Login,Prenom,Nom) VALUES (?,?,?,?)");
-            prepare.setString(1, employe.getMdp());
-            prepare.setString(2, employe.getLogin());
+            PreparedStatement prepare=connexion.prepareStatement("INSERT INTO employe (Login,MdpEmploye,Prenom,Nom) VALUES (?,?,?,?)");
+            prepare.setString(1, employe.getLogin());
+            prepare.setString(2, employe.getMdp());
             prepare.setString(3, employe.getPrenom() );
             prepare.setString(4, employe.getNom());
             prepare.executeUpdate();
@@ -30,10 +30,10 @@ public class EmployesCRUD {
         }
     }
     
-    public Employe getEmployeBy(String mdp){
+    public Employe getEmployeBy(String login){
         try {
-            PreparedStatement prepare=connexion.prepareStatement("SELECT * FROM employe WHERE MdpEmploye =?");
-            prepare.setString(1,mdp);
+            PreparedStatement prepare=connexion.prepareStatement("SELECT * FROM employe WHERE Login =?");
+            prepare.setString(1,login);
             ResultSet resultat = prepare.executeQuery();
             if(resultat.next()){
                 resultat.beforeFirst();
@@ -41,7 +41,7 @@ public class EmployesCRUD {
                 while ( resultat.next() )
                 {
                     employe.setMdp(resultat.getString("MdpEmploye"));
-                    employe.setPrenom(resultat.getString("Login"));
+                    employe.setLogin(resultat.getString("Login"));
                     employe.setPrenom(resultat.getString("Prenom"));
                     employe.setNom(resultat.getString("Nom")); 
                 }
@@ -56,18 +56,18 @@ public class EmployesCRUD {
         }
     }
     
-    public Employe getEmployeBy(String mdp,String login){
+    public Employe getEmployeBy(String login,String mdp){
         try {
-            PreparedStatement prepare=connexion.prepareStatement("SELECT * FROM employe WHERE MdpEmploye =? AND Login=?");
-            prepare.setString(1,mdp);
-            prepare.setString(2,login);
+            PreparedStatement prepare=connexion.prepareStatement("SELECT * FROM employe WHERE Login=? AND MdpEmploye =?");
+            prepare.setString(1,login);
+            prepare.setString(2,mdp);
             ResultSet resultat = prepare.executeQuery();
             if(resultat.next()){
                 resultat.beforeFirst();
                 Employe employe=new Employe();
                 while ( resultat.next() ){
                     employe.setMdp(resultat.getString("MdpEmploye"));
-                    employe.setPrenom(resultat.getString("Login"));
+                    employe.setLogin(resultat.getString("Login"));
                     employe.setPrenom(resultat.getString("Prenom"));
                     employe.setNom(resultat.getString("Nom")); 
                 }
@@ -82,10 +82,10 @@ public class EmployesCRUD {
         }
     }
     
-    public boolean deleteEmployeBy(String mdp){
+    public boolean deleteEmployeBy(String login){
          try{
              PreparedStatement prepare=connexion.prepareStatement("DELETE FROM employe WHERE MdpEmploye=?");
-             prepare.setString(1,mdp);
+             prepare.setString(1,login);
              prepare.executeUpdate();
              prepare.close();
              return true;
@@ -94,14 +94,14 @@ public class EmployesCRUD {
         }
     }
     
-    public boolean updateEmploye(String mdp, Employe employe){
+    public boolean updateEmploye(String login, Employe employe){
          try{
-            PreparedStatement prepare=connexion.prepareStatement("UPDATE employe SET MdpEmploye=?,Login=?,Prenom=?,Nom=? WHERE MdpEmploye=?");
-            prepare.setString(1,employe.getMdp());
-            prepare.setString(2,employe.getLogin());
+            PreparedStatement prepare=connexion.prepareStatement("UPDATE employe SET Login=?,MdpEmploye=?,Prenom=?,Nom=? WHERE Login=?");
+            prepare.setString(1,employe.getLogin());
+            prepare.setString(2,employe.getMdp());
             prepare.setString(3,employe.getPrenom());
             prepare.setString(4,employe.getNom());
-            prepare.setString(5,mdp);
+            prepare.setString(5,login);
 
             prepare.executeUpdate();
             prepare.close();

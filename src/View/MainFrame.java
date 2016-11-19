@@ -18,9 +18,9 @@ public class MainFrame extends JFrame{
         container.add(dashboardView);
         
         this.setContentPane(container);
-        this.setPreferredSize(new Dimension(1800,700));
-        this.setMaximumSize(new Dimension(1800, 700));
-        this.setMinimumSize(new Dimension(1800, 700));
+        this.setPreferredSize(new Dimension(1200,700));
+        this.setMaximumSize(new Dimension(1200, 700));
+        this.setMinimumSize(new Dimension(1200, 700));
         this.setLocationRelativeTo(null);
         this.setResizable(false);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

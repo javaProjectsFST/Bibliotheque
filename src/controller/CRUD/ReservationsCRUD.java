@@ -18,9 +18,9 @@ public class ReservationsCRUD {
     
     public boolean addReservation(Reservation reservation){
          try {
-            PreparedStatement prepare=connexion.prepareStatement("INSERT INTO reservation(LivreId,MdpAdherent,DateReservation,DateLimiteReservation) VALUES (?,?,?,?)");
+            PreparedStatement prepare=connexion.prepareStatement("INSERT INTO reservation(LivreId,Login,DateReservation,DateLimiteReservation) VALUES (?,?,?,?)");
             prepare.setInt(1, reservation.getLivreId());
-            prepare.setString(2, reservation.getMdpAdherent());
+            prepare.setString(2, reservation.getLogin());
             prepare.setDate(3, reservation.getDateReservation());
             prepare.setDate(4, reservation.getDateLimiteReservation());
             
@@ -44,7 +44,7 @@ public class ReservationsCRUD {
                 {
 
                     reservation.setLivreId(resultat.getInt("LivreId"));
-                    reservation.setMdpAdherent(resultat.getString("MdpAdherent"));
+                    reservation.setLogin(resultat.getString("Login"));
                     reservation.setDateReservation(resultat.getDate("DateReservation"));
                     reservation.setDateLimiteReservation(resultat.getDate("DateLimiteReservation"));
 
@@ -60,10 +60,10 @@ public class ReservationsCRUD {
         }
     }
     
-    public ResultSet getReservationsByAdherent(String mdpAdherent){
+    public ResultSet getReservationsByAdherent(String Login){
         try {
-            PreparedStatement prepare=connexion.prepareStatement("select * from reservation WHERE MdpAdherent=?");
-            prepare.setString(1,mdpAdherent);
+            PreparedStatement prepare=connexion.prepareStatement("select * from reservation WHERE Login=?");
+            prepare.setString(1,Login);
             ResultSet resultat=prepare.executeQuery();
             if(resultat.next()){
                 resultat.beforeFirst();
@@ -76,18 +76,18 @@ public class ReservationsCRUD {
         }
     }
     
-    public Reservation getReservationBy(int livreId, String mdpAdherent){
+    public Reservation getReservationBy(int livreId, String Login){
        try {
-            PreparedStatement prepare=connexion.prepareStatement("SELECT * FROM reservationt WHERE LivreId =? AND MdpAdherent=?");
+            PreparedStatement prepare=connexion.prepareStatement("SELECT * FROM reservationt WHERE LivreId =? AND Login=?");
             prepare.setInt(1,livreId);
-            prepare.setString(2,mdpAdherent);
+            prepare.setString(2,Login);
             ResultSet resultat = prepare.executeQuery();
             if(resultat.next()){
                 resultat.beforeFirst(); 
                 Reservation reservation=new Reservation();
                 while ( resultat.next() ){
                     reservation.setLivreId(resultat.getInt("LivreId"));
-                    reservation.setMdpAdherent(resultat.getString("MdpAdherent"));
+                    reservation.setLogin(resultat.getString("Login"));
                     reservation.setDateReservation(resultat.getDate("DateReservation"));
                     reservation.setDateLimiteReservation(resultat.getDate("DateLimiteReservation"));
                 }
@@ -121,11 +121,11 @@ public class ReservationsCRUD {
         return null;
     }
     
-    public boolean deleteReservationBy(int livreId, String mdpAdherent){
+    public boolean deleteReservationBy(int livreId, String Login){
          try{
-            PreparedStatement prepare=connexion.prepareStatement("DELETE FROM reservation WHERE LivreId=? AND MdpAdherent=?");
+            PreparedStatement prepare=connexion.prepareStatement("DELETE FROM reservation WHERE LivreId=? AND Login=?");
             prepare.setInt(1,livreId);
-            prepare.setString(2,mdpAdherent);
+            prepare.setString(2,Login);
             prepare.executeUpdate();
             prepare.close();
             return true;
@@ -134,7 +134,7 @@ public class ReservationsCRUD {
         }
     }
     
-    public int deleteReservationsByAdherent(String mdpAdherent){
+    public int deleteReservationsByAdherent(String Login){
         return 0;
     }
     

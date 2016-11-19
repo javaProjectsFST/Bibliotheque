@@ -7,7 +7,7 @@ import java.util.Calendar;
 
 public class Reservation {
     private int LivreId;
-    private String MdpAdherent;
+    private String Login;
     private Date DateReservation;
     private Date DateLimiteReservation;
     
@@ -15,9 +15,9 @@ public class Reservation {
         
     }
 
-    public Reservation(int LivreId, String MdpAdherent) {
+    public Reservation(int LivreId, String Login) {
         this.LivreId = LivreId;
-        this.MdpAdherent = MdpAdherent;
+        this.Login = Login;
         
         this.DateReservation = new Date(System.currentTimeMillis());
         
@@ -37,12 +37,12 @@ public class Reservation {
         this.LivreId = LivreId;
     }
 
-    public String getMdpAdherent() {
-        return MdpAdherent;
+    public String getLogin() {
+        return Login;
     }
 
-    public void setMdpAdherent(String MdpAdherent) {
-        this.MdpAdherent = MdpAdherent;
+    public void setLogin(String Login) {
+        this.Login = Login;
     }
 
     public Date getDateReservation() {

@@ -18,9 +18,9 @@ public class AdherentsCRUD {
     
     public boolean addAdherent(Adherent adherent){
          try {
-            PreparedStatement prepare=connexion.prepareStatement("INSERT INTO adherent (MdpAdherent,Login,Prenom,Nom,Email) VALUES (?,?,?,?,?)");
-            prepare.setString(1, adherent.getMdp());
-            prepare.setString(2, adherent.getLogin());
+            PreparedStatement prepare=connexion.prepareStatement("INSERT INTO adherent (MdpAdherent,Login,Prenom,Nom,Email) VALUES (?,?,?,?,?)");     
+            prepare.setString(1, adherent.getLogin());
+            prepare.setString(2, adherent.getMdp());
             prepare.setString(3,adherent.getPrenom() );
             prepare.setString(4, adherent.getNom());
             prepare.setString(4, adherent.getEmail());
@@ -35,17 +35,17 @@ public class AdherentsCRUD {
         
     }
     
-    public Adherent getAdherentBy(String mdp){
+    public Adherent getAdherentBy(String login){
         try {
-            PreparedStatement prepare=connexion.prepareStatement("SELECT * FROM adherent WHERE MdpAdherent =?");
-            prepare.setString(1,mdp);
+            PreparedStatement prepare=connexion.prepareStatement("SELECT * FROM adherent WHERE Login =?");
+            prepare.setString(1,login);
             ResultSet resultat = prepare.executeQuery();
             if(resultat.next()){
                 resultat.beforeFirst(); //reinitialisation du pointeur sur l'element avant premier
                 Adherent adherent=new Adherent();
                 while (resultat.next()){
                     adherent.setMdp(resultat.getString("MdpAdherent"));
-                    adherent.setPrenom(resultat.getString("Login"));
+                    adherent.setLogin(resultat.getString("Login"));
                     adherent.setPrenom(resultat.getString("Prenom"));
                     adherent.setNom(resultat.getString("Nom"));
                     adherent.setEmail(resultat.getString("Email"));
@@ -60,18 +60,18 @@ public class AdherentsCRUD {
             return null;
         }
     }
-     public Adherent getAdherentBy(String mdp,String login){
+     public Adherent getAdherentBy(String login,String mdp){
        try {
-            PreparedStatement prepare=connexion.prepareStatement("SELECT * FROM adherent WHERE MdpAdherent =? AND Login=?");
-            prepare.setString(1,mdp);
-            prepare.setString(2,login);
+            PreparedStatement prepare=connexion.prepareStatement("SELECT * FROM adherent WHERE Login =? AND MdpAdherent=?");
+            prepare.setString(1,login);
+            prepare.setString(2,mdp);
             ResultSet resultat = prepare.executeQuery();
             if(resultat.next()){
                 resultat.beforeFirst();
                 Adherent adherent=new Adherent();
                 while (resultat.next()){
                     adherent.setMdp(resultat.getString("MdpAdherent"));
-                    adherent.setPrenom(resultat.getString("Login"));
+                    adherent.setLogin(resultat.getString("Login"));
                     adherent.setPrenom(resultat.getString("Prenom"));
                     adherent.setNom(resultat.getString("Nom"));
                     adherent.setEmail(resultat.getString("Email"));
@@ -88,10 +88,10 @@ public class AdherentsCRUD {
         }
     }
     
-    public boolean deleteAdherentBy(String mdp){
+    public boolean deleteAdherentBy(String login){
        try{
-            PreparedStatement prepare=connexion.prepareStatement("DELETE FROM adherent WHERE MdpAdherent=?");
-            prepare.setString(1,mdp);
+            PreparedStatement prepare=connexion.prepareStatement("DELETE FROM adherent WHERE Login=?");
+            prepare.setString(1,login);
             prepare.executeUpdate();
             prepare.close();
             return true;
@@ -101,15 +101,15 @@ public class AdherentsCRUD {
         }
     }
     
-    public boolean updateAdherent(String mdp, Adherent adherent){
+    public boolean updateAdherent(String login, Adherent adherent){
         try{
-            PreparedStatement prepare=connexion.prepareStatement("UPDATE adherent SET MdpAdherent=?,Login=?,Prenom=?,Nom=?,Email=? WHERE MdpAdherent=?");
+            PreparedStatement prepare=connexion.prepareStatement("UPDATE adherent SET MdpAdherent=?,Login=?,Prenom=?,Nom=?,Email=? WHERE Login=?");
             prepare.setString(1,adherent.getMdp());
             prepare.setString(2,adherent.getLogin());
             prepare.setString(3,adherent.getPrenom());
             prepare.setString(4, adherent.getNom());
             prepare.setString(5,adherent.getEmail());
-            prepare.setString(6,mdp);
+            prepare.setString(6,login);
             prepare.executeUpdate();
             prepare.close();
             return true;
