@@ -175,7 +175,7 @@
             </Property>
           </Properties>
           <AuxValues>
-            <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JTable(){&#xa;    public Component prepareRenderer(&#xa;        TableCellRenderer renderer, int row, int column)&#xa;    {&#xa;        Component c = super.prepareRenderer(renderer, row, column);&#xa;        &#xa;        if(!isRowSelected(row)){&#xa;            c.setBackground(row%2==0 ? Color.white : Color.decode(&quot;#f3f3f3&quot;));&#xa;        }else{&#xa;            c.setBackground(Color.decode(&quot;#b8cfe5&quot;));&#xa;        }&#xa;&#xa;        return c;&#xa;    }&#xa;}"/>
+            <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JTable(){&#xa;    public Component prepareRenderer(&#xa;        TableCellRenderer renderer, int row, int column)&#xa;    {&#xa;        Component c = super.prepareRenderer(renderer, row, column);&#xa;&#xa;        String dateEdition=this.getModel().getValueAt(row, 4).toString();&#xa;        System.out.println(dateEdition);&#xa;        &#xa;        if(!dateEdition.isEmpty()){&#xa;            c.setBackground(Color.red);&#xa;        }else{&#xa;            if(!isRowSelected(row)){&#xa;                c.setBackground(row%2==0 ? Color.white : Color.decode(&quot;#f3f3f3&quot;));&#xa;            }else{&#xa;                if(dateEdition!=null){&#xa;                    c.setBackground(Color.decode(&quot;#b8cfc6&quot;));&#xa;                }&#xa;                c.setBackground(Color.decode(&quot;#b8cfe5&quot;));&#xa;            }&#xa;        }&#xa;        return c;&#xa;    }&#xa;}"/>
           </AuxValues>
         </Component>
       </SubComponents>
