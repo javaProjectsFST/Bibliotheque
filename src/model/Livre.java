@@ -11,11 +11,7 @@ public class Livre {
     private String Editeur;
     private Date DateEdition;
     
-    public Livre()
-    {
-        
-        
-    }
+    public Livre(){}
 
     public Livre(int LivreId, String Titre, String Auteur, String Editeur, Date DateEdition) {
         this.LivreId = LivreId;

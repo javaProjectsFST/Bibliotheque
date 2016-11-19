@@ -13,12 +13,18 @@ public class MainClass extends JPanel{
     
     static Connection makeConnection(){
         try{
-                Class.forName("com.mysql.jdbc.Driver");
-
+            Class.forName("com.mysql.jdbc.Driver");
+            //Connection to localhost:3306
+//            String url = "jdbc:mysql://localhost:3306/bibliotheque";
+//            String user = "root";
+//            String mdp="";
+            
+            //Connection to hosted database
             String url = "jdbc:mysql://sql8.freemysqlhosting.net:3306/sql8145007";
             String user = "sql8145007";
-
-            connexion = DriverManager.getConnection(url, user, "xysgX4HhML");
+            String mdp="xysgX4HhML";
+            
+            connexion = DriverManager.getConnection(url, user, mdp);
             return connexion;
         }catch(ClassNotFoundException | SQLException e){
             e.printStackTrace();
