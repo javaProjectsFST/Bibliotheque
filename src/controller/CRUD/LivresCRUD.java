@@ -93,9 +93,10 @@ public class LivresCRUD {
        
     }
     
-    public ResultSet getAllLivres(){
+    public ResultSet getAllLivres(boolean details){
         try {
-            PreparedStatement prepare=connexion.prepareStatement("select * from livre");
+            PreparedStatement prepare;
+            prepare=connexion.prepareStatement("select * from livre");
             ResultSet resultat=prepare.executeQuery();
             if(resultat.next()){
                 resultat.beforeFirst();

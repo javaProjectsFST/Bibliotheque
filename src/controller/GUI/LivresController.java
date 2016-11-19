@@ -7,6 +7,7 @@ import controller.CRUD.EmpruntsCRUD;
 import controller.CRUD.LivresCRUD;
 import controller.CRUD.ReservationsCRUD;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import net.proteanit.sql.DbUtils;
 
 public class LivresController {
@@ -32,7 +33,10 @@ public class LivresController {
     }
     
     private void initView(){
-        livreView.getLivresTable().setModel(DbUtils.resultSetToTableModel(livresCrud.getAllLivres()));
+        ResultSet rs=livresCrud.getAllLivres(true);
+        if(rs!=null){
+            livreView.getLivresTable().setModel(DbUtils.resultSetToTableModel(rs));
+        }
     }
     
     private void initController(){

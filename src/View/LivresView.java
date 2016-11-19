@@ -65,59 +65,58 @@ public class LivresView extends javax.swing.JPanel {
         setMinimumSize(new java.awt.Dimension(1600, 600));
         setPreferredSize(new java.awt.Dimension(1600, 600));
 
-        livreTable.setBackground(new java.awt.Color(255, 255, 255));
         livreTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Titre", "Auteur", "Editeur", "Date Edition", "Date d'Emprent", "Date Limite d'Emprent", "Date de Reservation", "Date Limite de Reservation"
+                "LivreId", "Titre", "Auteur", "Editeur", "Date Edition", "Date d'Emprent", "Date Limite d'Emprent", "Date de Reservation", "Date Limite de Reservation"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -128,6 +127,7 @@ public class LivresView extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
+        livreTable.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
         livreTable.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         livreTable.setFocusable(false);
         livreTable.setOpaque(false);
@@ -138,14 +138,15 @@ public class LivresView extends javax.swing.JPanel {
             livreTable.getColumnModel().getColumn(1).setResizable(false);
             livreTable.getColumnModel().getColumn(2).setResizable(false);
             livreTable.getColumnModel().getColumn(3).setResizable(false);
-            livreTable.getColumnModel().getColumn(3).setPreferredWidth(50);
             livreTable.getColumnModel().getColumn(4).setResizable(false);
             livreTable.getColumnModel().getColumn(4).setPreferredWidth(50);
             livreTable.getColumnModel().getColumn(5).setResizable(false);
-            livreTable.getColumnModel().getColumn(5).setPreferredWidth(70);
+            livreTable.getColumnModel().getColumn(5).setPreferredWidth(50);
             livreTable.getColumnModel().getColumn(6).setResizable(false);
             livreTable.getColumnModel().getColumn(6).setPreferredWidth(70);
             livreTable.getColumnModel().getColumn(7).setResizable(false);
+            livreTable.getColumnModel().getColumn(7).setPreferredWidth(70);
+            livreTable.getColumnModel().getColumn(8).setResizable(false);
         }
 
         addButton.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N

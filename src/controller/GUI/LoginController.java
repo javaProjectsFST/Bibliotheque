@@ -91,11 +91,11 @@ public class LoginController {
     public void login(){
         String mdp=loginView.getMdpTextField().getText();
         String login=loginView.getLoginTextField().getText();
-        Adherent adherent=adherentsCrud.getAdherentBy(mdp, login);
+        Adherent adherent=adherentsCrud.getAdherentBy(login, mdp);
         if(adherent!=null){
             MainClass.generalController.toNextView();
         }else{
-            Employe employe=employesCrud.getEmployeBy(mdp, login);
+            Employe employe=employesCrud.getEmployeBy(login, mdp);
             if(employe!=null){
                 MainClass.generalController.toNextView();
             }else{
