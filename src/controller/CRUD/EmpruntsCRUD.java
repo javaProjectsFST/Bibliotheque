@@ -18,9 +18,9 @@ public class EmpruntsCRUD {
     
     public boolean addEmprent(Emprunt emprent){
         try {
-            PreparedStatement prepare=connexion.prepareStatement("INSERT INTO emprunt(LivreId,Login,DateEmprent,DateLimiteEmprent) VALUES (?,?,?,?)");
-            prepare.setInt(1, emprent.getLivreId());
-            prepare.setString(2, emprent.getLogin());
+            PreparedStatement prepare=connexion.prepareStatement("INSERT INTO emprunt(IdLivreEmp,LoginAdherentEmp,DateEmprent,DateLimiteEmprent) VALUES (?,?,?,?)");
+            prepare.setInt(1, emprent.getIdLivreEmp());
+            prepare.setString(2, emprent.getLoginAdherentEmp());
             prepare.setDate(3, emprent.getDateEmprent());
             prepare.setDate(4, emprent.getDateLimiteEmprent());
             
@@ -32,10 +32,10 @@ public class EmpruntsCRUD {
         }
     }
     
-    public Emprunt getEmprentByLivre(int livreId){
+    public Emprunt getEmprentByLivre(int IdLivreEmp){
          try {
-            PreparedStatement prepare=connexion.prepareStatement("SELECT * FROM emprunt WHERE LivreId=?");
-            prepare.setInt(1,livreId);
+            PreparedStatement prepare=connexion.prepareStatement("SELECT * FROM emprunt WHERE IdLivreEmp=?");
+            prepare.setInt(1,IdLivreEmp);
             ResultSet resultat = prepare.executeQuery();
             if(resultat.next()){
                 resultat.beforeFirst();
@@ -43,8 +43,8 @@ public class EmpruntsCRUD {
                 while ( resultat.next() )
                 {
 
-                    emprunt.setLivreId(resultat.getInt("LivreId"));
-                    emprunt.setLogin(resultat.getString("Login"));
+                    emprunt.setIdLivreEmp(resultat.getInt("IdLivreEmp"));
+                    emprunt.setLoginAdherentEmp(resultat.getString("LoginAdherentEmp"));
                     emprunt.setDateEmprent(resultat.getDate("DateEmprent"));
                     emprunt.setDateLimiteEmprent(resultat.getDate("DateLimiteEmprent"));
 
@@ -60,10 +60,10 @@ public class EmpruntsCRUD {
         }
     }
     
-    public ResultSet getEmprentsByAdherent(String Login){
+    public ResultSet getEmprentsByAdherent(String LoginAdherentEmp){
         try {
-            PreparedStatement prepare=connexion.prepareStatement("select * from emprunt WHERE Login=?");
-            prepare.setString(1,Login);
+            PreparedStatement prepare=connexion.prepareStatement("select * from emprunt WHERE LoginAdherentEmp=?");
+            prepare.setString(1,LoginAdherentEmp);
             ResultSet resultat=prepare.executeQuery();
             if(resultat.next()){
                 resultat.beforeFirst();
@@ -77,19 +77,19 @@ public class EmpruntsCRUD {
         }
     }
     
-    public Emprunt getEmprentBy(int livreId, String Login){
+    public Emprunt getEmprentBy(int IdLivreEmp, String LoginAdherentEmp){
           try {
-            PreparedStatement prepare=connexion.prepareStatement("SELECT * FROM emprunt WHERE LivreId =? AND Login=?");
-            prepare.setInt(1,livreId);
-            prepare.setString(2,Login);
+            PreparedStatement prepare=connexion.prepareStatement("SELECT * FROM emprunt WHERE IdLivreEmp =? AND LoginAdherentEmp=?");
+            prepare.setInt(1,IdLivreEmp);
+            prepare.setString(2,LoginAdherentEmp);
             ResultSet resultat = prepare.executeQuery();
             if(resultat.next()){
                 resultat.beforeFirst();
                 Emprunt emprunt=new Emprunt();
                 while ( resultat.next() )
                 {
-                    emprunt.setLivreId(resultat.getInt("LivreId"));
-                    emprunt.setLogin(resultat.getString("Login"));
+                    emprunt.setIdLivreEmp(resultat.getInt("IdLivreEmp"));
+                    emprunt.setLoginAdherentEmp(resultat.getString("LoginAdherentEmp"));
                     emprunt.setDateEmprent(resultat.getDate("DateEmprent"));
                     emprunt.setDateLimiteEmprent(resultat.getDate("DateLimiteEmprent"));
                 }
@@ -124,11 +124,11 @@ public class EmpruntsCRUD {
         return null;
     }
     
-    public boolean deleteEmprentBy(int livreId, String Login){
+    public boolean deleteEmprentBy(int IdLivreEmp, String LoginAdherentEmp){
          try{
-             PreparedStatement prepare=connexion.prepareStatement("DELETE FROM emprunt WHERE LivreId=? AND Login=?");
-             prepare.setInt(1,livreId);
-             prepare.setString(2,Login);
+             PreparedStatement prepare=connexion.prepareStatement("DELETE FROM emprunt WHERE IdLivreEmp=? AND LoginAdherentEmp=?");
+             prepare.setInt(1,IdLivreEmp);
+             prepare.setString(2,LoginAdherentEmp);
              prepare.executeUpdate();
              prepare.close();
              return true;
@@ -139,10 +139,10 @@ public class EmpruntsCRUD {
        
     }
     
-    public int deleteEmprentsByAdherent(String Login){
+    public int deleteEmprentsByAdherent(String LoginAdherentEmp){
          /*try{
-             PreparedStatement prepare=connexion.prepareStatement("DELETE FROM emprunt WHERE Login=?");
-             prepare.setString(1,Login);
+             PreparedStatement prepare=connexion.prepareStatement("DELETE FROM emprunt WHERE LoginAdherentEmp=?");
+             prepare.setString(1,LoginAdherentEmp);
              prepare.executeUpdate();
              prepare.close();
              return true;
@@ -153,10 +153,10 @@ public class EmpruntsCRUD {
          return 0;
     }
     
-    public boolean deleteEmprentByLivre(int livreId){
+    public boolean deleteEmprentByLivre(int IdLivreEmp){
          try{
-            PreparedStatement prepare=connexion.prepareStatement("DELETE FROM emprunt WHERE LivreId=?");
-            prepare.setInt(1,livreId);
+            PreparedStatement prepare=connexion.prepareStatement("DELETE FROM emprunt WHERE IdLivreEmp=?");
+            prepare.setInt(1,IdLivreEmp);
             prepare.executeUpdate();
             prepare.close();
             return true;

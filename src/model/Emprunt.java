@@ -7,8 +7,8 @@ import java.util.Calendar;
 
 
 public class Emprunt {
-    private int LivreId;
-    private String Login;
+    private int IdLivreEmp;
+    private String LoginAdherentEmp;
     private Date DateEmprent;
     private Date DateLimiteEmprent;
     
@@ -16,9 +16,9 @@ public class Emprunt {
         
     }
 
-    public Emprunt(int LivreId, String Login) {
-        this.LivreId = LivreId;
-        this.Login = Login;
+    public Emprunt(int IdLivreEmp, String LoginAdherentEmp) {
+        this.IdLivreEmp = IdLivreEmp;
+        this.LoginAdherentEmp = LoginAdherentEmp;
         
         this.DateEmprent = new Date(System.currentTimeMillis());
         
@@ -30,20 +30,20 @@ public class Emprunt {
         this.DateLimiteEmprent = new Date(ts.getTime());
     }
 
-    public int getLivreId() {
-        return LivreId;
+    public int getIdLivreEmp() {
+        return IdLivreEmp;
     }
 
-    public void setLivreId(int LivreId) {
-        this.LivreId = LivreId;
+    public void setIdLivreEmp(int IdLivreEmp) {
+        this.IdLivreEmp = IdLivreEmp;
     }
 
-    public String getLogin() {
-        return Login;
+    public String getLoginAdherentEmp() {
+        return LoginAdherentEmp;
     }
 
-    public void setLogin(String Login) {
-        this.Login = Login;
+    public void setLoginAdherentEmp(String LoginAdherentEmp) {
+        this.LoginAdherentEmp = LoginAdherentEmp;
     }
 
     public Date getDateEmprent() {

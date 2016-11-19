@@ -6,8 +6,8 @@ import java.sql.Timestamp;
 import java.util.Calendar;
 
 public class Reservation {
-    private int LivreId;
-    private String Login;
+    private int IdLivreRes;
+    private String LoginAdherentRes;
     private Date DateReservation;
     private Date DateLimiteReservation;
     
@@ -15,9 +15,9 @@ public class Reservation {
         
     }
 
-    public Reservation(int LivreId, String Login) {
-        this.LivreId = LivreId;
-        this.Login = Login;
+    public Reservation(int IdLivreRes, String LoginAdherentRes) {
+        this.IdLivreRes = IdLivreRes;
+        this.LoginAdherentRes = LoginAdherentRes;
         
         this.DateReservation = new Date(System.currentTimeMillis());
         
@@ -29,20 +29,20 @@ public class Reservation {
         this.DateLimiteReservation = new Date(ts.getTime());
     }
 
-    public int getLivreId() {
-        return LivreId;
+    public int getIdLivreRes() {
+        return IdLivreRes;
     }
 
-    public void setLivreId(int LivreId) {
-        this.LivreId = LivreId;
+    public void setIdLivreRes(int IdLivreRes) {
+        this.IdLivreRes = IdLivreRes;
     }
 
-    public String getLogin() {
-        return Login;
+    public String getLoginAdherentRes() {
+        return LoginAdherentRes;
     }
 
-    public void setLogin(String Login) {
-        this.Login = Login;
+    public void setLoginAdherentRes(String LoginAdherentRes) {
+        this.LoginAdherentRes = LoginAdherentRes;
     }
 
     public Date getDateReservation() {

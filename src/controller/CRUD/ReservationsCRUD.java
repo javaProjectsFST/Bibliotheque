@@ -18,9 +18,9 @@ public class ReservationsCRUD {
     
     public boolean addReservation(Reservation reservation){
          try {
-            PreparedStatement prepare=connexion.prepareStatement("INSERT INTO reservation(LivreId,Login,DateReservation,DateLimiteReservation) VALUES (?,?,?,?)");
-            prepare.setInt(1, reservation.getLivreId());
-            prepare.setString(2, reservation.getLogin());
+            PreparedStatement prepare=connexion.prepareStatement("INSERT INTO reservation(IdLivreRes,LoginAdherentRes,DateReservation,DateLimiteReservation) VALUES (?,?,?,?)");
+            prepare.setInt(1, reservation.getIdLivreRes());
+            prepare.setString(2, reservation.getLoginAdherentRes());
             prepare.setDate(3, reservation.getDateReservation());
             prepare.setDate(4, reservation.getDateLimiteReservation());
             
@@ -32,10 +32,10 @@ public class ReservationsCRUD {
         }
     }
     
-    public Reservation getReservationByLivre(int livreId){
+    public Reservation getReservationByLivre(int IdLivreRes){
         try {
-            PreparedStatement prepare=connexion.prepareStatement("SELECT * FROM reservation WHERE LivreId=?");
-            prepare.setInt(1,livreId);
+            PreparedStatement prepare=connexion.prepareStatement("SELECT * FROM reservation WHERE IdLivreRes=?");
+            prepare.setInt(1,IdLivreRes);
             ResultSet resultat = prepare.executeQuery();
             if(resultat.next()){
                 resultat.beforeFirst();
@@ -43,8 +43,8 @@ public class ReservationsCRUD {
                 while ( resultat.next() )
                 {
 
-                    reservation.setLivreId(resultat.getInt("LivreId"));
-                    reservation.setLogin(resultat.getString("Login"));
+                    reservation.setIdLivreRes(resultat.getInt("IdLivreRes"));
+                    reservation.setLoginAdherentRes(resultat.getString("LoginAdherentRes"));
                     reservation.setDateReservation(resultat.getDate("DateReservation"));
                     reservation.setDateLimiteReservation(resultat.getDate("DateLimiteReservation"));
 
@@ -60,10 +60,10 @@ public class ReservationsCRUD {
         }
     }
     
-    public ResultSet getReservationsByAdherent(String Login){
+    public ResultSet getReservationsByAdherent(String LoginAdherentRes){
         try {
-            PreparedStatement prepare=connexion.prepareStatement("select * from reservation WHERE Login=?");
-            prepare.setString(1,Login);
+            PreparedStatement prepare=connexion.prepareStatement("select * from reservation WHERE LoginAdherentRes=?");
+            prepare.setString(1,LoginAdherentRes);
             ResultSet resultat=prepare.executeQuery();
             if(resultat.next()){
                 resultat.beforeFirst();
@@ -76,18 +76,18 @@ public class ReservationsCRUD {
         }
     }
     
-    public Reservation getReservationBy(int livreId, String Login){
+    public Reservation getReservationBy(int IdLivreRes, String LoginAdherentRes){
        try {
-            PreparedStatement prepare=connexion.prepareStatement("SELECT * FROM reservationt WHERE LivreId =? AND Login=?");
-            prepare.setInt(1,livreId);
-            prepare.setString(2,Login);
+            PreparedStatement prepare=connexion.prepareStatement("SELECT * FROM reservationt WHERE IdLivreRes =? AND LoginAdherentRes=?");
+            prepare.setInt(1,IdLivreRes);
+            prepare.setString(2,LoginAdherentRes);
             ResultSet resultat = prepare.executeQuery();
             if(resultat.next()){
                 resultat.beforeFirst(); 
                 Reservation reservation=new Reservation();
                 while ( resultat.next() ){
-                    reservation.setLivreId(resultat.getInt("LivreId"));
-                    reservation.setLogin(resultat.getString("Login"));
+                    reservation.setIdLivreRes(resultat.getInt("IdLivreRes"));
+                    reservation.setLoginAdherentRes(resultat.getString("LoginAdherentRes"));
                     reservation.setDateReservation(resultat.getDate("DateReservation"));
                     reservation.setDateLimiteReservation(resultat.getDate("DateLimiteReservation"));
                 }
@@ -121,11 +121,11 @@ public class ReservationsCRUD {
         return null;
     }
     
-    public boolean deleteReservationBy(int livreId, String Login){
+    public boolean deleteReservationBy(int IdLivreRes, String LoginAdherentRes){
          try{
-            PreparedStatement prepare=connexion.prepareStatement("DELETE FROM reservation WHERE LivreId=? AND Login=?");
-            prepare.setInt(1,livreId);
-            prepare.setString(2,Login);
+            PreparedStatement prepare=connexion.prepareStatement("DELETE FROM reservation WHERE IdLivreRes=? AND LoginAdherentRes=?");
+            prepare.setInt(1,IdLivreRes);
+            prepare.setString(2,LoginAdherentRes);
             prepare.executeUpdate();
             prepare.close();
             return true;
@@ -134,14 +134,14 @@ public class ReservationsCRUD {
         }
     }
     
-    public int deleteReservationsByAdherent(String Login){
+    public int deleteReservationsByAdherent(String LoginAdherentRes){
         return 0;
     }
     
-    public boolean deleteReservationByLivre(int livreId){
+    public boolean deleteReservationByLivre(int IdLivreRes){
          try{
-            PreparedStatement prepare=connexion.prepareStatement("DELETE FROM reservation WHERE LivreId=?");
-            prepare.setInt(1,livreId);
+            PreparedStatement prepare=connexion.prepareStatement("DELETE FROM reservation WHERE IdLivreRes=?");
+            prepare.setInt(1,IdLivreRes);
             prepare.executeUpdate();
             prepare.close();
             return true;
