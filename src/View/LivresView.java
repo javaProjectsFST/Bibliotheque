@@ -35,20 +35,18 @@ public class LivresView extends javax.swing.JPanel {
             {
                 Component c = super.prepareRenderer(renderer, row, column);
 
-                String dateEdition=this.getModel().getValueAt(row, 4).toString();
-                System.out.println(dateEdition);
-
-                if(!dateEdition.isEmpty()){
-                    c.setBackground(Color.red);
-                }else{
-                    if(!isRowSelected(row)){
-                        c.setBackground(row%2==0 ? Color.white : Color.decode("#f3f3f3"));
+                Object dateEmp=this.getModel().getValueAt(row, 5);
+                Object dateRes=this.getModel().getValueAt(row, 7);
+                if(!isRowSelected(row)){
+                    if(dateEmp!=null){
+                        c.setBackground(Color.decode("#CCFFCC"));
+                    }else if(dateRes!=null){
+                        c.setBackground(Color.decode("#CCFFFF"));
                     }else{
-                        if(dateEdition!=null){
-                            c.setBackground(Color.decode("#b8cfc6"));
-                        }
-                        c.setBackground(Color.decode("#b8cfe5"));
+                        c.setBackground(row%2==0 ? Color.white : Color.decode("#f3f3f3"));
                     }
+                }else{
+                    c.setBackground(Color.decode("#b8cfe5"));
                 }
                 return c;
             }
