@@ -60,7 +60,34 @@ public class AdherentsCRUD {
             return null;
         }
     }
-     public Adherent getAdherentBy(String login,String mdp){
+    
+    public Adherent getAdherentByEmail(String email){
+        try {
+            PreparedStatement prepare=connexion.prepareStatement("SELECT * FROM adherent WHERE Email=?");
+            prepare.setString(1,email);
+            ResultSet resultat = prepare.executeQuery();
+            if(resultat.next()){
+                resultat.beforeFirst(); //reinitialisation du pointeur sur l'element avant premier
+                Adherent adherent=new Adherent();
+                while (resultat.next()){
+                    adherent.setMdp(resultat.getString("MdpAdherent"));
+                    adherent.setLogin(resultat.getString("Login"));
+                    adherent.setPrenom(resultat.getString("Prenom"));
+                    adherent.setNom(resultat.getString("Nom"));
+                    adherent.setEmail(resultat.getString("Email"));
+                }
+                prepare.close();    
+                resultat.close();
+                return(adherent);
+            }else{
+                return null;
+            }
+        }catch (SQLException ex) {
+            return null;
+        }
+    }
+    
+    public Adherent getAdherentBy(String login,String mdp){
        try {
             PreparedStatement prepare=connexion.prepareStatement("SELECT * FROM adherent WHERE Login =? AND MdpAdherent=?");
             prepare.setString(1,login);
@@ -135,6 +162,10 @@ public class AdherentsCRUD {
     }
     
     public void sendAvetMail(Livre livre){
+        
+    }
+    
+    public void sendMail(String message){
         
     }
 }

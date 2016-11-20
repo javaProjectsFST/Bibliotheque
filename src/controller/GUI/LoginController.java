@@ -39,8 +39,7 @@ public class LoginController {
     }
     
     private void initView(){
-        loginView.getExistLabel().setVisible(false);
-        loginView.getIciLabel().setVisible(false);
+        hideErrorMessage();
         reset();
     }
     
@@ -69,6 +68,7 @@ public class LoginController {
 
             @Override
             public void keyPressed(KeyEvent e) {
+                hideErrorMessage();
                 ((JPanel)loginView.getLoginTextField().getParent()).setBorder(BorderFactory.createEmptyBorder());
             }
 
@@ -100,6 +100,7 @@ public class LoginController {
 
             @Override
             public void keyPressed(KeyEvent e) {
+                hideErrorMessage();
                 ((JPanel)loginView.getMdpTextField().getParent()).setBorder(BorderFactory.createEmptyBorder());
             }
 
@@ -120,7 +121,9 @@ public class LoginController {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseReleased(e);
-                new InscRequestController();
+                hideErrorMessage();
+                reset();
+                new PasswordResetController(connexion);
             }
             
             @Override
@@ -143,6 +146,18 @@ public class LoginController {
         loginView.getMdpTextField().setText("Mot de passe");
     }
     
+    private void showErrorMessage(){
+        loginView.getExistLabel().setVisible(true);
+        loginView.getExistLabel2().setVisible(true);
+        loginView.getIciLabel().setVisible(true);
+    }
+    
+    private void hideErrorMessage(){
+        loginView.getExistLabel().setVisible(false);
+        loginView.getExistLabel2().setVisible(false);
+        loginView.getIciLabel().setVisible(false);
+    }
+    
     public void login(){
         String mdp=String.valueOf(loginView.getMdpTextField().getPassword());
         String login=loginView.getLoginTextField().getText();
@@ -160,8 +175,7 @@ public class LoginController {
                 if(employe!=null){
                     MainClass.generalController.toNextView();
                 }else{
-                    loginView.getExistLabel().setVisible(true);
-                    loginView.getIciLabel().setVisible(true);
+                    showErrorMessage();
                 }
             }
         }

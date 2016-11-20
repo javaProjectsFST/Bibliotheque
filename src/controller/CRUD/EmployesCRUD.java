@@ -17,11 +17,12 @@ public class EmployesCRUD {
     
     public boolean addEmploye(Employe employe){
          try {
-            PreparedStatement prepare=connexion.prepareStatement("INSERT INTO employe (Login,MdpEmploye,Prenom,Nom) VALUES (?,?,?,?)");
+            PreparedStatement prepare=connexion.prepareStatement("INSERT INTO employe (Login,MdpEmploye,Prenom,Nom) VALUES (?,?,?,?,?)");
             prepare.setString(1, employe.getLogin());
             prepare.setString(2, employe.getMdp());
             prepare.setString(3, employe.getPrenom() );
             prepare.setString(4, employe.getNom());
+            prepare.setString(5, employe.getEmail());
             prepare.executeUpdate();
             prepare.close();
             return true;
@@ -44,6 +45,34 @@ public class EmployesCRUD {
                     employe.setLogin(resultat.getString("Login"));
                     employe.setPrenom(resultat.getString("Prenom"));
                     employe.setNom(resultat.getString("Nom")); 
+                    employe.setEmail(resultat.getString("Email"));
+                }
+                prepare.close();    
+                resultat.close();
+                return(employe);
+            }else{
+                return (null);
+            }
+        } catch (SQLException ex) {
+            return null;
+        }
+    }
+    
+    public Employe getEmployeByEmail(String email){
+        try {
+            PreparedStatement prepare=connexion.prepareStatement("SELECT * FROM employe WHERE Email =?");
+            prepare.setString(1,email);
+            ResultSet resultat = prepare.executeQuery();
+            if(resultat.next()){
+                resultat.beforeFirst();
+                Employe employe=new Employe();
+                while ( resultat.next() )
+                {
+                    employe.setMdp(resultat.getString("MdpEmploye"));
+                    employe.setLogin(resultat.getString("Login"));
+                    employe.setPrenom(resultat.getString("Prenom"));
+                    employe.setNom(resultat.getString("Nom")); 
+                    employe.setEmail(resultat.getString("Email"));
                 }
                 prepare.close();    
                 resultat.close();
@@ -69,7 +98,8 @@ public class EmployesCRUD {
                     employe.setMdp(resultat.getString("MdpEmploye"));
                     employe.setLogin(resultat.getString("Login"));
                     employe.setPrenom(resultat.getString("Prenom"));
-                    employe.setNom(resultat.getString("Nom")); 
+                    employe.setNom(resultat.getString("Nom"));
+                    employe.setEmail(resultat.getString("Email")); 
                 }
                 prepare.close();    
                 resultat.close();
@@ -96,12 +126,13 @@ public class EmployesCRUD {
     
     public boolean updateEmploye(String login, Employe employe){
          try{
-            PreparedStatement prepare=connexion.prepareStatement("UPDATE employe SET Login=?,MdpEmploye=?,Prenom=?,Nom=? WHERE Login=?");
+            PreparedStatement prepare=connexion.prepareStatement("UPDATE employe SET Login=?,MdpEmploye=?,Prenom=?,Nom=?, Email=? WHERE Login=?");
             prepare.setString(1,employe.getLogin());
             prepare.setString(2,employe.getMdp());
             prepare.setString(3,employe.getPrenom());
             prepare.setString(4,employe.getNom());
-            prepare.setString(5,login);
+            prepare.setString(5,employe.getEmail());
+            prepare.setString(6,login);
 
             prepare.executeUpdate();
             prepare.close();
@@ -125,5 +156,9 @@ public class EmployesCRUD {
         } catch (SQLException ex) {
             return null;
         }
+    }
+    
+    public boolean sendMail(String message){
+        return true;
     }
 }

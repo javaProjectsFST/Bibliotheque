@@ -6,18 +6,28 @@ public class Employe {
     private String Login;
     private String Prenom;
     private String Nom;
+    private String Email;
     private boolean Ger;
     
     public Employe(){
         
     }
 
-    public Employe(String Mdp, String Login, String Prenom, String Nom, boolean Ger) {
+    public Employe(String Mdp, String Login, String Prenom, String Nom, String Email, boolean Ger) {
         this.Mdp = Mdp;
         this.Login = Login;
         this.Prenom = Prenom;
         this.Nom = Nom;
+        this.Email=Email;
         this.Ger = Ger;
+    }
+
+    public String getEmail() {
+        return Email;
+    }
+
+    public void setEmail(String Email) {
+        this.Email = Email;
     }
 
     public String getMdp() {
