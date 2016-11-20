@@ -4,9 +4,8 @@ package controller.GUI;
 import View.PasswordResetView;
 import controller.CRUD.AdherentsCRUD;
 import controller.CRUD.EmployesCRUD;
+import controller.MainClass;
 import java.sql.Connection;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 import model.Adherent;
 import model.Employe;
@@ -34,20 +33,13 @@ public class PasswordResetController {
         this.passwordResetView.getSubmitButton().addActionListener(e->sendPassword());
     }
     
-    private boolean isValidEmail(String email){
-        String pattern="^([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)$";
-        Pattern p=Pattern.compile(pattern);
-        Matcher m=p.matcher(email);
-        return m.matches();
-    }
-    
     private void showErrorMessage(){
         
     }
     
     private void sendPassword(){
         String mail=this.passwordResetView.getEmailTextField().getText();
-        if(isValidEmail(mail)){
+        if(MainClass.isValidEmail(mail)){
             Adherent adherent=adherentsCrud.getAdherentByEmail(mail);
             if(adherent!=null){
                 adherent.setEmail(adherent.getMdp());
