@@ -158,7 +158,7 @@ public class EmployesCRUD {
         }
     }
     
-    public boolean sendMail(String message){
+    public boolean sendPasswordMail(Employe employe){
         return true;
     }
 }

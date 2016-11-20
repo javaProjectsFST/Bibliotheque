@@ -1,11 +1,11 @@
 
 package controller.CRUD;
 
+import controller.MainClass;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Vector;
 import model.Adherent;
 import model.Livre;
 
@@ -88,7 +88,7 @@ public class AdherentsCRUD {
     }
     
     public Adherent getAdherentBy(String login,String mdp){
-       try {
+        try {
             PreparedStatement prepare=connexion.prepareStatement("SELECT * FROM adherent WHERE Login =? AND MdpAdherent=?");
             prepare.setString(1,login);
             prepare.setString(2,mdp);
@@ -166,7 +166,9 @@ public class AdherentsCRUD {
         
     }
     
-    public void sendMail(String message){
-        
+    public void sendPasswordMail(Adherent adherent){
+        String message="Bonjour "+adherent.getPrenom()+" "+adherent.getNom()+",\n\n     Votre login est: "+adherent.getLogin()+"\n     Votre mot de passe est: "+adherent.getMdp();
+        String object="Bibliotheque - Votre Compte";
+        new Thread(()->MainClass.sendMail(adherent.getEmail(), object, message)).start();
     }
 }

@@ -107,7 +107,7 @@ public class LoginView extends javax.swing.JPanel {
 
         jLabel2.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 102, 102));
-        jLabel2.setText("Si vous avez oublié votre mot de passe, cliquer");
+        jLabel2.setText("Si vous avez oublié votre compte, cliquer");
         jPanel11.add(jLabel2);
 
         iciLabel.setFont(new java.awt.Font("Dialog", 1, 20)); // NOI18N

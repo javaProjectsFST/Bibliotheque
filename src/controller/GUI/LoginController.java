@@ -44,7 +44,7 @@ public class LoginController {
     }
     
     private void initController(){
-        loginView.getConnectButton().addActionListener(e -> login());
+        loginView.getConnectButton().addActionListener(e -> new Thread(()->login()).start());
         
         loginView.getResetButton().addActionListener(e -> reset());
         
