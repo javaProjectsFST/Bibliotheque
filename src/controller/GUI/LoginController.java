@@ -120,6 +120,7 @@ public class LoginController {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseReleased(e);
+                new InscRequestController();
             }
             
             @Override
