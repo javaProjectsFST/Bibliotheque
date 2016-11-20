@@ -5,21 +5,24 @@ import View.LoginView;
 import controller.CRUD.AdherentsCRUD;
 import controller.CRUD.EmployesCRUD;
 import controller.MainClass;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.Color;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.Connection;
+import javax.swing.BorderFactory;
+import javax.swing.JPanel;
 import model.Adherent;
 import model.Employe;
 
 public class LoginController {
-    private LoginView loginView;
-    private Connection connexion;
-    private AdherentsCRUD adherentsCrud;
-    private EmployesCRUD employesCrud;
+    private final LoginView loginView;
+    private final Connection connexion;
+    private final AdherentsCRUD adherentsCrud;
+    private final EmployesCRUD employesCrud;
 
     public LoginController(Connection connexion) {
         this.loginView = new LoginView();
@@ -36,6 +39,8 @@ public class LoginController {
     }
     
     private void initView(){
+        loginView.getExistLabel().setVisible(false);
+        loginView.getIciLabel().setVisible(false);
         reset();
     }
     
@@ -58,48 +63,105 @@ public class LoginController {
                     loginView.getLoginTextField().setText("Login");
             }
         });
+        loginView.getLoginTextField().addKeyListener(new KeyListener(){
+            @Override
+            public void keyTyped(KeyEvent e) {}
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                ((JPanel)loginView.getLoginTextField().getParent()).setBorder(BorderFactory.createEmptyBorder());
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {}
+        });
         
         loginView.getMdpTextField().addFocusListener(new FocusListener(){
             @Override
             public void focusGained(FocusEvent e) {
-                if(loginView.getMdpTextField().getText().equals("Mot de passe")){
+                String mdp=String.valueOf(loginView.getMdpTextField().getPassword());
+                if(mdp.equals("Mot de passe")){
+                    loginView.getMdpTextField().setEchoChar('\u25CF');
                     loginView.getMdpTextField().setText("");
                 }
             }
 
             @Override
             public void focusLost(FocusEvent e) {
-                if(loginView.getMdpTextField().getText().isEmpty())
+                if(String.valueOf(loginView.getMdpTextField().getPassword()).isEmpty()){
+                    loginView.getMdpTextField().setEchoChar((char)0);
                     loginView.getMdpTextField().setText("Mot de passe");
+                }
             }
+        });
+        loginView.getMdpTextField().addKeyListener(new KeyListener(){
+            @Override
+            public void keyTyped(KeyEvent e) {}
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                ((JPanel)loginView.getMdpTextField().getParent()).setBorder(BorderFactory.createEmptyBorder());
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {}
+        
         });
         
         loginView.addMouseListener(new MouseAdapter(){
-             @Override
+            @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseReleased(e);
                 loginView.grabFocus();
+            }
+        });
+        
+        loginView.getIciLabel().addMouseListener(new MouseAdapter(){
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseReleased(e);
+            }
+            
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                super.mouseEntered(e);
+                loginView.getIciLabel().setForeground(Color.decode("#3366FF"));
+            }
+            
+            @Override
+            public void mouseExited(MouseEvent e) {
+                super.mouseExited(e);
+                loginView.getIciLabel().setForeground(Color.decode("#0099FF"));
             }
         });
     }
     
     private void reset(){
         loginView.getLoginTextField().setText("Login");
+        loginView.getMdpTextField().setEchoChar((char)0);
         loginView.getMdpTextField().setText("Mot de passe");
     }
     
     public void login(){
-        String mdp=loginView.getMdpTextField().getText();
+        String mdp=String.valueOf(loginView.getMdpTextField().getPassword());
         String login=loginView.getLoginTextField().getText();
-        Adherent adherent=adherentsCrud.getAdherentBy(login, mdp);
-        if(adherent!=null){
-            MainClass.generalController.toNextView();
+        if(mdp.isEmpty() || mdp.equals("Mot de passe")){
+            ((JPanel)loginView.getMdpTextField().getParent()).setBorder(BorderFactory.createLineBorder(Color.red));
+            if(login.isEmpty() || login.equals("Login")){
+                ((JPanel)loginView.getLoginTextField().getParent()).setBorder(BorderFactory.createLineBorder(Color.red));
+            }
         }else{
-            Employe employe=employesCrud.getEmployeBy(login, mdp);
-            if(employe!=null){
+            Adherent adherent=adherentsCrud.getAdherentBy(login, mdp);
+            if(adherent!=null){
                 MainClass.generalController.toNextView();
             }else{
-                System.out.println("Hello!");
+                Employe employe=employesCrud.getEmployeBy(login, mdp);
+                if(employe!=null){
+                    MainClass.generalController.toNextView();
+                }else{
+                    loginView.getExistLabel().setVisible(true);
+                    loginView.getIciLabel().setVisible(true);
+                }
             }
         }
     }

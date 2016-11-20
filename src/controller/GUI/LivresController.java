@@ -11,13 +11,13 @@ import java.sql.ResultSet;
 import net.proteanit.sql.DbUtils;
 
 public class LivresController {
-    private LivresView livreView;
-    private Connection connexion;
-    private int sortColumn;
-    private LivresCRUD livresCrud;
-    private AdherentsCRUD adherentsCrud;
-    private EmpruntsCRUD emprentsCrud;
-    private ReservationsCRUD reservationsCRUD;
+    private final LivresView livreView;
+    private final Connection connexion;
+    private final int sortColumn;
+    private final LivresCRUD livresCrud;
+    private final AdherentsCRUD adherentsCrud;
+    private final EmpruntsCRUD emprentsCrud;
+    private final ReservationsCRUD reservationsCRUD;
 
     public LivresController(LivresView livreView, Connection connexion) {
         this.livreView = livreView;

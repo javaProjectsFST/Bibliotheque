@@ -14,6 +14,14 @@ public class DashboardView extends JPanel {
         return livresView;
     }
     
+    public AdherentsView getAdherentsView(){
+        return null;
+    }
+    
+    public EmployesView getEmployesView(){
+        return null;
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

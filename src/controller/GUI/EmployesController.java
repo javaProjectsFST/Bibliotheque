@@ -6,9 +6,9 @@ import controller.CRUD.EmployesCRUD;
 import java.sql.Connection;
 
 public class EmployesController {
-    private EmployesView employeView;
-    private Connection connexion;
-    private EmployesCRUD employesCrud;
+    private final EmployesView employeView;
+    private final Connection connexion;
+    private final EmployesCRUD employesCrud;
 
     public EmployesController(EmployesView employeView, Connection connexion) {
         this.employeView = employeView;
