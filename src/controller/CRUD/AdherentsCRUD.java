@@ -162,6 +162,7 @@ public class AdherentsCRUD {
     }
     
     public void sendAvetMail(Livre livre){
+    
         
     }
     
