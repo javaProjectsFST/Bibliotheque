@@ -40,7 +40,11 @@ public class LoginView extends javax.swing.JPanel {
         connectButton = new javax.swing.JButton();
         resetButton = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
+        jPanel7 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
+        jPanel8 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
 
         setMaximumSize(new java.awt.Dimension(1800, 680));
         setMinimumSize(new java.awt.Dimension(1800, 680));
@@ -84,9 +88,27 @@ public class LoginView extends javax.swing.JPanel {
 
         jPanel5.setLayout(new java.awt.GridBagLayout());
 
+        jPanel7.setLayout(new java.awt.GridLayout(2, 1));
+
         jLabel2.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Se Connecter");
-        jPanel5.add(jLabel2, new java.awt.GridBagConstraints());
+        jPanel7.add(jLabel2);
+
+        jPanel8.setLayout(new java.awt.GridLayout(1, 2, 5, 0));
+
+        jLabel1.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        jLabel1.setText("jLabel1");
+        jPanel8.add(jLabel1);
+
+        jLabel5.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        jLabel5.setText("jLabel5");
+        jPanel8.add(jLabel5);
+
+        jPanel7.add(jPanel8);
+
+        jPanel5.add(jPanel7, new java.awt.GridBagConstraints());
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -95,9 +117,7 @@ public class LoginView extends javax.swing.JPanel {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(0, 0, 0)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(0, 0, Short.MAX_VALUE))
             .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -118,13 +138,17 @@ public class LoginView extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton connectButton;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
     private javax.swing.JTextField loginTextField;
     private javax.swing.JTextField mdpTextField;
     private javax.swing.JButton resetButton;
