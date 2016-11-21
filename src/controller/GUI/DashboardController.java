@@ -2,6 +2,9 @@
 package controller.GUI;
 
 import View.DashboardView;
+import java.awt.Color;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.sql.Connection;
 
 public class DashboardController {
@@ -31,6 +34,26 @@ public class DashboardController {
     }
     
     private void initController(){
-        
+        dashboardView.getAddBookPanel().addMouseListener(new MouseAdapter(){
+            @Override
+            public void mouseEntered(MouseEvent ev){
+                dashboardView.getAddBookPanel().setBackground(Color.decode("#b3b2b2"));
+            }
+            
+            @Override
+            public void mouseExited(MouseEvent ev){
+                dashboardView.getAddBookPanel().setBackground(Color.decode("#CCCCCC"));
+            }
+            
+            @Override
+            public void mousePressed(MouseEvent ev){
+                dashboardView.getAddBookPanel().setBackground(Color.decode("#939292"));
+            }
+            
+            @Override
+            public void mouseReleased(MouseEvent ev){
+                dashboardView.getAddBookPanel().setBackground(Color.decode("#b3b2b2"));
+            }
+        });
     }
 }
