@@ -18,7 +18,6 @@ public class GeneralController{
         try{
             UIManager.setLookAndFeel("com.jtattoo.plaf.aero.AeroLookAndFeel");
         }catch(ClassNotFoundException | IllegalAccessException | InstantiationException | UnsupportedLookAndFeelException e){}
-        
         this.connexion=connexion;
         this.loginController=new LoginController(connexion);
         this.dashboardController=new DashboardController(connexion);
