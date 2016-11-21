@@ -100,12 +100,12 @@ public class PasswordResetView extends javax.swing.JPanel {
 
         mailNotExistLabel1.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         mailNotExistLabel1.setForeground(new java.awt.Color(255, 102, 102));
-        mailNotExistLabel1.setText("- Cette adresse email ne correspend à aucun compte,");
+        mailNotExistLabel1.setText("- Cette adresse email ne correspend à aucun compte. Veuillez verifier");
         jPanel4.add(mailNotExistLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
 
         mailNotExistLabel2.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         mailNotExistLabel2.setForeground(new java.awt.Color(255, 102, 102));
-        mailNotExistLabel2.setText("veuillez contacter le gérant pour résoudre ce probléme.");
+        mailNotExistLabel2.setText("votre adresse, si non, contacter le gérant pour résoudre ce probléme.");
         jPanel4.add(mailNotExistLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, -1, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -114,15 +114,15 @@ public class PasswordResetView extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 541, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
+                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(submitButton)
                 .addGap(41, 41, 41))
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addGap(69, 69, 69)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(179, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
