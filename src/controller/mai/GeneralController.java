@@ -1,7 +1,7 @@
 
-package controller.Main;
+package controller.mai;
 
-import View.MainFrame;
+import view.MainFrame;
 import controller.DashboardController;
 import controller.LoginController;
 import java.sql.Connection;

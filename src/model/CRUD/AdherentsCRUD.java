@@ -1,7 +1,7 @@
 
 package model.CRUD;
 
-import controller.main.MainClass;
+import controller.mai.MainClass;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

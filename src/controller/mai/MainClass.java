@@ -1,5 +1,5 @@
 
-package controller.Main;
+package controller.mai;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
