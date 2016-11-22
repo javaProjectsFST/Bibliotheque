@@ -1,11 +1,11 @@
 
-package controller.GUI;
+package controller;
 
 import View.LivresView;
-import controller.CRUD.AdherentsCRUD;
-import controller.CRUD.EmpruntsCRUD;
-import controller.CRUD.LivresCRUD;
-import controller.CRUD.ReservationsCRUD;
+import model.CRUD.AdherentsCRUD;
+import model.CRUD.EmpruntsCRUD;
+import model.CRUD.LivresCRUD;
+import model.CRUD.ReservationsCRUD;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import net.proteanit.sql.DbUtils;

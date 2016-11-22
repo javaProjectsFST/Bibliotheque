@@ -1,12 +1,12 @@
 
-package controller.CRUD;
+package model.CRUD;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Vector;
-import model.Employe;
+import model.entities.Employe;
 
 public class EmployesCRUD {
     private Connection connexion;    

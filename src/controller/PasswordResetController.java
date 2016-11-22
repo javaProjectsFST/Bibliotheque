@@ -1,10 +1,10 @@
 
-package controller.GUI;
+package controller;
 
 import View.PasswordResetView;
-import controller.CRUD.AdherentsCRUD;
-import controller.CRUD.EmployesCRUD;
-import controller.MainClass;
+import model.CRUD.AdherentsCRUD;
+import model.CRUD.EmployesCRUD;
+import controller.Main.MainClass;
 import java.awt.Color;
 import java.awt.Window;
 import java.awt.event.KeyEvent;
@@ -14,8 +14,8 @@ import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
-import model.Adherent;
-import model.Employe;
+import model.entities.Adherent;
+import model.entities.Employe;
 
 public class PasswordResetController {
     private final PasswordResetView passwordResetView;

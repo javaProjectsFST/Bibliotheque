@@ -1,12 +1,12 @@
 
-package controller.GUI;
+package controller;
 
 import View.AjoutAdherentView;
-import controller.CRUD.AdherentsCRUD;
+import model.CRUD.AdherentsCRUD;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
-import model.Adherent;
+import model.entities.Adherent;
 
 public class AjoutAdherentController {
     private AdherentsCRUD adherentCrud;

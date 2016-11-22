@@ -1,33 +1,27 @@
 
-package model;
+package model.entities;
 
-public class Employe {
+public class Adherent {
     private String Mdp;
     private String Login;
     private String Prenom;
     private String Nom;
     private String Email;
-    private boolean Ger;
+    private int NumbEmprent;
+    private int NumbReservation;
     
-    public Employe(){
+    public  Adherent(){
         
     }
 
-    public Employe(String Mdp, String Login, String Prenom, String Nom, String Email, boolean Ger) {
+    public Adherent(String Mdp, String Login, String Prenom, String Nom, String Email) {
         this.Mdp = Mdp;
         this.Login = Login;
         this.Prenom = Prenom;
         this.Nom = Nom;
-        this.Email=Email;
-        this.Ger = Ger;
-    }
-
-    public String getEmail() {
-        return Email;
-    }
-
-    public void setEmail(String Email) {
         this.Email = Email;
+        this.NumbEmprent=0;
+        this.NumbReservation=0;
     }
 
     public String getMdp() {
@@ -62,11 +56,27 @@ public class Employe {
         this.Nom = Nom;
     }
 
-    public boolean isGer() {
-        return Ger;
+    public String getEmail() {
+        return Email;
     }
 
-    public void setGer(boolean Ger) {
-        this.Ger = Ger;
+    public void setEmail(String Email) {
+        this.Email = Email;
+    }
+
+    public int getNumbEmprent() {
+        return NumbEmprent;
+    }
+
+    public void setNumbEmprent(int NumbEmprent) {
+        this.NumbEmprent = NumbEmprent;
+    }
+
+    public int getNumbReservation() {
+        return NumbReservation;
+    }
+
+    public void setNumbReservation(int NumbReservation) {
+        this.NumbReservation = NumbReservation;
     }
 }

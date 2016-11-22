@@ -1,13 +1,13 @@
 
-package controller.CRUD;
+package model.CRUD;
 
-import controller.MainClass;
+import controller.Main.MainClass;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import model.Adherent;
-import model.Livre;
+import model.entities.Adherent;
+import model.entities.Livre;
 
 public class AdherentsCRUD {
     private Connection connexion;

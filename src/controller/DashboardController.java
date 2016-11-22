@@ -1,5 +1,5 @@
 
-package controller.GUI;
+package controller;
 
 import View.DashboardView;
 import java.awt.Color;

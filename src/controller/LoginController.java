@@ -1,10 +1,10 @@
 
-package controller.GUI;
+package controller;
 
 import View.LoginView;
-import controller.CRUD.AdherentsCRUD;
-import controller.CRUD.EmployesCRUD;
-import controller.MainClass;
+import model.CRUD.AdherentsCRUD;
+import model.CRUD.EmployesCRUD;
+import controller.Main.MainClass;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.FocusEvent;
@@ -18,8 +18,8 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
-import model.Adherent;
-import model.Employe;
+import model.entities.Adherent;
+import model.entities.Employe;
 
 public class LoginController {
     private final LoginView loginView;
@@ -145,6 +145,8 @@ public class LoginController {
     }
     
     private void reset(){
+        ((JPanel)loginView.getMdpTextField().getParent()).setBorder(BorderFactory.createEmptyBorder());
+        ((JPanel)loginView.getLoginTextField().getParent()).setBorder(BorderFactory.createEmptyBorder());
         loginView.getLoginTextField().setText("Login");
         loginView.getMdpTextField().setEchoChar((char)0);
         loginView.getMdpTextField().setText("Mot de passe");
@@ -169,10 +171,12 @@ public class LoginController {
         boolean mdpEmpty=false, loginEmpty=false;
         
         if(mdp.isEmpty() || mdp.equals("Mot de passe")){
+            loginView.getLoader().setVisible(false);
             ((JPanel)loginView.getMdpTextField().getParent()).setBorder(BorderFactory.createLineBorder(Color.red));
             mdpEmpty=true;
         }
         if(login.isEmpty() || login.equals("Login")){
+            loginView.getLoader().setVisible(false);
             ((JPanel)loginView.getLoginTextField().getParent()).setBorder(BorderFactory.createLineBorder(Color.red));
             loginEmpty=true;
         }

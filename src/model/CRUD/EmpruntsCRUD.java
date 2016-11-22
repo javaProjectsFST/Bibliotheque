@@ -1,5 +1,5 @@
 
-package controller.CRUD;
+package model.CRUD;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -7,7 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Vector;
-import model.Emprunt;
+import model.entities.Emprunt;
 
 public class EmpruntsCRUD {
     private Connection connexion;

@@ -1,8 +1,8 @@
 
-package controller.GUI;
+package controller;
 
 import View.EmployesView;
-import controller.CRUD.EmployesCRUD;
+import model.CRUD.EmployesCRUD;
 import java.sql.Connection;
 
 public class EmployesController {

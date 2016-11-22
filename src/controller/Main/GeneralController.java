@@ -1,9 +1,9 @@
 
-package controller;
+package controller.Main;
 
 import View.MainFrame;
-import controller.GUI.DashboardController;
-import controller.GUI.LoginController;
+import controller.DashboardController;
+import controller.LoginController;
 import java.sql.Connection;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;

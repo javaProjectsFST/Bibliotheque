@@ -1,5 +1,5 @@
 
-package controller.CRUD;
+package model.CRUD;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -7,7 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Vector;
 import java.sql.ResultSet;
-import model.Reservation;
+import model.entities.Reservation;
 
 public class ReservationsCRUD {
     private Connection connexion;

@@ -1,11 +1,11 @@
-package controller.CRUD;
+package model.CRUD;
 
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import model.Livre;
+import model.entities.Livre;
 
 public class LivresCRUD {
     private Connection connexion;
