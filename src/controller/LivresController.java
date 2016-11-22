@@ -1,7 +1,7 @@
 
 package controller;
 
-import View.LivresView;
+import view.LivresView;
 import model.CRUD.AdherentsCRUD;
 import model.CRUD.EmpruntsCRUD;
 import model.CRUD.LivresCRUD;

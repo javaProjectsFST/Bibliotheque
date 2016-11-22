@@ -1,7 +1,7 @@
 
 package controller;
 
-import View.EmployesView;
+import view.EmployesView;
 import model.CRUD.EmployesCRUD;
 import java.sql.Connection;
 

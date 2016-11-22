@@ -1,7 +1,7 @@
 
 package controller;
 
-import View.DashboardView;
+import view.DashboardView;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;

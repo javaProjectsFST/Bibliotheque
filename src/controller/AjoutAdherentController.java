@@ -1,7 +1,7 @@
 
 package controller;
 
-import View.AjoutAdherentView;
+import view.AjoutAdherentView;
 import model.CRUD.AdherentsCRUD;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

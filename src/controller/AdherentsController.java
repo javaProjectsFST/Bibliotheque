@@ -1,7 +1,7 @@
 
 package controller;
 
-import View.AdherentsView;
+import view.AdherentsView;
 import model.CRUD.AdherentsCRUD;
 import java.sql.Connection;
 import javax.swing.JPanel;
