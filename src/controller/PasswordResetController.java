@@ -4,7 +4,7 @@ package controller;
 import view.PasswordResetView;
 import model.CRUD.AdherentsCRUD;
 import model.CRUD.EmployesCRUD;
-import controller.mai.MainClass;
+import controller.main.MainClass;
 import java.awt.Color;
 import java.awt.Window;
 import java.awt.event.KeyEvent;
