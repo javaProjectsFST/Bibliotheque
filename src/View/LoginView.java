@@ -40,6 +40,10 @@ public class LoginView extends javax.swing.JPanel {
         return iciLabel;
     }
     
+    public JLabel getLoader(){
+        return loader;
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -47,8 +51,10 @@ public class LoginView extends javax.swing.JPanel {
         jPanel2 = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
         jPanel10 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        loginTitle = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
+        jPanel13 = new javax.swing.JPanel();
+        loader = new javax.swing.JLabel();
         jPanel12 = new javax.swing.JPanel();
         existeLabel = new javax.swing.JLabel();
         jPanel11 = new javax.swing.JPanel();
@@ -72,8 +78,8 @@ public class LoginView extends javax.swing.JPanel {
         jPanel10.setMinimumSize(new java.awt.Dimension(300, 64));
         jPanel10.setPreferredSize(new java.awt.Dimension(300, 30));
 
-        jLabel1.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
-        jLabel1.setText("Se Connecter");
+        loginTitle.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        loginTitle.setText("Se Connecter");
 
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
@@ -81,18 +87,35 @@ public class LoginView extends javax.swing.JPanel {
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
                 .addContainerGap(173, Short.MAX_VALUE)
-                .addComponent(jLabel1)
+                .addComponent(loginTitle)
                 .addGap(173, 173, 173))
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(loginTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18))
         );
 
         jPanel1.setPreferredSize(new java.awt.Dimension(500, 70));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        loader.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        loader.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/loader.gif"))); // NOI18N
+
+        javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
+        jPanel13.setLayout(jPanel13Layout);
+        jPanel13Layout.setHorizontalGroup(
+            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(loader, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
+        );
+        jPanel13Layout.setVerticalGroup(
+            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(loader, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
+        );
+
+        jPanel1.add(jPanel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 0, 140, 60));
 
         jPanel12.setPreferredSize(new java.awt.Dimension(500, 40));
 
@@ -102,6 +125,8 @@ public class LoginView extends javax.swing.JPanel {
         existeLabel.setText("Votre compte ou mot de passe est incorrect.");
         existeLabel.setMaximumSize(new java.awt.Dimension(500, 24));
         jPanel12.add(existeLabel);
+
+        jPanel1.add(jPanel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 33));
 
         jPanel11.setPreferredSize(new java.awt.Dimension(100, 100));
 
@@ -115,20 +140,7 @@ public class LoginView extends javax.swing.JPanel {
         iciLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel11.add(iciLabel);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE))
-        );
+        jPanel1.add(jPanel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 33, 500, 34));
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
@@ -255,12 +267,12 @@ public class LoginView extends javax.swing.JPanel {
     private javax.swing.JButton connectButton;
     private javax.swing.JLabel existeLabel;
     private javax.swing.JLabel iciLabel;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel12;
+    private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
@@ -269,7 +281,9 @@ public class LoginView extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
+    private javax.swing.JLabel loader;
     private javax.swing.JTextField loginTextField;
+    private javax.swing.JLabel loginTitle;
     private javax.swing.JPasswordField mdpTextField;
     private javax.swing.JButton resetButton;
     // End of variables declaration//GEN-END:variables

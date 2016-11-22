@@ -43,17 +43,18 @@ public class PasswordResetController {
             public void keyTyped(KeyEvent e) {}
 
             @Override
-            public void keyPressed(KeyEvent e) {
-                if(!MainClass.isValidEmail(passwordResetView.getEmailTextField().getText())){
+            public void keyPressed(KeyEvent e) {}
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+                String ps=passwordResetView.getEmailTextField().getText();
+                if(!MainClass.isValidEmail(ps)){
                     passwordResetView.getSubmitButton().setEnabled(false);
                 }else{
                     passwordResetView.getSubmitButton().setEnabled(true);
                 }
                 hideErrorMessage();
             }
-
-            @Override
-            public void keyReleased(KeyEvent e) {}
             
         });
     }

@@ -42,6 +42,7 @@ public class LoginController {
     }
     
     private void initView(){
+        loginView.getLoader().setVisible(false);
         hideErrorMessage();
         reset();
     }
@@ -162,22 +163,31 @@ public class LoginController {
     }
     
     public void login(){
+        loginView.getLoader().setVisible(true);
         String mdp=String.valueOf(loginView.getMdpTextField().getPassword());
         String login=loginView.getLoginTextField().getText();
+        boolean mdpEmpty=false, loginEmpty=false;
+        
         if(mdp.isEmpty() || mdp.equals("Mot de passe")){
             ((JPanel)loginView.getMdpTextField().getParent()).setBorder(BorderFactory.createLineBorder(Color.red));
-            if(login.isEmpty() || login.equals("Login")){
-                ((JPanel)loginView.getLoginTextField().getParent()).setBorder(BorderFactory.createLineBorder(Color.red));
-            }
-        }else{
+            mdpEmpty=true;
+        }
+        if(login.isEmpty() || login.equals("Login")){
+            ((JPanel)loginView.getLoginTextField().getParent()).setBorder(BorderFactory.createLineBorder(Color.red));
+            loginEmpty=true;
+        }
+        if(!mdpEmpty && !loginEmpty){
             Adherent adherent=adherentsCrud.getAdherentBy(login, mdp);
             if(adherent!=null){
+                loginView.getLoader().setVisible(false);
                 MainClass.generalController.toNextView();
             }else{
                 Employe employe=employesCrud.getEmployeBy(login, mdp);
                 if(employe!=null){
+                    loginView.getLoader().setVisible(false);
                     MainClass.generalController.toNextView();
                 }else{
+                    loginView.getLoader().setVisible(false);
                     showErrorMessage();
                 }
             }
