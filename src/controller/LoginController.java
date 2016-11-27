@@ -42,7 +42,7 @@ public class LoginController {
     }
     
     private void initView(){
-        loginView.getLoader().setVisible(false);
+        loginView.getLoaderPanel().setVisible(false);
         hideErrorMessage();
         reset();
     }
@@ -56,7 +56,7 @@ public class LoginController {
             @Override
             public void focusGained(FocusEvent e) {
                 if(loginView.getLoginTextField().getText().equals("Login")){
-                    loginView.getLoginTextField().setText("");
+                    loginView.getLoginTextField().setCaretPosition(0);
                 }
             }
 
@@ -72,6 +72,9 @@ public class LoginController {
 
             @Override
             public void keyPressed(KeyEvent e) {
+                if(loginView.getLoginTextField().getText().equals("Login")){
+                    loginView.getLoginTextField().setText("");
+                }
                 hideErrorMessage();
                 ((JPanel)loginView.getLoginTextField().getParent()).setBorder(BorderFactory.createEmptyBorder());
             }
@@ -85,8 +88,7 @@ public class LoginController {
             public void focusGained(FocusEvent e) {
                 String mdp=String.valueOf(loginView.getMdpTextField().getPassword());
                 if(mdp.equals("Mot de passe")){
-                    loginView.getMdpTextField().setEchoChar('\u25CF');
-                    loginView.getMdpTextField().setText("");
+                    loginView.getMdpTextField().setCaretPosition(0);
                 }
             }
 
@@ -104,6 +106,11 @@ public class LoginController {
 
             @Override
             public void keyPressed(KeyEvent e) {
+                String mdp=String.valueOf(loginView.getMdpTextField().getPassword());
+                if(mdp.equals("Mot de passe")){
+                    loginView.getMdpTextField().setEchoChar('\u25CF');
+                    loginView.getMdpTextField().setText("");
+                }
                 hideErrorMessage();
                 ((JPanel)loginView.getMdpTextField().getParent()).setBorder(BorderFactory.createEmptyBorder());
             }
@@ -165,33 +172,33 @@ public class LoginController {
     }
     
     public void login(){
-        loginView.getLoader().setVisible(true);
+        loginView.getLoaderPanel().setVisible(true);
         String mdp=String.valueOf(loginView.getMdpTextField().getPassword());
         String login=loginView.getLoginTextField().getText();
         boolean mdpEmpty=false, loginEmpty=false;
         
         if(mdp.isEmpty() || mdp.equals("Mot de passe")){
-            loginView.getLoader().setVisible(false);
+            loginView.getLoaderPanel().setVisible(false);
             ((JPanel)loginView.getMdpTextField().getParent()).setBorder(BorderFactory.createLineBorder(Color.red));
             mdpEmpty=true;
         }
         if(login.isEmpty() || login.equals("Login")){
-            loginView.getLoader().setVisible(false);
+            loginView.getLoaderPanel().setVisible(false);
             ((JPanel)loginView.getLoginTextField().getParent()).setBorder(BorderFactory.createLineBorder(Color.red));
             loginEmpty=true;
         }
         if(!mdpEmpty && !loginEmpty){
             Adherent adherent=adherentsCrud.getAdherentBy(login, mdp);
             if(adherent!=null){
-                loginView.getLoader().setVisible(false);
+                loginView.getLoaderPanel().setVisible(false);
                 MainClass.generalController.toNextView();
             }else{
                 Employe employe=employesCrud.getEmployeBy(login, mdp);
                 if(employe!=null){
-                    loginView.getLoader().setVisible(false);
+                    loginView.getLoaderPanel().setVisible(false);
                     MainClass.generalController.toNextView();
                 }else{
-                    loginView.getLoader().setVisible(false);
+                    loginView.getLoaderPanel().setVisible(false);
                     showErrorMessage();
                 }
             }

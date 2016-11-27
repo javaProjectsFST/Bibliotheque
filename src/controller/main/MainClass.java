@@ -29,9 +29,9 @@ public class MainClass extends JPanel{
 //            String mdp="";
             
             //Connection to hosted database
-            String url = "jdbc:mysql://sql8.freemysqlhosting.net:3306/sql8145007";
-            String user = "sql8145007";
-            String mdp="xysgX4HhML";
+            String url = "jdbc:mysql://seif.sytes.net:3306/Bibliotheque";
+            String user = "root";
+            String mdp="root";
             
             connexion = DriverManager.getConnection(url, user, mdp);
             return connexion;

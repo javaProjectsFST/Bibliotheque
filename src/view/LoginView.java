@@ -3,6 +3,7 @@ package view;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
@@ -44,6 +45,10 @@ public class LoginView extends javax.swing.JPanel {
         return loader;
     }
     
+    public JPanel getLoaderPanel(){
+        return loaderPanel;
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -53,7 +58,7 @@ public class LoginView extends javax.swing.JPanel {
         jPanel10 = new javax.swing.JPanel();
         loginTitle = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        jPanel13 = new javax.swing.JPanel();
+        loaderPanel = new javax.swing.JPanel();
         loader = new javax.swing.JLabel();
         jPanel12 = new javax.swing.JPanel();
         existeLabel = new javax.swing.JLabel();
@@ -104,18 +109,18 @@ public class LoginView extends javax.swing.JPanel {
         loader.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         loader.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/loader.gif"))); // NOI18N
 
-        javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
-        jPanel13.setLayout(jPanel13Layout);
-        jPanel13Layout.setHorizontalGroup(
-            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout loaderPanelLayout = new javax.swing.GroupLayout(loaderPanel);
+        loaderPanel.setLayout(loaderPanelLayout);
+        loaderPanelLayout.setHorizontalGroup(
+            loaderPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(loader, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
         );
-        jPanel13Layout.setVerticalGroup(
-            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        loaderPanelLayout.setVerticalGroup(
+            loaderPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(loader, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
         );
 
-        jPanel1.add(jPanel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 0, 140, 60));
+        jPanel1.add(loaderPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 0, 140, 60));
 
         jPanel12.setPreferredSize(new java.awt.Dimension(500, 40));
 
@@ -272,7 +277,6 @@ public class LoginView extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel12;
-    private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
@@ -282,6 +286,7 @@ public class LoginView extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JLabel loader;
+    private javax.swing.JPanel loaderPanel;
     private javax.swing.JTextField loginTextField;
     private javax.swing.JLabel loginTitle;
     private javax.swing.JPasswordField mdpTextField;

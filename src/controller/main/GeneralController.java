@@ -23,7 +23,6 @@ public class GeneralController{
         this.dashboardController=new DashboardController(connexion);
         
         this.mainFrame=new MainFrame(loginController.getLoginView(), dashboardController.getDashboardView());
-        loginController.getLoginView().requestFocusInWindow();
         loginController.getLoginView().getRootPane().setDefaultButton(loginController.getLoginView().getConnectButton());
     }
     
