@@ -61,7 +61,7 @@ public class EmployesCRUD {
     public Employe getEmployeByEmail(String email){
         try {
             PreparedStatement prepare=connexion.prepareStatement("SELECT * FROM employe WHERE Email =?");
-            prepare.setString(1,email);
+            prepare.setString(1,email.toLowerCase());
             ResultSet resultat = prepare.executeQuery();
             if(resultat.next()){
                 resultat.beforeFirst();

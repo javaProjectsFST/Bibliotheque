@@ -19,7 +19,7 @@ public class Adherent {
         this.Login = Login;
         this.Prenom = Prenom;
         this.Nom = Nom;
-        this.Email = Email;
+        this.Email = Email.toLowerCase();
         this.NumbEmprent=0;
         this.NumbReservation=0;
     }
@@ -61,7 +61,7 @@ public class Adherent {
     }
 
     public void setEmail(String Email) {
-        this.Email = Email;
+        this.Email = Email.toLowerCase();
     }
 
     public int getNumbEmprent() {

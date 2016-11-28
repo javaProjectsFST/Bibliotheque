@@ -18,7 +18,7 @@ public class Employe {
         this.Login = Login;
         this.Prenom = Prenom;
         this.Nom = Nom;
-        this.Email=Email;
+        this.Email=Email.toLowerCase();
         this.Ger = Ger;
     }
 
@@ -27,7 +27,7 @@ public class Employe {
     }
 
     public void setEmail(String Email) {
-        this.Email = Email;
+        this.Email = Email.toLowerCase();
     }
 
     public String getMdp() {

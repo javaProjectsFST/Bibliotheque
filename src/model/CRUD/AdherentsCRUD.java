@@ -21,7 +21,7 @@ public class AdherentsCRUD {
             PreparedStatement prepare=connexion.prepareStatement("INSERT INTO adherent (MdpAdherent,Login,Prenom,Nom,Email) VALUES (?,?,?,?,?)");     
             prepare.setString(1, adherent.getLogin());
             prepare.setString(2, adherent.getMdp());
-            prepare.setString(3,adherent.getPrenom() );
+            prepare.setString(3, adherent.getPrenom() );
             prepare.setString(4, adherent.getNom());
             prepare.setString(4, adherent.getEmail());
             
@@ -64,7 +64,7 @@ public class AdherentsCRUD {
     public Adherent getAdherentByEmail(String email){
         try {
             PreparedStatement prepare=connexion.prepareStatement("SELECT * FROM adherent WHERE Email=?");
-            prepare.setString(1,email);
+            prepare.setString(1,email.toLowerCase());
             ResultSet resultat = prepare.executeQuery();
             if(resultat.next()){
                 resultat.beforeFirst(); //reinitialisation du pointeur sur l'element avant premier
