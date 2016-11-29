@@ -21,6 +21,14 @@ public class Livre {
         this.DateEdition = DateEdition;
     }
     
+    public Livre(String Titre, String Auteur, String Editeur, Date DateEdition) {
+        this.LivreId = 0;
+        this.Titre = Titre;
+        this.Auteur = Auteur;
+        this.Editeur = Editeur;
+        this.DateEdition = DateEdition;
+    }
+    
     public int getId() {
         return LivreId;
     }

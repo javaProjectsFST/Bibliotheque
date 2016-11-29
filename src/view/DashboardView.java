@@ -2,7 +2,6 @@
 package view;
 
 import javax.swing.JPanel;
-import view.LivresView;
 
 public class DashboardView extends JPanel {
 
@@ -44,7 +43,7 @@ public class DashboardView extends JPanel {
         setPreferredSize(new java.awt.Dimension(1800, 680));
 
         jTabbedPane2.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
-        jTabbedPane2.addTab("tab1", livresView);
+        jTabbedPane2.addTab("Livres", livresView);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 

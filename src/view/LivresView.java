@@ -35,6 +35,12 @@ public class LivresView extends javax.swing.JPanel {
             {
                 Component c = super.prepareRenderer(renderer, row, column);
 
+                if(column==0){
+                    this.getColumn("LivreId").setPreferredWidth(0);
+                    this.getColumn("LivreId").setMaxWidth(0);
+                    this.getColumn("LivreId").setMinWidth(0);
+                }
+
                 Object dateEmp=this.getModel().getValueAt(row, 5);
                 Object dateRes=this.getModel().getValueAt(row, 7);
                 if(!isRowSelected(row)){
@@ -131,7 +137,9 @@ public class LivresView extends javax.swing.JPanel {
         livreTable.setRowHeight(30);
         livreTableScrollPane.setViewportView(livreTable);
         if (livreTable.getColumnModel().getColumnCount() > 0) {
-            livreTable.getColumnModel().getColumn(0).setResizable(false);
+            livreTable.getColumnModel().getColumn(0).setMinWidth(0);
+            livreTable.getColumnModel().getColumn(0).setPreferredWidth(0);
+            livreTable.getColumnModel().getColumn(0).setMaxWidth(0);
             livreTable.getColumnModel().getColumn(1).setResizable(false);
             livreTable.getColumnModel().getColumn(2).setResizable(false);
             livreTable.getColumnModel().getColumn(3).setResizable(false);

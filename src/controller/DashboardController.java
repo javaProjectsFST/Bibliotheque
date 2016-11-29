@@ -48,6 +48,7 @@ public class DashboardController {
             @Override
             public void mousePressed(MouseEvent ev){
                 dashboardView.getAddBookPanel().setBackground(Color.decode("#939292"));
+                new AjouterLivreController(connexion);
             }
             
             @Override
