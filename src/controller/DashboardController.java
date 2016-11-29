@@ -33,7 +33,16 @@ public class DashboardController {
     }
     
     private void initView(){
-        
+        switch(connectedIndex){
+            case 1:
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+            default:
+                break;
+        }
     }
     
     private void initController(){
@@ -45,7 +54,7 @@ public class DashboardController {
             
             @Override
             public void mouseExited(MouseEvent ev){
-                dashboardView.getAddBookPanel().setBackground(Color.decode("#CCCCCC"));
+                dashboardView.getAddBookPanel().setBackground(Color.decode("#666666"));
             }
             
             @Override
@@ -59,6 +68,8 @@ public class DashboardController {
                     case 1:
                         break;
                     case 2:
+                        break;
+                    default:
                         break;
                 }
             }
