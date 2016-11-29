@@ -48,7 +48,17 @@ public class DashboardController {
             @Override
             public void mousePressed(MouseEvent ev){
                 dashboardView.getAddBookPanel().setBackground(Color.decode("#939292"));
-                new AjouterLivreController(connexion);
+                int index=dashboardView.getTabbedPane().getSelectedIndex();
+                switch (index){
+                    case 0:
+                        new AjouterLivreController(connexion, dashboardView.getLivresView());
+                        break;
+                    case 1:
+                        break;
+                    case 2:
+                        break;
+                }
+                
             }
             
             @Override

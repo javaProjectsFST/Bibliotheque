@@ -1,11 +1,12 @@
 package model.CRUD;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import model.entities.Livre;
+import net.proteanit.sql.DbUtils;
+import view.LivresView;
 
 public class LivresCRUD {
     private Connection connexion;
@@ -18,7 +19,7 @@ public class LivresCRUD {
         reservationCrud=new ReservationsCRUD(connexion);
     }
     
-    public boolean addLivre(Livre livre){
+    public boolean addLivre(Livre livre, LivresView livreView){
         try {
             PreparedStatement prepare=connexion.prepareStatement("INSERT INTO livre (Titre,Auteur,Editeur,DateEdition) VALUES (?,?,?,?)");
             prepare.setString(1, livre.getTitre());
@@ -28,12 +29,18 @@ public class LivresCRUD {
             
             prepare.executeUpdate();
             prepare.close();
-            return true;
-            
+            updateView(livreView);
+            return true; 
         } catch (SQLException ex) {
             return false;
         }
-        
+    }
+    
+    public void updateView(LivresView livreView){
+        ResultSet rs=getAllLivres(true);
+        if(rs!=null){
+            livreView.getLivresTable().setModel(DbUtils.resultSetToTableModel(rs));
+        }
     }
     
     public Livre getLivreBy(int livreId){

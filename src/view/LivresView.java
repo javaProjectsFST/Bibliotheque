@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.sql.ResultSet;
 import javax.swing.JTable;
 import javax.swing.table.TableCellRenderer;
 
@@ -22,6 +23,10 @@ public class LivresView extends javax.swing.JPanel {
     
     public JTable getLivresTable(){
         return livreTable;
+    }
+    
+    public void updateLivreTable(ResultSet rs){
+        
     }
 
     @SuppressWarnings("unchecked")

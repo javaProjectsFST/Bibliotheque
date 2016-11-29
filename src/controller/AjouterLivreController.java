@@ -1,21 +1,26 @@
 
 package controller;
 
+import java.awt.Window;
 import java.sql.Connection;
 import java.sql.Date;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 import model.CRUD.LivresCRUD;
 import model.entities.Livre;
 import view.AddLivreView;
+import view.LivresView;
 
 public class AjouterLivreController {
 
     private final AddLivreView addLivreView;
     private final LivresCRUD livreCrud;
+    private final LivresView livreView;
     
-    public AjouterLivreController(Connection connexion){
+    public AjouterLivreController(Connection connexion, LivresView livreView){
         this.addLivreView=new AddLivreView();
         this.livreCrud=new LivresCRUD(connexion);
+        this.livreView=livreView;
         
         initView();
         initController();
@@ -24,10 +29,19 @@ public class AjouterLivreController {
     
     public void initView(){
         addLivreView.getDateEditionDatePicker().setFormats(new String[] {"yyyy/MM/dd"});
+        addLivreView.getDateEditionDatePicker().getEditor().setEditable(false);
     }
     
     public void initController(){
         addLivreView.getAjoutButton().addActionListener(e -> ajouterLivre());
+        addLivreView.getResetButton().addActionListener(e -> reset());
+    }
+    
+    private void reset(){
+        addLivreView.getTitreTextField().setText("");
+        addLivreView.getAuteurTextField().setText("");
+        addLivreView.getEditeurTextField().setText("");
+        addLivreView.getDateEditionDatePicker().setDate(null);
     }
     
     private boolean isValidForm(String titre, String auteur, String editeur, Date date){
@@ -43,7 +57,8 @@ public class AjouterLivreController {
         Date date=new Date(addLivreView.getDateEditionDatePicker().getDate().getTime());
         if(isValidForm(titre, auteur, editeur, date)){
             Livre livre=new Livre(titre, auteur, editeur, date);
-            livreCrud.addLivre(livre);
+            livreCrud.addLivre(livre, livreView);
+            ((Window)SwingUtilities.getWindowAncestor(this.addLivreView)).dispose();
         }
     }
     
