@@ -7,19 +7,17 @@ public class Employe {
     private String Prenom;
     private String Nom;
     private String Email;
-    private boolean Ger;
     
     public Employe(){
         
     }
 
-    public Employe(String Mdp, String Login, String Prenom, String Nom, String Email, boolean Ger) {
+    public Employe(String Mdp, String Login, String Prenom, String Nom, String Email) {
         this.Mdp = Mdp;
         this.Login = Login;
         this.Prenom = Prenom;
         this.Nom = Nom;
         this.Email=Email.toLowerCase();
-        this.Ger = Ger;
     }
 
     public String getEmail() {
@@ -60,13 +58,5 @@ public class Employe {
 
     public void setNom(String Nom) {
         this.Nom = Nom;
-    }
-
-    public boolean isGer() {
-        return Ger;
-    }
-
-    public void setGer(boolean Ger) {
-        this.Ger = Ger;
     }
 }

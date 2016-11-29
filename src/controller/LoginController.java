@@ -188,18 +188,23 @@ public class LoginController {
             loginEmpty=true;
         }
         if(!mdpEmpty && !loginEmpty){
-            Adherent adherent=adherentsCrud.getAdherentBy(login, mdp);
-            if(adherent!=null){
+            if(login.equals("Admin") && mdp.equals("Admin")){
                 loginView.getLoaderPanel().setVisible(false);
-                MainClass.generalController.toNextView();
+                MainClass.generalController.toNextView(1);
             }else{
-                Employe employe=employesCrud.getEmployeBy(login, mdp);
-                if(employe!=null){
+                Adherent adherent=adherentsCrud.getAdherentBy(login, mdp);
+                if(adherent!=null){
                     loginView.getLoaderPanel().setVisible(false);
-                    MainClass.generalController.toNextView();
+                    MainClass.generalController.toNextView(2);
                 }else{
-                    loginView.getLoaderPanel().setVisible(false);
-                    showErrorMessage();
+                    Employe employe=employesCrud.getEmployeBy(login, mdp);
+                    if(employe!=null){
+                        loginView.getLoaderPanel().setVisible(false);
+                        MainClass.generalController.toNextView(3);
+                    }else{
+                        loginView.getLoaderPanel().setVisible(false);
+                        showErrorMessage();
+                    }
                 }
             }
         }

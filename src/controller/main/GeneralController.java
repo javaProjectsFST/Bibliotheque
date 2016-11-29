@@ -9,10 +9,11 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 public class GeneralController{
-    private Connection connexion;
-    private MainFrame mainFrame;
-    private LoginController loginController;
+    private final Connection connexion;
+    private final MainFrame mainFrame;
+    private final LoginController loginController;
     private DashboardController dashboardController;
+    private int connectedIndex;
     
     public GeneralController(Connection connexion){
         try{
@@ -20,14 +21,17 @@ public class GeneralController{
         }catch(ClassNotFoundException | IllegalAccessException | InstantiationException | UnsupportedLookAndFeelException e){}
         this.connexion=connexion;
         this.loginController=new LoginController(connexion);
-        this.dashboardController=new DashboardController(connexion);
         
-        this.mainFrame=new MainFrame(loginController.getLoginView(), dashboardController.getDashboardView());
+        this.mainFrame=new MainFrame(loginController.getLoginView());
         loginController.getLoginView().getRootPane().setDefaultButton(loginController.getLoginView().getConnectButton());
     }
     
-    public void toNextView(){
-       mainFrame.getCardLayout().next(mainFrame.getContainer());
+    public void toNextView(int connectedIndex){
+        connectedIndex=connectedIndex;
+        dashboardController=new DashboardController(connexion, connectedIndex);
+        mainFrame.addDashboardView(dashboardController.getDashboardView());
+        mainFrame.getCardLayout().next(mainFrame.getContainer());
+        System.out.println(connectedIndex);
     }
     
 //    JFrame frame=new JFrame("Bibliothéque");

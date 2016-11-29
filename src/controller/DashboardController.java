@@ -1,4 +1,3 @@
-
 package controller;
 
 import view.DashboardView;
@@ -13,10 +12,14 @@ public class DashboardController {
     private final LivresController livresController;
     private final AdherentsController adherentsController;
     private final EmployesController employesController;
-
-    public DashboardController(Connection connexion) {
+    private final int connectedIndex;
+    
+    
+    public DashboardController(Connection connexion, int connectedIndex) {
         this.dashboardView = new DashboardView();
         this.connexion = connexion;
+        this.connectedIndex=connectedIndex;
+        
         this.livresController=new LivresController(dashboardView.getLivresView(), connexion);
         this.adherentsController = new AdherentsController(this.dashboardView.getAdherentsView(), connexion);
         this.employesController=new EmployesController(this.dashboardView.getEmployesView(), connexion);
@@ -58,7 +61,6 @@ public class DashboardController {
                     case 2:
                         break;
                 }
-                
             }
             
             @Override

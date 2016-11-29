@@ -10,12 +10,11 @@ public class MainFrame extends JFrame{
     private CardLayout cardLayout;
     private JPanel container;
     
-    public MainFrame(LoginView loginView, DashboardView dashboardView) {
+    public MainFrame(LoginView loginView) {
         cardLayout=new CardLayout();
         container=new JPanel(cardLayout);
         
         container.add(loginView);
-        container.add(dashboardView);
         
         this.setContentPane(container);
         this.setPreferredSize(new Dimension(1800,700));
@@ -28,6 +27,10 @@ public class MainFrame extends JFrame{
         this.setContentPane(container);
         
         this.setVisible(true);
+    }
+    
+    public void addDashboardView(DashboardView dashboardView){
+        this.container.add(dashboardView);
     }
     
     public CardLayout getCardLayout(){
