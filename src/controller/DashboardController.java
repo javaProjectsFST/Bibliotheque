@@ -45,38 +45,19 @@ public class DashboardController {
         }
     }
     
+    private void addBook(){
+        new AjouterLivreController(connexion, dashboardView.getLivresView());
+    }
+    
     private void initController(){
-        dashboardView.getAddBookPanel().addMouseListener(new MouseAdapter(){
+        dashboardView.getAddBookButton().addActionListener(e->addBook());
+        dashboardView.getAddBookButton().addMouseListener(new MouseAdapter(){
             @Override
             public void mouseEntered(MouseEvent ev){
-                dashboardView.getAddBookPanel().setBackground(Color.decode("#b3b2b2"));
             }
             
             @Override
             public void mouseExited(MouseEvent ev){
-                dashboardView.getAddBookPanel().setBackground(Color.decode("#666666"));
-            }
-            
-            @Override
-            public void mousePressed(MouseEvent ev){
-                dashboardView.getAddBookPanel().setBackground(Color.decode("#939292"));
-                int index=dashboardView.getTabbedPane().getSelectedIndex();
-                switch (index){
-                    case 0:
-                        new AjouterLivreController(connexion, dashboardView.getLivresView());
-                        break;
-                    case 1:
-                        break;
-                    case 2:
-                        break;
-                    default:
-                        break;
-                }
-            }
-            
-            @Override
-            public void mouseReleased(MouseEvent ev){
-                dashboardView.getAddBookPanel().setBackground(Color.decode("#b3b2b2"));
             }
         });
     }
