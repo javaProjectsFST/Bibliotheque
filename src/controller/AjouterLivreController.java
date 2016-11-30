@@ -19,7 +19,7 @@ public class AjouterLivreController {
     
     public AjouterLivreController(Connection connexion, LivresView livreView){
         this.addLivreView=new AddLivreView();
-        this.livreCrud=new LivresCRUD(connexion);
+        this.livreCrud=new LivresCRUD(connexion, livreView);
         this.livreView=livreView;
         
         initView();
@@ -57,7 +57,7 @@ public class AjouterLivreController {
         Date date=new Date(addLivreView.getDateEditionDatePicker().getDate().getTime());
         if(isValidForm(titre, auteur, editeur, date)){
             Livre livre=new Livre(titre, auteur, editeur, date);
-            livreCrud.addLivre(livre, livreView);
+            livreCrud.addLivre(livre);
             ((Window)SwingUtilities.getWindowAncestor(this.addLivreView)).dispose();
         }
     }

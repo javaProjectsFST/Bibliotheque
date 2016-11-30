@@ -8,6 +8,7 @@ import model.CRUD.LivresCRUD;
 import model.CRUD.ReservationsCRUD;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import javax.swing.JTable;
 import net.proteanit.sql.DbUtils;
 
 public class LivresController {
@@ -23,7 +24,7 @@ public class LivresController {
         this.livreView = livreView;
         this.connexion = connexion;
         this.sortColumn = 1;
-        this.livresCrud = new LivresCRUD(connexion);
+        this.livresCrud = new LivresCRUD(connexion, this.livreView);
         this.adherentsCrud = new AdherentsCRUD(connexion);
         this.emprentsCrud = new EmpruntsCRUD(connexion);
         this.reservationsCRUD=new ReservationsCRUD(connexion);
@@ -41,6 +42,21 @@ public class LivresController {
     
     private void initController(){
         
+    }
+    
+    public LivresView getLivreView(){
+        return livreView;
+    }
+    
+    public void addBook(){
+        new AjouterLivreController(connexion, livreView);
+    }
+    
+    public void deleteBook(){
+        JTable table=livreView.getLivresTable();
+        int row=table.getSelectedRow();
+        livresCrud.deleteLivreBy((int)table.getValueAt(row, 0));
+        System.out.println("deleted");
     }
     
     private void sortBy(){

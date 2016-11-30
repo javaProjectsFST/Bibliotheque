@@ -12,14 +12,16 @@ public class LivresCRUD {
     private Connection connexion;
     private EmpruntsCRUD emprentCrud;
     private ReservationsCRUD reservationCrud;
+    private final LivresView livreView;
 
-    public LivresCRUD(Connection connexion) {
+    public LivresCRUD(Connection connexion, LivresView livreView) {
         this.connexion = connexion;
+        this.livreView=livreView;
         emprentCrud=new EmpruntsCRUD(connexion);
         reservationCrud=new ReservationsCRUD(connexion);
     }
     
-    public boolean addLivre(Livre livre, LivresView livreView){
+    public boolean addLivre(Livre livre){
         try {
             PreparedStatement prepare=connexion.prepareStatement("INSERT INTO livre (Titre,Auteur,Editeur,DateEdition) VALUES (?,?,?,?)");
             prepare.setString(1, livre.getTitre());
@@ -29,14 +31,14 @@ public class LivresCRUD {
             
             prepare.executeUpdate();
             prepare.close();
-            updateView(livreView);
+            updateView();
             return true; 
         } catch (SQLException ex) {
             return false;
         }
     }
     
-    public void updateView(LivresView livreView){
+    public void updateView(){
         ResultSet rs=getAllLivres(true);
         if(rs!=null){
             livreView.updateLivreTable(rs);
@@ -75,6 +77,7 @@ public class LivresCRUD {
             PreparedStatement prepare=connexion.prepareStatement("DELETE FROM livre WHERE LivreId=?");
             prepare.setInt(1,livreId);
             prepare.executeUpdate();
+            updateView();
             prepare.close();
             return true;
         }catch(SQLException ex) {

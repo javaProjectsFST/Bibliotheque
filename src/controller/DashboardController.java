@@ -1,10 +1,11 @@
 package controller;
 
 import view.DashboardView;
-import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.Connection;
+import javax.swing.JTable;
+import model.CRUD.LivresCRUD;
 
 public class DashboardController {
     private final DashboardView dashboardView;
@@ -12,6 +13,7 @@ public class DashboardController {
     private final LivresController livresController;
     private final AdherentsController adherentsController;
     private final EmployesController employesController;
+    public final LivresCRUD livresCrud;
     private final int connectedIndex;
     
     
@@ -24,6 +26,7 @@ public class DashboardController {
         this.adherentsController = new AdherentsController(this.dashboardView.getAdherentsView(), connexion);
         this.employesController=new EmployesController(this.dashboardView.getEmployesView(), connexion);
         
+        this.livresCrud=new LivresCRUD(connexion, this.livresController.getLivreView());
         initView();
         initController();
     }
@@ -45,12 +48,8 @@ public class DashboardController {
         }
     }
     
-    private void addBook(){
-        new AjouterLivreController(connexion, dashboardView.getLivresView());
-    }
-    
     private void initController(){
-        dashboardView.getAddBookButton().addActionListener(e->addBook());
+        dashboardView.getAddBookButton().addActionListener(e->livresController.addBook());
         dashboardView.getAddBookButton().addMouseListener(new MouseAdapter(){
             @Override
             public void mouseEntered(MouseEvent ev){
@@ -60,5 +59,6 @@ public class DashboardController {
             public void mouseExited(MouseEvent ev){
             }
         });
+        dashboardView.getDeleteBookButton().addActionListener(e->livresController.deleteBook());
     }
 }

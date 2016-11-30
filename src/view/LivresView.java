@@ -45,6 +45,22 @@ public class LivresView extends javax.swing.JPanel {
                     this.getColumn("LivreId").setPreferredWidth(0);
                     this.getColumn("LivreId").setMaxWidth(0);
                     this.getColumn("LivreId").setMinWidth(0);
+
+                    this.getColumn("DateEmprunt").setPreferredWidth(0);
+                    this.getColumn("DateEmprunt").setMaxWidth(0);
+                    this.getColumn("DateEmprunt").setMinWidth(0);
+
+                    this.getColumn("DateLimiteEmprunt").setPreferredWidth(0);
+                    this.getColumn("DateLimiteEmprunt").setMaxWidth(0);
+                    this.getColumn("DateLimiteEmprunt").setMinWidth(0);
+
+                    this.getColumn("DateReservation").setPreferredWidth(0);
+                    this.getColumn("DateReservation").setMaxWidth(0);
+                    this.getColumn("DateReservation").setMinWidth(0);
+
+                    this.getColumn("DateLimiteReservation").setPreferredWidth(0);
+                    this.getColumn("DateLimiteReservation").setMaxWidth(0);
+                    this.getColumn("DateLimiteReservation").setMinWidth(0);
                 }
 
                 Object dateEmp=this.getModel().getValueAt(row, 5);
