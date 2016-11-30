@@ -47,6 +47,7 @@ public class DashboardView extends JPanel {
         setName(""); // NOI18N
         setPreferredSize(new java.awt.Dimension(1800, 680));
 
+        tabbedPane.setFocusable(false);
         tabbedPane.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         tabbedPane.addTab("Livres", livresView);
 

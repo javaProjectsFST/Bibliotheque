@@ -66,6 +66,14 @@ public class LoginController {
                     loginView.getLoginTextField().setText("Login");
             }
         });
+        loginView.getLoginTextField().addMouseListener(new MouseAdapter(){
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseReleased(e);
+                if(loginView.getLoginTextField().getText().equals("Login"))
+                    loginView.getLoginTextField().setCaretPosition(0);
+            }
+        });
         loginView.getLoginTextField().addKeyListener(new KeyListener(){
             @Override
             public void keyTyped(KeyEvent e) {}
@@ -98,6 +106,14 @@ public class LoginController {
                     loginView.getMdpTextField().setEchoChar((char)0);
                     loginView.getMdpTextField().setText("Mot de passe");
                 }
+            }
+        });
+        loginView.getMdpTextField().addMouseListener(new MouseAdapter(){
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseReleased(e);
+                if(loginView.getMdpTextField().getText().equals("Mot de passe"))
+                    loginView.getMdpTextField().setCaretPosition(0);
             }
         });
         loginView.getMdpTextField().addKeyListener(new KeyListener(){

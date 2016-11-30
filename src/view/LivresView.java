@@ -8,6 +8,7 @@ import java.awt.Font;
 import java.sql.ResultSet;
 import javax.swing.JTable;
 import javax.swing.table.TableCellRenderer;
+import net.proteanit.sql.DbUtils;
 
 public class LivresView extends javax.swing.JPanel {
     
@@ -26,7 +27,7 @@ public class LivresView extends javax.swing.JPanel {
     }
     
     public void updateLivreTable(ResultSet rs){
-        
+        livreTable.setModel(DbUtils.resultSetToTableModel(rs));
     }
 
     @SuppressWarnings("unchecked")

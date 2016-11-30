@@ -39,7 +39,7 @@ public class LivresCRUD {
     public void updateView(LivresView livreView){
         ResultSet rs=getAllLivres(true);
         if(rs!=null){
-            livreView.getLivresTable().setModel(DbUtils.resultSetToTableModel(rs));
+            livreView.updateLivreTable(rs);
         }
     }
     
