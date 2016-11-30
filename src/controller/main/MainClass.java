@@ -24,14 +24,14 @@ public class MainClass extends JPanel{
         try{
             Class.forName("com.mysql.jdbc.Driver");
             //Connection to localhost:3306
-            String url = "jdbc:mysql://localhost:3306/bibliotheque";
-            String user = "root";
-            String mdp="";
+//            String url = "jdbc:mysql://localhost:3306/bibliotheque";
+//            String user = "root";
+//            String mdp="";
             
             //Connection to hosted database
-//            String url = "jdbc:mysql://seif.sytes.net:3306/Bibliotheque";
-//            String user = "root";
-//            String mdp="root";
+            String url = "jdbc:mysql://seif.sytes.net:3306/Bibliotheque";
+            String user = "root";
+            String mdp="root";
             
             connexion = DriverManager.getConnection(url, user, mdp);
             return connexion;

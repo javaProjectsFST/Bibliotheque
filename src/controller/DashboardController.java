@@ -1,10 +1,11 @@
 package controller;
 
+import java.awt.Dimension;
+import java.awt.event.ActionListener;
 import view.DashboardView;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.sql.Connection;
-import javax.swing.JTable;
+import javax.swing.JComponent;
+import javax.swing.JPopupMenu;
 import model.CRUD.LivresCRUD;
 
 public class DashboardController {
@@ -15,6 +16,7 @@ public class DashboardController {
     private final EmployesController employesController;
     public final LivresCRUD livresCrud;
     private final int connectedIndex;
+    private JPopupMenu m;
     
     
     public DashboardController(Connection connexion, int connectedIndex) {
@@ -36,6 +38,8 @@ public class DashboardController {
     }
     
     private void initView(){
+        m=new JPopupMenu("yoo");
+        m.setPreferredSize(new Dimension(50,200));
         switch(connectedIndex){
             case 1:
                 break;
@@ -50,15 +54,26 @@ public class DashboardController {
     
     private void initController(){
         dashboardView.getAddBookButton().addActionListener(e->livresController.addBook());
-        dashboardView.getAddBookButton().addMouseListener(new MouseAdapter(){
-            @Override
-            public void mouseEntered(MouseEvent ev){
-            }
-            
-            @Override
-            public void mouseExited(MouseEvent ev){
-            }
-        });
         dashboardView.getDeleteBookButton().addActionListener(e->livresController.deleteBook());
+        dashboardView.getReservationButton().addActionListener(e->showMenu(dashboardView.getReservationButton()));
+//        dashboardView.getReservationButton().addMouseListener(new MouseAdapter(){
+//            @Override
+//            public void mousePressed(MouseEvent ev){
+//                super.mousePressed(ev);
+//                showMenu(dashboardView.getReservationButton());
+//            }
+//            
+//            @Override
+//            public void mouseReleased(MouseEvent ev){
+//                super.mouseReleased(ev);
+//                showMenu(dashboardView.getReservationButton());
+//            }
+//        });
+    }
+    
+    private void showMenu(JComponent c){
+        int x=c.getX();
+        int y=c.getY();
+        m.show(c, x, y);
     }
 }
