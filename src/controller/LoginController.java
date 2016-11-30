@@ -68,7 +68,7 @@ public class LoginController {
         });
         loginView.getLoginTextField().addMouseListener(new MouseAdapter(){
             @Override
-            public void mouseClicked(MouseEvent e) {
+            public void mouseReleased(MouseEvent e) {
                 super.mouseReleased(e);
                 if(loginView.getLoginTextField().getText().equals("Login"))
                     loginView.getLoginTextField().setCaretPosition(0);
@@ -88,7 +88,12 @@ public class LoginController {
             }
 
             @Override
-            public void keyReleased(KeyEvent e) {}
+            public void keyReleased(KeyEvent e) {
+                if(loginView.getLoginTextField().getText().isEmpty()){
+                    loginView.getLoginTextField().setText("Login");
+                    loginView.getLoginTextField().setCaretPosition(0);
+                }
+            }
         });
         
         loginView.getMdpTextField().addFocusListener(new FocusListener(){
@@ -110,9 +115,9 @@ public class LoginController {
         });
         loginView.getMdpTextField().addMouseListener(new MouseAdapter(){
             @Override
-            public void mouseClicked(MouseEvent e) {
+            public void mouseReleased(MouseEvent e) {
                 super.mouseReleased(e);
-                if(loginView.getMdpTextField().getText().equals("Mot de passe"))
+                if(String.valueOf(loginView.getMdpTextField().getPassword()).equals("Mot de passe"))
                     loginView.getMdpTextField().setCaretPosition(0);
             }
         });
@@ -132,7 +137,13 @@ public class LoginController {
             }
 
             @Override
-            public void keyReleased(KeyEvent e) {}
+            public void keyReleased(KeyEvent e) {
+                if(loginView.getMdpTextField().getPassword().length==0){
+                    loginView.getMdpTextField().setEchoChar((char)0);
+                    loginView.getMdpTextField().setText("Mot de passe");
+                    loginView.getMdpTextField().setCaretPosition(0);
+                }
+            }
         
         });
         
