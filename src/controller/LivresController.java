@@ -1,6 +1,8 @@
 
 package controller;
 
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import view.LivresView;
 import model.CRUD.AdherentsCRUD;
 import model.CRUD.EmpruntsCRUD;
@@ -9,6 +11,7 @@ import model.CRUD.ReservationsCRUD;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import javax.swing.JTable;
+import model.entities.Emprunt;
 import net.proteanit.sql.DbUtils;
 
 public class LivresController {
@@ -17,7 +20,7 @@ public class LivresController {
     private final int sortColumn;
     private final LivresCRUD livresCrud;
     private final AdherentsCRUD adherentsCrud;
-    private final EmpruntsCRUD emprentsCrud;
+    private final EmpruntsCRUD empruntsCrud;
     private final ReservationsCRUD reservationsCRUD;
 
     public LivresController(LivresView livreView, Connection connexion) {
@@ -26,7 +29,7 @@ public class LivresController {
         this.sortColumn = 1;
         this.livresCrud = new LivresCRUD(connexion, this.livreView);
         this.adherentsCrud = new AdherentsCRUD(connexion);
-        this.emprentsCrud = new EmpruntsCRUD(connexion);
+        this.empruntsCrud = new EmpruntsCRUD(connexion);
         this.reservationsCRUD=new ReservationsCRUD(connexion);
         
         initView();
@@ -41,7 +44,20 @@ public class LivresController {
     }
     
     private void initController(){
-        
+        livreView.addMouseListener(new MouseAdapter(){
+            @Override
+            public void mousePressed(MouseEvent ev){
+                super.mousePressed(ev);
+                looseTableFocus();
+            }
+        });
+        livreView.getLivreTableScrollPane().addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent ev){
+                super.mousePressed(ev);
+                looseTableFocus();
+            }
+        });
     }
     
     public LivresView getLivreView(){
@@ -49,14 +65,32 @@ public class LivresController {
     }
     
     public void addBook(){
+        looseTableFocus();
         new AjouterLivreController(connexion, livreView);
+    }
+    
+    public void emprunterBook(){
     }
     
     public void deleteBook(){
         JTable table=livreView.getLivresTable();
-        int row=table.getSelectedRow();
-        livresCrud.deleteLivreBy((int)table.getValueAt(row, 0));
-        System.out.println("deleted");
+        if(table.getSelectedRowCount()==1){
+            int row=table.getSelectedRow();
+            livresCrud.deleteLivreBy((int)table.getValueAt(row, 0));
+        }else{
+            int[] rows=table.getSelectedRows();
+            for(int i=table.getSelectedRowCount()-1; i>=0; i--){
+                livresCrud.deleteLivreBy((int)table.getValueAt(rows[i], 0));
+            }
+        }
+    }
+    
+    public void reserveBook(){
+        
+    }
+    
+    public void looseTableFocus(){
+        livreView.looseTableFocus();
     }
     
     private void sortBy(){

@@ -34,6 +34,10 @@ public class GeneralController{
         System.out.println(connectedIndex);
     }
     
+    public MainFrame getMainFrame(){
+        return mainFrame;
+    }
+    
 //    JFrame frame=new JFrame("Bibliothéque");
         
 }

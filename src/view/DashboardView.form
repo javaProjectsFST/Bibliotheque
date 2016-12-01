@@ -123,19 +123,19 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="deleteBookButton" min="-2" pref="85" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jButton2" min="-2" pref="85" max="-2" attributes="0"/>
+                  <Component id="empruntButton" min="-2" pref="85" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="reservationButton" min="-2" pref="85" max="-2" attributes="0"/>
+                  <Component id="makeReservationButton" min="-2" pref="85" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Component id="jButton2" alignment="1" max="32767" attributes="0"/>
               <Component id="deleteBookButton" alignment="1" max="32767" attributes="0"/>
               <Component id="addBookButton" alignment="1" max="32767" attributes="0"/>
-              <Component id="reservationButton" alignment="0" max="32767" attributes="0"/>
+              <Component id="makeReservationButton" alignment="0" max="32767" attributes="0"/>
+              <Component id="empruntButton" alignment="0" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
       </Layout>
@@ -155,29 +155,32 @@
               <Image iconType="3" name="/resources/delete-book.png"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="Supprimer un livre"/>
+            <Property name="enabled" type="boolean" value="false"/>
             <Property name="focusable" type="boolean" value="false"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="jButton2">
-          <Properties>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/resources/update-book.png"/>
-            </Property>
-            <Property name="toolTipText" type="java.lang.String" value="Modifier un livre"/>
-            <Property name="focusable" type="boolean" value="false"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JButton" name="reservationButton">
+        <Component class="javax.swing.JButton" name="makeReservationButton">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/resources/reserve-book.png"/>
             </Property>
-            <Property name="toolTipText" type="java.lang.String" value="Menu Reservation"/>
+            <Property name="toolTipText" type="java.lang.String" value="Faire/Annuler une reservation."/>
+            <Property name="enabled" type="boolean" value="false"/>
             <Property name="focusable" type="boolean" value="false"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="reservationButtonActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="makeReservationButtonActionPerformed"/>
           </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="empruntButton">
+          <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/resources/emprunt-book.png"/>
+            </Property>
+            <Property name="toolTipText" type="java.lang.String" value="Faire/Annuler un emprunt"/>
+            <Property name="enabled" type="boolean" value="false"/>
+            <Property name="focusable" type="boolean" value="false"/>
+          </Properties>
         </Component>
       </SubComponents>
     </Container>

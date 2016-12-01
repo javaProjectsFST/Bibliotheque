@@ -1,7 +1,9 @@
 package controller;
 
 import java.awt.Dimension;
-import java.awt.event.ActionListener;
+import java.awt.Point;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import view.DashboardView;
 import java.sql.Connection;
 import javax.swing.JComponent;
@@ -39,7 +41,7 @@ public class DashboardController {
     
     private void initView(){
         m=new JPopupMenu("yoo");
-        m.setPreferredSize(new Dimension(50,200));
+        m.setPreferredSize(new Dimension(200,70));
         switch(connectedIndex){
             case 1:
                 break;
@@ -53,27 +55,80 @@ public class DashboardController {
     }
     
     private void initController(){
+        dashboardView.addMouseListener(new MouseAdapter(){
+            @Override
+            public void mousePressed(MouseEvent ev){
+                super.mousePressed(ev);
+                livresController.looseTableFocus();
+            }
+        });
+        dashboardView.getTabbedPane().addMouseListener(new MouseAdapter(){
+            @Override
+            public void mousePressed(MouseEvent ev){
+                super.mousePressed(ev);
+                livresController.looseTableFocus();
+            }
+        });
         dashboardView.getAddBookButton().addActionListener(e->livresController.addBook());
         dashboardView.getDeleteBookButton().addActionListener(e->livresController.deleteBook());
-        dashboardView.getReservationButton().addActionListener(e->showMenu(dashboardView.getReservationButton()));
-//        dashboardView.getReservationButton().addMouseListener(new MouseAdapter(){
-//            @Override
-//            public void mousePressed(MouseEvent ev){
-//                super.mousePressed(ev);
-//                showMenu(dashboardView.getReservationButton());
-//            }
-//            
-//            @Override
-//            public void mouseReleased(MouseEvent ev){
-//                super.mouseReleased(ev);
-//                showMenu(dashboardView.getReservationButton());
-//            }
-//        });
+        dashboardView.getLivresView().getLivresTable().getSelectionModel().addListSelectionListener(e -> selectionChanged());
+        dashboardView.getMakeReservationButton().addActionListener(e->livresController.reserveBook());
+        dashboardView.getMakeReservationButton().addActionListener(e->reservationClicked());
     }
     
+    private void reservationClicked(){
+        int row=dashboardView.getLivresView().getLivresTable().getSelectedRow();
+        if(!(dashboardView.getLivresView().getLivresTable().getValueAt(row, 6)==null) && !(dashboardView.getLivresView().getLivresTable().getValueAt(row, 6).equals(""))){
+            
+        }else{
+            
+        }
+    }
+    
+    private void empruntClicked(){
+        if(dashboardView.getLivresView().getLivresTable().getSelectedRowCount()==1){
+            int row=dashboardView.getLivresView().getLivresTable().getSelectedRow();
+            if(!(dashboardView.getLivresView().getLivresTable().getValueAt(row, 4)==null)){
+                //emprunté ici
+            }else{
+                //annuler l'emprunt ici
+            }
+        }else{
+            int[] rows=dashboardView.getLivresView().getLivresTable().getSelectedRows();
+            if(dashboardView.getLivresView().getLivresTable().getValueAt(rows[0], 4)==null){
+                return;
+            }else{
+                for(int i=rows.length-1; i>0; i--){
+                    if(dashboardView.getLivresView().getLivresTable().getValueAt(rows[i], 4)==null)
+                        return;
+                }
+                //Annuler l'emprunt ici
+            }
+        }
+    }
+    
+    private void selectionChanged(){
+        int row=dashboardView.getLivresView().getLivresTable().getSelectedRow();
+        if(row!=-1){
+            dashboardView.getDeleteBookButton().setEnabled(true);
+            dashboardView.getMakeReservationButton().setEnabled(true);
+            dashboardView.getEmpruntButton().setEnabled(true);
+        }else{
+            dashboardView.getDeleteBookButton().setEnabled(false);
+            dashboardView.getMakeReservationButton().setEnabled(false);
+            dashboardView.getEmpruntButton().setEnabled(false);
+        }
+    }
+    
+    private int i=0;
     private void showMenu(JComponent c){
-        int x=c.getX();
-        int y=c.getY();
-        m.show(c, x, y);
+        if(i==0){
+            Point p=c.getLocation();
+            m.show(c, p.x-313, p.y+c.getHeight()-2);
+            i=1;
+        }else{
+            m.setVisible(false);
+            i=0;
+        }
     }
 }

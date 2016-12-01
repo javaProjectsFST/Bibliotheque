@@ -36,8 +36,12 @@ public class DashboardView extends JPanel {
         return tabbedPane;
     }
     
-    public JButton getReservationButton(){
-        return reservationButton;
+    public JButton getMakeReservationButton(){
+        return makeReservationButton;
+    }
+    
+    public JButton getEmpruntButton(){
+        return empruntButton;
     }
     
     @SuppressWarnings("unchecked")
@@ -50,8 +54,8 @@ public class DashboardView extends JPanel {
         jPanel2 = new javax.swing.JPanel();
         addBookButton = new javax.swing.JButton();
         deleteBookButton = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        reservationButton = new javax.swing.JButton();
+        makeReservationButton = new javax.swing.JButton();
+        empruntButton = new javax.swing.JButton();
 
         setMaximumSize(new java.awt.Dimension(1800, 680));
         setMinimumSize(new java.awt.Dimension(1800, 680));
@@ -85,20 +89,23 @@ public class DashboardView extends JPanel {
 
         deleteBookButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/delete-book.png"))); // NOI18N
         deleteBookButton.setToolTipText("Supprimer un livre");
+        deleteBookButton.setEnabled(false);
         deleteBookButton.setFocusable(false);
 
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/update-book.png"))); // NOI18N
-        jButton2.setToolTipText("Modifier un livre");
-        jButton2.setFocusable(false);
-
-        reservationButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/reserve-book.png"))); // NOI18N
-        reservationButton.setToolTipText("Menu Reservation");
-        reservationButton.setFocusable(false);
-        reservationButton.addActionListener(new java.awt.event.ActionListener() {
+        makeReservationButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/reserve-book.png"))); // NOI18N
+        makeReservationButton.setToolTipText("Faire/Annuler une reservation.");
+        makeReservationButton.setEnabled(false);
+        makeReservationButton.setFocusable(false);
+        makeReservationButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                reservationButtonActionPerformed(evt);
+                makeReservationButtonActionPerformed(evt);
             }
         });
+
+        empruntButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/emprunt-book.png"))); // NOI18N
+        empruntButton.setToolTipText("Faire/Annuler un emprunt");
+        empruntButton.setEnabled(false);
+        empruntButton.setFocusable(false);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -110,17 +117,17 @@ public class DashboardView extends JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(deleteBookButton, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(empruntButton, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(reservationButton, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(makeReservationButton, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(deleteBookButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(addBookButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(reservationButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(makeReservationButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(empruntButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -148,19 +155,19 @@ public class DashboardView extends JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void reservationButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reservationButtonActionPerformed
+    private void makeReservationButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_makeReservationButtonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_reservationButtonActionPerformed
+    }//GEN-LAST:event_makeReservationButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addBookButton;
     private javax.swing.JButton deleteBookButton;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton empruntButton;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private view.LivresView livresView;
-    private javax.swing.JButton reservationButton;
+    private javax.swing.JButton makeReservationButton;
     private javax.swing.JTabbedPane tabbedPane;
     // End of variables declaration//GEN-END:variables
 

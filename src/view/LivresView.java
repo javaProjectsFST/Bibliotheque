@@ -6,6 +6,7 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.sql.ResultSet;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.TableCellRenderer;
 import net.proteanit.sql.DbUtils;
@@ -29,6 +30,14 @@ public class LivresView extends javax.swing.JPanel {
     public void updateLivreTable(ResultSet rs){
         livreTable.setModel(DbUtils.resultSetToTableModel(rs));
     }
+    
+    public void looseTableFocus(){
+        this.livreTable.getSelectionModel().clearSelection();
+    }
+    
+    public JScrollPane getLivreTableScrollPane(){
+        return livreTableScrollPane;
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -40,6 +49,9 @@ public class LivresView extends javax.swing.JPanel {
                 TableCellRenderer renderer, int row, int column)
             {
                 Component c = super.prepareRenderer(renderer, row, column);
+
+                if(column==0 && row==0)
+                this.getTableHeader().setReorderingAllowed(false);
 
                 if(column==0){
                     this.getColumn("LivreId").setPreferredWidth(0);
@@ -90,6 +102,7 @@ public class LivresView extends javax.swing.JPanel {
         setMinimumSize(new java.awt.Dimension(0, 0));
         setPreferredSize(new java.awt.Dimension(1600, 600));
 
+        livreTable.setAutoCreateRowSorter(true);
         livreTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null, null},
