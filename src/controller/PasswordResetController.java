@@ -24,7 +24,7 @@ public class PasswordResetController {
     
     public PasswordResetController(Connection connexion){
         this.passwordResetView=new PasswordResetView();
-        this.adherentsCrud=new AdherentsCRUD(connexion);
+        this.adherentsCrud=new AdherentsCRUD(connexion, null);
         this.employesCrud=new EmployesCRUD(connexion);
         initView();
         initController();

@@ -11,16 +11,14 @@ import model.entities.Livre;
 import view.AddLivreView;
 import view.LivresView;
 
-public class AjouterLivreController {
+public class AddLivreController {
 
     private final AddLivreView addLivreView;
     private final LivresCRUD livreCrud;
-    private final LivresView livreView;
     
-    public AjouterLivreController(Connection connexion, LivresView livreView){
+    public AddLivreController(Connection connexion, LivresView livreView){
         this.addLivreView=new AddLivreView();
         this.livreCrud=new LivresCRUD(connexion, livreView);
-        this.livreView=livreView;
         
         initView();
         initController();

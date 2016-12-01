@@ -8,6 +8,8 @@ import view.DashboardView;
 import java.sql.Connection;
 import javax.swing.JComponent;
 import javax.swing.JPopupMenu;
+import model.CRUD.AdherentsCRUD;
+import model.CRUD.EmployesCRUD;
 import model.CRUD.LivresCRUD;
 
 public class DashboardController {
@@ -17,6 +19,8 @@ public class DashboardController {
     private final AdherentsController adherentsController;
     private final EmployesController employesController;
     public final LivresCRUD livresCrud;
+    public final AdherentsCRUD adherentsCrud;
+//    public final EmployesCRUD employesCrud;
     private final int connectedIndex;
     private JPopupMenu m;
     
@@ -26,11 +30,12 @@ public class DashboardController {
         this.connexion = connexion;
         this.connectedIndex=connectedIndex;
         
-        this.livresController=new LivresController(dashboardView.getLivresView(), connexion);
+        this.livresController=new LivresController(dashboardView.getLivresView(), dashboardView.getAdherentsView(), connexion);
         this.adherentsController = new AdherentsController(this.dashboardView.getAdherentsView(), connexion);
         this.employesController=new EmployesController(this.dashboardView.getEmployesView(), connexion);
         
         this.livresCrud=new LivresCRUD(connexion, this.livresController.getLivreView());
+        this.adherentsCrud=new AdherentsCRUD(connexion, this.adherentsController.getAdherentView());
         initView();
         initController();
     }
@@ -74,6 +79,7 @@ public class DashboardController {
         dashboardView.getLivresView().getLivresTable().getSelectionModel().addListSelectionListener(e -> selectionChanged());
         dashboardView.getMakeReservationButton().addActionListener(e->livresController.reserveBook());
         dashboardView.getMakeReservationButton().addActionListener(e->reservationClicked());
+        dashboardView.getEmpruntButton().addActionListener(e->empruntClicked());
     }
     
     private void reservationClicked(){
@@ -88,18 +94,18 @@ public class DashboardController {
     private void empruntClicked(){
         if(dashboardView.getLivresView().getLivresTable().getSelectedRowCount()==1){
             int row=dashboardView.getLivresView().getLivresTable().getSelectedRow();
-            if(!(dashboardView.getLivresView().getLivresTable().getValueAt(row, 4)==null)){
-                //emprunté ici
+            if(dashboardView.getLivresView().getLivresTable().getValueAt(row, 5)==null){
+                new AddEmpruntLivreController(connexion, livresCrud, adherentsCrud);
             }else{
-                //annuler l'emprunt ici
+                //annulerEmprunt
             }
         }else{
             int[] rows=dashboardView.getLivresView().getLivresTable().getSelectedRows();
-            if(dashboardView.getLivresView().getLivresTable().getValueAt(rows[0], 4)==null){
+            if(dashboardView.getLivresView().getLivresTable().getValueAt(rows[0], 5)==null){
                 return;
             }else{
                 for(int i=rows.length-1; i>0; i--){
-                    if(dashboardView.getLivresView().getLivresTable().getValueAt(rows[i], 4)==null)
+                    if(dashboardView.getLivresView().getLivresTable().getValueAt(rows[i], 5)==null)
                         return;
                 }
                 //Annuler l'emprunt ici
@@ -110,8 +116,12 @@ public class DashboardController {
     private void selectionChanged(){
         int row=dashboardView.getLivresView().getLivresTable().getSelectedRow();
         if(row!=-1){
+            if(dashboardView.getLivresView().getLivresTable().getValueAt(row, 5)!=null){
+                dashboardView.getMakeReservationButton().setEnabled(false);
+            }else{
+                dashboardView.getMakeReservationButton().setEnabled(true);
+            }
             dashboardView.getDeleteBookButton().setEnabled(true);
-            dashboardView.getMakeReservationButton().setEnabled(true);
             dashboardView.getEmpruntButton().setEnabled(true);
         }else{
             dashboardView.getDeleteBookButton().setEnabled(false);

@@ -14,10 +14,14 @@ public class AdherentsController {
     public AdherentsController(AdherentsView adherentView, Connection connexion) {
         this.adherentView = adherentView;
         this.connexion = connexion;
-        this.adherentsCrud = new AdherentsCRUD(connexion);
+        this.adherentsCrud = new AdherentsCRUD(connexion, this.adherentView);
         
         initView();
         initController();
+    }
+    
+    public AdherentsView getAdherentView(){
+        return this.adherentView;
     }
     
     private void initView(){

@@ -10,15 +10,11 @@ import view.LivresView;
 
 public class LivresCRUD {
     private Connection connexion;
-    private EmpruntsCRUD emprentCrud;
-    private ReservationsCRUD reservationCrud;
     private final LivresView livreView;
-
+    
     public LivresCRUD(Connection connexion, LivresView livreView) {
         this.connexion = connexion;
         this.livreView=livreView;
-        emprentCrud=new EmpruntsCRUD(connexion);
-        reservationCrud=new ReservationsCRUD(connexion);
     }
     
     public boolean addLivre(Livre livre){
@@ -41,7 +37,7 @@ public class LivresCRUD {
     public void updateView(){
         ResultSet rs=getAllLivres(true);
         if(rs!=null){
-            livreView.updateLivreTable(rs);
+            livreView.UpdateView(rs);
         }
     }
     

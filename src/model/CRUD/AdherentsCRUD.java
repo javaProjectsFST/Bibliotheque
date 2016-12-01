@@ -8,12 +8,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import model.entities.Adherent;
 import model.entities.Livre;
+import view.AdherentsView;
 
 public class AdherentsCRUD {
-    private Connection connexion;
+    private final Connection connexion;
+    private final AdherentsView adherentView;
 
-    public AdherentsCRUD(Connection connexion) {
+    public AdherentsCRUD(Connection connexion, AdherentsView adherentView) {
         this.connexion = connexion;
+        this.adherentView=adherentView;
     }
     
     public boolean addAdherent(Adherent adherent){

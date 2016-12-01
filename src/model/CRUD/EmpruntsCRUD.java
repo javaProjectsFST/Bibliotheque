@@ -10,10 +10,14 @@ import java.util.Vector;
 import model.entities.Emprunt;
 
 public class EmpruntsCRUD {
-    private Connection connexion;
+    private final Connection connexion;
+    private final LivresCRUD livresCrud;
+    private final AdherentsCRUD adherentCrud;
 
-    public EmpruntsCRUD(Connection connexion) {
+    public EmpruntsCRUD(Connection connexion, LivresCRUD livreCrud, AdherentsCRUD adherentCrud) {
         this.connexion = connexion;
+        this.livresCrud=livreCrud;
+        this.adherentCrud=adherentCrud;
     }
     
     public boolean addEmprent(Emprunt emprent){
@@ -23,13 +27,18 @@ public class EmpruntsCRUD {
             prepare.setString(2, emprent.getLoginAdherentEmp());
             prepare.setDate(3, emprent.getDateEmprent());
             prepare.setDate(4, emprent.getDateLimiteEmprent());
-            
+
             prepare.executeUpdate();
+            updateView();
             prepare.close();
             return true;
         } catch (SQLException ex) {
             return false;
         }
+    }
+    
+    private void updateView(){
+        livresCrud.updateView();
     }
     
     public Emprunt getEmprentByLivre(int IdLivreEmp){
@@ -130,6 +139,7 @@ public class EmpruntsCRUD {
              prepare.setInt(1,IdLivreEmp);
              prepare.setString(2,LoginAdherentEmp);
              prepare.executeUpdate();
+             updateView();
              prepare.close();
              return true;
         }
@@ -144,6 +154,7 @@ public class EmpruntsCRUD {
              PreparedStatement prepare=connexion.prepareStatement("DELETE FROM emprunt WHERE LoginAdherentEmp=?");
              prepare.setString(1,LoginAdherentEmp);
              prepare.executeUpdate();
+             updateView();
              prepare.close();
              return true;
         }
@@ -158,6 +169,7 @@ public class EmpruntsCRUD {
             PreparedStatement prepare=connexion.prepareStatement("DELETE FROM emprunt WHERE IdLivreEmp=?");
             prepare.setInt(1,IdLivreEmp);
             prepare.executeUpdate();
+            updateView();
             prepare.close();
             return true;
         }

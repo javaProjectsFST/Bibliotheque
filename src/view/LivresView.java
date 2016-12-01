@@ -11,7 +11,7 @@ import javax.swing.JTable;
 import javax.swing.table.TableCellRenderer;
 import net.proteanit.sql.DbUtils;
 
-public class LivresView extends javax.swing.JPanel {
+public class LivresView extends javax.swing.JPanel{
     
     public LivresView() {
         initComponents();
@@ -23,12 +23,12 @@ public class LivresView extends javax.swing.JPanel {
         livreTable.getTableHeader().setMinimumSize(dimension);
     }
     
-    public JTable getLivresTable(){
-        return livreTable;
+    public void UpdateView(ResultSet rs) {
+        livreTable.setModel(DbUtils.resultSetToTableModel(rs));
     }
     
-    public void updateLivreTable(ResultSet rs){
-        livreTable.setModel(DbUtils.resultSetToTableModel(rs));
+    public JTable getLivresTable(){
+        return livreTable;
     }
     
     public void looseTableFocus(){

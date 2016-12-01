@@ -8,13 +8,13 @@ import java.awt.event.ActionListener;
 import java.sql.Connection;
 import model.entities.Adherent;
 
-public class AjoutAdherentController {
+public class AddAdherentController {
     private AdherentsCRUD adherentCrud;
     private AjoutAdherentView ajoutAdherentView;
     private Connection connexion;
     
-    public AjoutAdherentController(AjoutAdherentView ajoutAdherentView, Connection connexion){
-        this.adherentCrud=new AdherentsCRUD(connexion);
+    public AddAdherentController(AjoutAdherentView ajoutAdherentView, Connection connexion){
+//        this.adsherentCrud=new AdherentsCRUD(connexion,);
         this.ajoutAdherentView=ajoutAdherentView;
         this.connexion=connexion;
         

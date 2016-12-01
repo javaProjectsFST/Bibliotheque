@@ -30,7 +30,7 @@ public class LoginController {
     public LoginController(Connection connexion) {
         this.loginView = new LoginView();
         this.connexion = connexion;
-        this.adherentsCrud = new AdherentsCRUD(this.connexion);
+        this.adherentsCrud = new AdherentsCRUD(this.connexion, null);
         this.employesCrud = new EmployesCRUD(this.connexion);
         
         initView();

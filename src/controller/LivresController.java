@@ -11,8 +11,8 @@ import model.CRUD.ReservationsCRUD;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import javax.swing.JTable;
-import model.entities.Emprunt;
 import net.proteanit.sql.DbUtils;
+import view.AdherentsView;
 
 public class LivresController {
     private final LivresView livreView;
@@ -23,13 +23,13 @@ public class LivresController {
     private final EmpruntsCRUD empruntsCrud;
     private final ReservationsCRUD reservationsCRUD;
 
-    public LivresController(LivresView livreView, Connection connexion) {
+    public LivresController(LivresView livreView, AdherentsView adherentView, Connection connexion) {
         this.livreView = livreView;
         this.connexion = connexion;
         this.sortColumn = 1;
         this.livresCrud = new LivresCRUD(connexion, this.livreView);
-        this.adherentsCrud = new AdherentsCRUD(connexion);
-        this.empruntsCrud = new EmpruntsCRUD(connexion);
+        this.adherentsCrud = new AdherentsCRUD(connexion, adherentView);
+        this.empruntsCrud = new EmpruntsCRUD(connexion, livresCrud, adherentsCrud);
         this.reservationsCRUD=new ReservationsCRUD(connexion);
         
         initView();
@@ -66,7 +66,7 @@ public class LivresController {
     
     public void addBook(){
         looseTableFocus();
-        new AjouterLivreController(connexion, livreView);
+        new AddLivreController(connexion, livreView);
     }
     
     public void emprunterBook(){

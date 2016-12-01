@@ -1,7 +1,9 @@
 
 package view;
 
-public class AdherentsView extends javax.swing.JPanel {
+import java.sql.ResultSet;
+
+public class AdherentsView extends javax.swing.JPanel{
 
     public AdherentsView() {
         initComponents();
@@ -22,6 +24,10 @@ public class AdherentsView extends javax.swing.JPanel {
             .addGap(0, 300, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    public void UpdateView(ResultSet rs) {
+        //update goes here
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
