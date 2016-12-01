@@ -53,14 +53,14 @@ public class AddEmpruntLivreView extends javax.swing.JPanel {
                 this.getTableHeader().setReorderingAllowed(false);
 
                 String numbEmp=this.getModel().getValueAt(row, 4).toString();
-                if(!isRowSelected(row)){
-                    if(Integer.parseInt(numbEmp)==2){
-                        c.setBackground(Color.decode("#dd6363"));
-                    }else{
-                        c.setBackground(row%2==0 ? Color.white : Color.decode("#f3f3f3"));
-                    }
+                if(Integer.parseInt(numbEmp)==2){
+                    c.setBackground(Color.decode("#feb5b5"));
                 }else{
-                    c.setBackground(Color.decode("#b8cfe5"));
+                    if(!isRowSelected(row)){
+                        c.setBackground(row%2==0 ? Color.white : Color.decode("#f3f3f3"));
+                    }else{
+                        c.setBackground(Color.decode("#b8cfe5"));
+                    }
                 }
                 return c;
             }

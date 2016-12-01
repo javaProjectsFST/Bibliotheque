@@ -1,6 +1,7 @@
 
 package controller;
 
+import java.awt.Window;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
@@ -10,9 +11,11 @@ import java.awt.event.MouseEvent;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 import model.CRUD.AdherentsCRUD;
 import model.CRUD.EmpruntsCRUD;
 import model.CRUD.LivresCRUD;
+import model.entities.Emprunt;
 import view.AddEmpruntLivreView;
 
 public class AddEmpruntLivreController {
@@ -22,13 +25,15 @@ public class AddEmpruntLivreController {
     private final LivresCRUD livresCrud;
     private final EmpruntsCRUD empruntsCrud;
     private final AddEmpruntLivreView addEmpruntLivreView;
+    private final int livreId;
     
-    public AddEmpruntLivreController(Connection connexion, LivresCRUD livresCrud, AdherentsCRUD adherentsCrud){
+    public AddEmpruntLivreController(Connection connexion, LivresCRUD livresCrud, AdherentsCRUD adherentsCrud, int livreId){
         this.connexion=connexion;
         this.adherentsCrud=adherentsCrud;
         this.livresCrud=livresCrud;
         this.empruntsCrud=new EmpruntsCRUD(this.connexion, livresCrud, adherentsCrud);
         this.addEmpruntLivreView=new AddEmpruntLivreView();
+        this.livreId=livreId;
         
         initView();
         initController();
@@ -43,6 +48,13 @@ public class AddEmpruntLivreController {
     }
     
     private void initController(){
+        addEmpruntLivreView.addMouseListener(new MouseAdapter(){
+            @Override
+            public void mousePressed(MouseEvent ev){
+                super.mousePressed(ev);
+                addEmpruntLivreView.getAdherentTable().getSelectionModel().clearSelection();
+            }
+        });
         addEmpruntLivreView.getRechercheTextField().addKeyListener(new KeyListener(){
             @Override
             public void keyTyped(KeyEvent e) {}
@@ -121,7 +133,7 @@ public class AddEmpruntLivreController {
     
     private void selectionChanged(){
         int row=addEmpruntLivreView.getAdherentTable().getSelectedRow();
-        if(row!=-1){
+        if(row!=-1 && Integer.parseInt(addEmpruntLivreView.getAdherentTable().getValueAt(row, 4).toString())!=2){
             addEmpruntLivreView.getEmprunterButton().setEnabled(true);
         }else{
             addEmpruntLivreView.getEmprunterButton().setEnabled(false);
@@ -129,7 +141,11 @@ public class AddEmpruntLivreController {
     }
     
     private void emprunter(){
-        
+        int row=addEmpruntLivreView.getAdherentTable().getSelectedRow();
+        Emprunt emp=new Emprunt(livreId, (String)addEmpruntLivreView.getAdherentTable().getValueAt(row, 0));
+        if(empruntsCrud.addEmprent(emp)){
+            ((Window)SwingUtilities.getWindowAncestor(this.addEmpruntLivreView)).dispose();
+        }
     }
 
 }

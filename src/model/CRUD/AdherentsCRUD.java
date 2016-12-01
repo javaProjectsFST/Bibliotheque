@@ -40,7 +40,7 @@ public class AdherentsCRUD {
     
     public ResultSet searchAdherentByLogin(String login){
         try{
-            PreparedStatement prepare=connexion.prepareStatement("SELECT login, prenom, nom , email, NumbEmp as 'nombre emprunt' FROM adherent WHERE login LIKE ?");
+            PreparedStatement prepare=connexion.prepareStatement("SELECT a.Login, a.Prenom, a.Nom, a.Email, COUNT(e.IdLivreEmp) 'Nombre Emprunt' FROM adherent a LEFT JOIN emprunt e ON a.Login=e.LoginAdherentEmp WHERE a.Login LIKE ? GROUP BY a.Login");
             prepare.setString(1, login+"%");
             ResultSet resultat=prepare.executeQuery();
             return resultat;
@@ -51,7 +51,7 @@ public class AdherentsCRUD {
     
     public ResultSet searchAdherentByName(String name){
         try{
-            PreparedStatement prepare=connexion.prepareStatement("SELECT login, prenom, nom , email, NumbEmp as 'nombre emprunt' FROM adherent WHERE nom LIKE ?");
+            PreparedStatement prepare=connexion.prepareStatement("SELECT a.Login, a.Prenom, a.Nom, a.Email, COUNT(e.IdLivreEmp) 'Nombre Emprunt' FROM adherent a LEFT JOIN emprunt e ON a.Login=e.LoginAdherentEmp WHERE a.Nom LIKE ? GROUP BY a.Login");
             prepare.setString(1, name+"%");
             ResultSet resultat=prepare.executeQuery();
             return resultat;
@@ -62,7 +62,7 @@ public class AdherentsCRUD {
     
     public ResultSet searchAdherentByLastName(String lastName){
         try{
-            PreparedStatement prepare=connexion.prepareStatement("SELECT login, prenom, nom , email, NumbEmp as 'nombre emprunt' FROM adherent WHERE prenom LIKE ?");
+            PreparedStatement prepare=connexion.prepareStatement("SELECT a.Login, a.Prenom, a.Nom, a.Email, COUNT(e.IdLivreEmp) 'Nombre Emprunt' FROM adherent a LEFT JOIN emprunt e ON a.Login=e.LoginAdherentEmp WHERE a.Prenom LIKE ? GROUP BY a.Login");
             prepare.setString(1, lastName+"%");
             ResultSet resultat=prepare.executeQuery();
             return resultat;
@@ -73,7 +73,7 @@ public class AdherentsCRUD {
     
     public ResultSet searchAdherentByEmail(String email){
         try{
-            PreparedStatement prepare=connexion.prepareStatement("SELECT login, prenom, nom , email, NumbEmp as 'nombre emprunt' FROM adherent WHERE email LIKE ?");
+            PreparedStatement prepare=connexion.prepareStatement("SELECT a.Login, a.Prenom, a.Nom, a.Email, COUNT(e.IdLivreEmp) 'Nombre Emprunt' FROM adherent a LEFT JOIN emprunt e ON a.Login=e.LoginAdherentEmp WHERE a.Email LIKE ? GROUP BY a.Login");
             prepare.setString(1, email+"%");
             ResultSet resultat=prepare.executeQuery();
             return resultat;
@@ -198,7 +198,7 @@ public class AdherentsCRUD {
             if(details){
                 prepare=connexion.prepareStatement("select * from adherent");
             }else{
-                prepare=connexion.prepareStatement("select login, prenom, nom, email,NumbEmp as 'nombre emprunt' from adherent");
+                prepare=connexion.prepareStatement("SELECT a.Login, a.Prenom, a.Nom, a.Email, COUNT(e.IdLivreEmp) 'Nombre Emprunt' FROM adherent a LEFT JOIN emprunt e ON a.Login=e.LoginAdherentEmp GROUP BY a.Login");
             }
             ResultSet resultat=prepare.executeQuery();
             if(resultat.next()){

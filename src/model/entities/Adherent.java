@@ -7,8 +7,6 @@ public class Adherent {
     private String Prenom;
     private String Nom;
     private String Email;
-    private int NumbEmprent;
-    private int NumbReservation;
     
     public  Adherent(){
         
@@ -20,8 +18,6 @@ public class Adherent {
         this.Prenom = Prenom;
         this.Nom = Nom;
         this.Email = Email.toLowerCase();
-        this.NumbEmprent=0;
-        this.NumbReservation=0;
     }
 
     public String getMdp() {
@@ -62,21 +58,5 @@ public class Adherent {
 
     public void setEmail(String Email) {
         this.Email = Email.toLowerCase();
-    }
-
-    public int getNumbEmprent() {
-        return NumbEmprent;
-    }
-
-    public void setNumbEmprent(int NumbEmprent) {
-        this.NumbEmprent = NumbEmprent;
-    }
-
-    public int getNumbReservation() {
-        return NumbReservation;
-    }
-
-    public void setNumbReservation(int NumbReservation) {
-        this.NumbReservation = NumbReservation;
     }
 }

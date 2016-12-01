@@ -20,19 +20,20 @@ public class EmpruntsCRUD {
         this.adherentCrud=adherentCrud;
     }
     
-    public boolean addEmprent(Emprunt emprent){
+    public boolean addEmprent(Emprunt emprunt){
         try {
-            PreparedStatement prepare=connexion.prepareStatement("INSERT INTO emprunt(IdLivreEmp,LoginAdherentEmp,DateEmprent,DateLimiteEmprent) VALUES (?,?,?,?)");
-            prepare.setInt(1, emprent.getIdLivreEmp());
-            prepare.setString(2, emprent.getLoginAdherentEmp());
-            prepare.setDate(3, emprent.getDateEmprent());
-            prepare.setDate(4, emprent.getDateLimiteEmprent());
+            PreparedStatement prepare=connexion.prepareStatement("INSERT INTO emprunt(IdLivreEmp,LoginAdherentEmp,DateEmprunt,DateLimiteEmprunt) VALUES (?,?,?,?)");
+            prepare.setInt(1, emprunt.getIdLivreEmp());
+            prepare.setString(2, emprunt.getLoginAdherentEmp());
+            prepare.setDate(3, emprunt.getDateEmprunt());
+            prepare.setDate(4, emprunt.getDateLimiteEmprunt());
 
             prepare.executeUpdate();
             updateView();
             prepare.close();
             return true;
         } catch (SQLException ex) {
+            ex.printStackTrace();
             return false;
         }
     }
@@ -54,8 +55,8 @@ public class EmpruntsCRUD {
 
                     emprunt.setIdLivreEmp(resultat.getInt("IdLivreEmp"));
                     emprunt.setLoginAdherentEmp(resultat.getString("LoginAdherentEmp"));
-                    emprunt.setDateEmprent(resultat.getDate("DateEmprent"));
-                    emprunt.setDateLimiteEmprent(resultat.getDate("DateLimiteEmprent"));
+                    emprunt.setDateEmprunt(resultat.getDate("DateEmprunt"));
+                    emprunt.setDateLimiteEmprunt(resultat.getDate("DateLimiteEmprunt"));
 
                 }
                 prepare.close();    
@@ -99,8 +100,8 @@ public class EmpruntsCRUD {
                 {
                     emprunt.setIdLivreEmp(resultat.getInt("IdLivreEmp"));
                     emprunt.setLoginAdherentEmp(resultat.getString("LoginAdherentEmp"));
-                    emprunt.setDateEmprent(resultat.getDate("DateEmprent"));
-                    emprunt.setDateLimiteEmprent(resultat.getDate("DateLimiteEmprent"));
+                    emprunt.setDateEmprunt(resultat.getDate("DateEmprunt"));
+                    emprunt.setDateLimiteEmprunt(resultat.getDate("DateLimiteEmprunt"));
                 }
                 prepare.close();    
                 resultat.close();
@@ -180,7 +181,7 @@ public class EmpruntsCRUD {
     
     public ResultSet getEmprentsAtDate(Date date){
        try {
-            PreparedStatement prepare=connexion.prepareStatement("SELECT * FROM emprunt WHERE DateEmprent=?");
+            PreparedStatement prepare=connexion.prepareStatement("SELECT * FROM emprunt WHERE DateEmprunt=?");
             prepare.setDate(1,date);
             ResultSet resultat=prepare.executeQuery();
             if(resultat.next()){

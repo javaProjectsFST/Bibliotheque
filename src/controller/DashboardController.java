@@ -9,7 +9,7 @@ import java.sql.Connection;
 import javax.swing.JComponent;
 import javax.swing.JPopupMenu;
 import model.CRUD.AdherentsCRUD;
-import model.CRUD.EmployesCRUD;
+import model.CRUD.EmpruntsCRUD;
 import model.CRUD.LivresCRUD;
 
 public class DashboardController {
@@ -22,6 +22,7 @@ public class DashboardController {
     public final AdherentsCRUD adherentsCrud;
 //    public final EmployesCRUD employesCrud;
     private final int connectedIndex;
+    private final EmpruntsCRUD empruntsCrud;
     private JPopupMenu m;
     
     
@@ -36,6 +37,7 @@ public class DashboardController {
         
         this.livresCrud=new LivresCRUD(connexion, this.livresController.getLivreView());
         this.adherentsCrud=new AdherentsCRUD(connexion, this.adherentsController.getAdherentView());
+        this.empruntsCrud=new EmpruntsCRUD(connexion, this.livresCrud, this.adherentsCrud);
         initView();
         initController();
     }
@@ -95,9 +97,9 @@ public class DashboardController {
         if(dashboardView.getLivresView().getLivresTable().getSelectedRowCount()==1){
             int row=dashboardView.getLivresView().getLivresTable().getSelectedRow();
             if(dashboardView.getLivresView().getLivresTable().getValueAt(row, 5)==null){
-                new AddEmpruntLivreController(connexion, livresCrud, adherentsCrud);
+                new AddEmpruntLivreController(connexion, livresCrud, adherentsCrud, (int)dashboardView.getLivresView().getLivresTable().getValueAt(row,0));
             }else{
-                //annulerEmprunt
+                empruntsCrud.deleteEmprentByLivre(Integer.parseInt(dashboardView.getLivresView().getLivresTable().getValueAt(row, 0).toString()));
             }
         }else{
             int[] rows=dashboardView.getLivresView().getLivresTable().getSelectedRows();
@@ -108,7 +110,9 @@ public class DashboardController {
                     if(dashboardView.getLivresView().getLivresTable().getValueAt(rows[i], 5)==null)
                         return;
                 }
-                //Annuler l'emprunt ici
+                for(int i=rows.length-1; i>=0; i--){
+                    empruntsCrud.deleteEmprentByLivre(Integer.parseInt(dashboardView.getLivresView().getLivresTable().getValueAt(rows[i], 0).toString()));
+                }
             }
         }
     }
@@ -116,14 +120,20 @@ public class DashboardController {
     private void selectionChanged(){
         int row=dashboardView.getLivresView().getLivresTable().getSelectedRow();
         if(row!=-1){
-            if(dashboardView.getLivresView().getLivresTable().getValueAt(row, 5)!=null){
+            if(dashboardView.getLivresView().getLivresTable().getValueAt(row, 5)!=null || dashboardView.getLivresView().getLivresTable().getValueAt(row, 7)!=null){
                 dashboardView.getMakeReservationButton().setEnabled(false);
             }else{
                 dashboardView.getMakeReservationButton().setEnabled(true);
             }
-            dashboardView.getDeleteBookButton().setEnabled(true);
+            if(dashboardView.getLivresView().getLivresTable().getValueAt(row, 5)!=null){
+                dashboardView.setCancelEmpruntIcon();
+            }else{
+                dashboardView.setEmpruntIcon();
+            }
             dashboardView.getEmpruntButton().setEnabled(true);
+            dashboardView.getDeleteBookButton().setEnabled(true);
         }else{
+            dashboardView.setEmpruntIcon();
             dashboardView.getDeleteBookButton().setEnabled(false);
             dashboardView.getMakeReservationButton().setEnabled(false);
             dashboardView.getEmpruntButton().setEnabled(false);

@@ -1,15 +1,20 @@
 
 package view;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
 public class DashboardView extends JPanel {
 
+    private final ImageIcon cancelEmpruntIcon;
+    private final ImageIcon empruntIcon;
     
     public DashboardView() {
         initComponents();
+        cancelEmpruntIcon=new ImageIcon(getClass().getResource("/resources/cancel_emprunt-book.png"));
+        empruntIcon=new ImageIcon(getClass().getResource("/resources/emprunt-book.png"));
     }
     
     public LivresView getLivresView(){
@@ -42,6 +47,14 @@ public class DashboardView extends JPanel {
     
     public JButton getEmpruntButton(){
         return empruntButton;
+    }
+    
+    public void setEmpruntIcon(){
+        empruntButton.setIcon(empruntIcon);
+    }
+    
+    public void setCancelEmpruntIcon(){
+        empruntButton.setIcon(cancelEmpruntIcon);
     }
     
     @SuppressWarnings("unchecked")
