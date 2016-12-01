@@ -39,7 +39,7 @@ public class LivresController {
     private void initView(){
         ResultSet rs=livresCrud.getAllLivres(true);
         if(rs!=null){
-            livreView.getLivresTable().setModel(DbUtils.resultSetToTableModel(rs));
+            livreView.UpdateView(rs);
         }
     }
     

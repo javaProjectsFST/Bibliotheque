@@ -38,6 +38,50 @@ public class AdherentsCRUD {
         
     }
     
+    public ResultSet searchAdherentByLogin(String login){
+        try{
+            PreparedStatement prepare=connexion.prepareStatement("SELECT login, prenom, nom , email, NumbEmp as 'nombre emprunt' FROM adherent WHERE login LIKE ?");
+            prepare.setString(1, login+"%");
+            ResultSet resultat=prepare.executeQuery();
+            return resultat;
+        }catch(SQLException e){
+            return null;
+        }
+    }
+    
+    public ResultSet searchAdherentByName(String name){
+        try{
+            PreparedStatement prepare=connexion.prepareStatement("SELECT login, prenom, nom , email, NumbEmp as 'nombre emprunt' FROM adherent WHERE nom LIKE ?");
+            prepare.setString(1, name+"%");
+            ResultSet resultat=prepare.executeQuery();
+            return resultat;
+        }catch(SQLException e){
+            return null;
+        }
+    }
+    
+    public ResultSet searchAdherentByLastName(String lastName){
+        try{
+            PreparedStatement prepare=connexion.prepareStatement("SELECT login, prenom, nom , email, NumbEmp as 'nombre emprunt' FROM adherent WHERE prenom LIKE ?");
+            prepare.setString(1, lastName+"%");
+            ResultSet resultat=prepare.executeQuery();
+            return resultat;
+        }catch(SQLException e){
+            return null;
+        }
+    }
+    
+    public ResultSet searchAdherentByEmail(String email){
+        try{
+            PreparedStatement prepare=connexion.prepareStatement("SELECT login, prenom, nom , email, NumbEmp as 'nombre emprunt' FROM adherent WHERE email LIKE ?");
+            prepare.setString(1, email+"%");
+            ResultSet resultat=prepare.executeQuery();
+            return resultat;
+        }catch(SQLException e){
+            return null;
+        }
+    }
+    
     public Adherent getAdherentBy(String login){
         try {
             PreparedStatement prepare=connexion.prepareStatement("SELECT * FROM adherent WHERE Login =?");
@@ -148,9 +192,14 @@ public class AdherentsCRUD {
         }
     }
     
-    public ResultSet getAllAdherents(){
+    public ResultSet getAllAdherents(boolean details){
          try {
-            PreparedStatement prepare=connexion.prepareStatement("select * from adherent");
+            PreparedStatement prepare=null;
+            if(details){
+                prepare=connexion.prepareStatement("select * from adherent");
+            }else{
+                prepare=connexion.prepareStatement("select login, prenom, nom, email,NumbEmp as 'nombre emprunt' from adherent");
+            }
             ResultSet resultat=prepare.executeQuery();
             if(resultat.next()){
                 resultat.beforeFirst();

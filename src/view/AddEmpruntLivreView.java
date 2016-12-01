@@ -1,10 +1,15 @@
 
 package view;
 
+import java.awt.Color;
+import java.awt.Component;
+import java.sql.ResultSet;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.table.TableCellRenderer;
+import net.proteanit.sql.DbUtils;
 
 public class AddEmpruntLivreView extends javax.swing.JPanel {
 
@@ -27,6 +32,10 @@ public class AddEmpruntLivreView extends javax.swing.JPanel {
     public JComboBox getComboBox(){
         return comboBox;
     }
+    
+    public void UpdateView(ResultSet rs){
+        adherentTable.setModel(DbUtils.resultSetToTableModel(rs));
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -34,7 +43,28 @@ public class AddEmpruntLivreView extends javax.swing.JPanel {
 
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        adherentTable = new javax.swing.JTable();
+        adherentTable = new javax.swing.JTable(){
+            public Component prepareRenderer(
+                TableCellRenderer renderer, int row, int column)
+            {
+                Component c = super.prepareRenderer(renderer, row, column);
+
+                if(column==0 && row==0)
+                this.getTableHeader().setReorderingAllowed(false);
+
+                String numbEmp=this.getModel().getValueAt(row, 4).toString();
+                if(!isRowSelected(row)){
+                    if(Integer.parseInt(numbEmp)==2){
+                        c.setBackground(Color.decode("#dd6363"));
+                    }else{
+                        c.setBackground(row%2==0 ? Color.white : Color.decode("#f3f3f3"));
+                    }
+                }else{
+                    c.setBackground(Color.decode("#b8cfe5"));
+                }
+                return c;
+            }
+        };
         rechercheTextField = new javax.swing.JTextField();
         emprunterButton = new javax.swing.JButton();
         comboBox = new javax.swing.JComboBox<>();
@@ -42,6 +72,7 @@ public class AddEmpruntLivreView extends javax.swing.JPanel {
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
         jLabel1.setText("Choix d'un Adherent");
 
+        adherentTable.setAutoCreateRowSorter(true);
         adherentTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -53,6 +84,9 @@ public class AddEmpruntLivreView extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        adherentTable.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        adherentTable.setFocusable(false);
+        adherentTable.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(adherentTable);
 
         rechercheTextField.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
@@ -60,9 +94,18 @@ public class AddEmpruntLivreView extends javax.swing.JPanel {
 
         emprunterButton.setFont(new java.awt.Font("Dialog", 1, 20)); // NOI18N
         emprunterButton.setText("Emprunter");
+        emprunterButton.setEnabled(false);
+        emprunterButton.setFocusable(false);
 
-        comboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Login", "Email" }));
+        comboBox.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        comboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Login", "Email", "Nom", "Prenom" }));
+        comboBox.setFocusable(false);
         comboBox.setPreferredSize(new java.awt.Dimension(65, 32));
+        comboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboBoxActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -100,6 +143,10 @@ public class AddEmpruntLivreView extends javax.swing.JPanel {
                 .addGap(0, 10, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void comboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboBoxActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
