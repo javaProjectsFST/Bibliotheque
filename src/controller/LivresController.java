@@ -97,8 +97,104 @@ public class LivresController {
         
     }
     
-    private void searchByFor(){
-        
+    public void searchByFor(int col, String searched){
+        ResultSet rs=null;
+        if(searched.isEmpty()){
+            rs=livresCrud.getAllLivres(true);
+            livreView.UpdateView(rs);
+        }else{
+            switch(col){
+                case 0:
+                    rs=livresCrud.searchLivreByTitre(searched);
+                    livreView.UpdateView(rs);
+                    break;
+                case 1:
+                    rs=livresCrud.searchLivreByAuteur(searched);
+                    livreView.UpdateView(rs);
+                    break;
+                case 2:
+                    rs=livresCrud.searchLivreByEditeur(searched);
+                    livreView.UpdateView(rs);
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+    
+    public void searchByForInEmprunt(int col, String searched){
+        ResultSet rs=null;
+        if(searched.isEmpty()){
+            rs=livresCrud.getAllLivresInEmprunt(true);
+            livreView.UpdateView(rs);
+        }else{
+            switch(col){
+                case 0:
+                    rs=livresCrud.searchLivreByTitreInEmprunt(searched);
+                    livreView.UpdateView(rs);
+                    break;
+                case 1:
+                    rs=livresCrud.searchLivreByAuteurInEmprunt(searched);
+                    livreView.UpdateView(rs);
+                    break;
+                case 2:
+                    rs=livresCrud.searchLivreByEditeurInEmprunt(searched);
+                    livreView.UpdateView(rs);
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+    
+    public void searchByForInDateLim(int col, String searched){
+        ResultSet rs=null;
+        if(searched.isEmpty()){
+            rs=livresCrud.getAllLivresInDateLim(true);
+            livreView.UpdateView(rs);
+        }else{
+            switch(col){
+                case 0:
+                    rs=livresCrud.searchLivreByTitreInDateLim(searched);
+                    livreView.UpdateView(rs);
+                    break;
+                case 1:
+                    rs=livresCrud.searchLivreByAuteurInDateLim(searched);
+                    livreView.UpdateView(rs);
+                    break;
+                case 2:
+                    rs=livresCrud.searchLivreByEditeurInDateLim(searched);
+                    livreView.UpdateView(rs);
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+    
+    public void searchByForInReservation(int col, String searched){
+        ResultSet rs=null;
+        if(searched.isEmpty()){
+            rs=livresCrud.getAllLivresInReservation(true);
+            livreView.UpdateView(rs);
+        }else{
+            switch(col){
+                case 0:
+                    rs=livresCrud.searchLivreByTitreInReservation(searched);
+                    livreView.UpdateView(rs);
+                    break;
+                case 1:
+                    rs=livresCrud.searchLivreByAuteurInReservation(searched);
+                    livreView.UpdateView(rs);
+                    break;
+                case 2:
+                    rs=livresCrud.searchLivreByEditeurInReservation(searched);
+                    livreView.UpdateView(rs);
+                    break;
+                default:
+                    break;
+            }
+        }
     }
     
     private void addLivre(){

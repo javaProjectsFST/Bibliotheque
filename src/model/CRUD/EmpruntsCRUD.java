@@ -36,6 +36,30 @@ public class EmpruntsCRUD {
         }
     }
     
+    public int getEmpruntsCount(){
+        try{
+            PreparedStatement prepare=connexion.prepareStatement("SELECT COUNT(*) FROM emprunt");
+            ResultSet rs=prepare.executeQuery();
+            rs.next();
+            return rs.getInt(1);
+        }catch(SQLException ex){
+            ex.printStackTrace();
+            return -1;
+        }
+    }
+    
+    public int getEmpruntsLimCount(){
+        try{
+            PreparedStatement prepare=connexion.prepareStatement("SELECT COUNT(*) FROM emprunt WHERE CURDATE() >= DateLimiteEmprunt");
+            ResultSet rs=prepare.executeQuery();
+            rs.next();
+            return rs.getInt(1);
+        }catch(SQLException ex){
+            ex.printStackTrace();
+            return -1;
+        }
+    }
+    
     public void updateView(){
         livresCrud.updateView();
     }

@@ -1,7 +1,5 @@
 package controller;
 
-import java.awt.Dimension;
-import java.awt.Point;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
@@ -10,11 +8,12 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import view.DashboardView;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import javax.swing.BorderFactory;
-import javax.swing.JComponent;
 import javax.swing.JPanel;
-import javax.swing.JPopupMenu;
 import javax.swing.JTable;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import model.CRUD.AdherentsCRUD;
 import model.CRUD.EmpruntsCRUD;
 import model.CRUD.LivresCRUD;
@@ -34,7 +33,6 @@ public class DashboardController {
     private final int connectedIndex;
     private final EmpruntsCRUD empruntsCrud;
     private final ReservationsCRUD reservationsCrud;
-    private JPopupMenu m;
     
     
     public DashboardController(Connection connexion, int connectedIndex) {
@@ -58,9 +56,15 @@ public class DashboardController {
         return dashboardView;
     }
     
+    public void updateMenu(){
+        dashboardView.getToutNumber().setText("("+String.valueOf(livresCrud.getLivresCount())+")");
+        dashboardView.getEmpruntesNumber().setText("("+String.valueOf(empruntsCrud.getEmpruntsCount())+")");
+        dashboardView.getDateLimiteNumber().setText("("+String.valueOf(empruntsCrud.getEmpruntsLimCount())+")");
+        dashboardView.getReservesNumber().setText("("+String.valueOf(reservationsCrud.getReservationsCount())+")");
+    }
+    
     private void initView(){
-        m=new JPopupMenu("yoo");
-        m.setPreferredSize(new Dimension(200,70));
+        updateMenu();
         switch(connectedIndex){
             case 1:
                 break;
@@ -95,8 +99,28 @@ public class DashboardController {
                 rechercheTextFieldLoosFocus();
             }
         });
-        dashboardView.getAddBookButton().addActionListener(e->livresController.addBook());
-        dashboardView.getDeleteBookButton().addActionListener(e->livresController.deleteBook());
+        dashboardView.getTabbedPane().addChangeListener(new ChangeListener(){
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                int index=dashboardView.getTabbedPane().getSelectedIndex();
+                switch(index){
+                    case 0:
+                        dashboardView.setComboForLivre();
+                        break;
+                    case 1:
+                        dashboardView.setComboForAdherent();
+                        break;
+                    case 2:
+                        dashboardView.setComboForEmploye();
+                        break;
+                    default:
+                        break;
+                }
+            }
+        
+        });
+        dashboardView.getAddBookButton().addActionListener(e->addBookClicked());
+        dashboardView.getDeleteBookButton().addActionListener(e->deleteBookClicked());
         dashboardView.getLivresView().getLivresTable().getSelectionModel().addListSelectionListener(e -> selectionChanged());
         dashboardView.getMakeReservationButton().addActionListener(e->reservationClicked());
         dashboardView.getEmpruntButton().addActionListener(e->empruntClicked());
@@ -142,8 +166,140 @@ public class DashboardController {
                     dashboardView.getRechercheTextField().setText("Recherche");
                     dashboardView.getRechercheTextField().setCaretPosition(0);
                 }
+                String searched;
+                if(dashboardView.getRechercheTextField().getText().equals("Recherche"))
+                    searched="";
+                else
+                    searched=dashboardView.getRechercheTextField().getText();
+                if(dashboardView.getSelectedIndex()==1)
+                    livresController.searchByFor(dashboardView.getComboBox().getSelectedIndex(), searched);
+                else if(dashboardView.getSelectedIndex()==2)
+                    livresController.searchByForInEmprunt(dashboardView.getComboBox().getSelectedIndex(), searched);
+                else if(dashboardView.getSelectedIndex()==3)
+                    livresController.searchByForInDateLim(dashboardView.getComboBox().getSelectedIndex(), searched);
+                else if(dashboardView.getSelectedIndex()==4)
+                    livresController.searchByForInReservation(dashboardView.getComboBox().getSelectedIndex(), searched);
             }
         });
+        
+        dashboardView.getToutPanel().addMouseListener(new MouseAdapter(){
+            @Override
+            public void mouseEntered(MouseEvent ev){
+                super.mouseEntered(ev);
+                dashboardView.getToutPanel().setBackground(dashboardView.getHoveredColor());
+            }
+            
+            @Override
+            public void mouseExited(MouseEvent ev){
+                super.mouseExited(ev);
+                dashboardView.getToutPanel().setBackground(dashboardView.getToutPanelColor());
+            }
+            
+            @Override
+            public void mousePressed(MouseEvent ev){
+                super.mousePressed(ev);
+                dashboardView.getToutPanel().setBackground(dashboardView.getClickedColor());
+            }
+            
+            @Override
+            public void mouseReleased(MouseEvent ev){
+                super.mouseReleased(ev);
+                dashboardView.unClickAll();
+                dashboardView.toutPanelSelected();
+                livresController.getLivreView().UpdateView(livresCrud.getAllLivres(true));
+            }
+        });
+        dashboardView.getEmpruntesPanel().addMouseListener(new MouseAdapter(){
+            @Override
+            public void mouseEntered(MouseEvent ev){
+                super.mouseEntered(ev);
+                dashboardView.getEmpruntesPanel().setBackground(dashboardView.getHoveredColor());
+            }
+            
+            @Override
+            public void mouseExited(MouseEvent ev){
+                super.mouseExited(ev);
+                dashboardView.getEmpruntesPanel().setBackground(dashboardView.getEmpruntePanelColor());
+            }
+            
+            @Override
+            public void mousePressed(MouseEvent ev){
+                super.mousePressed(ev);
+                dashboardView.getEmpruntesPanel().setBackground(dashboardView.getClickedColor());
+            }
+            
+            @Override
+            public void mouseReleased(MouseEvent ev){
+                super.mouseReleased(ev);
+                dashboardView.unClickAll();
+                dashboardView.emprentePanelSelected();
+                livresController.getLivreView().UpdateView(livresCrud.getAllLivresInEmprunt(true));
+            }
+        });
+        dashboardView.getDateLimitePanel().addMouseListener(new MouseAdapter(){
+            @Override
+            public void mouseEntered(MouseEvent ev){
+                super.mouseEntered(ev);
+                dashboardView.getDateLimitePanel().setBackground(dashboardView.getHoveredColor());
+            }
+            
+            @Override
+            public void mouseExited(MouseEvent ev){
+                super.mouseExited(ev);
+                dashboardView.getDateLimitePanel().setBackground(dashboardView.getDateLimitePanelColor());
+            }
+            
+            @Override
+            public void mousePressed(MouseEvent ev){
+                super.mousePressed(ev);
+                dashboardView.getDateLimitePanel().setBackground(dashboardView.getClickedColor());
+            }
+            
+            @Override
+            public void mouseReleased(MouseEvent ev){
+                super.mouseReleased(ev);
+                dashboardView.unClickAll();
+                dashboardView.dateLimitePanelSelected();
+                livresController.getLivreView().UpdateView(livresCrud.getAllLivresInDateLim(true));
+            }
+        });
+        dashboardView.getReservesPanel().addMouseListener(new MouseAdapter(){
+            @Override
+            public void mouseEntered(MouseEvent ev){
+                super.mouseEntered(ev);
+                dashboardView.getReservesPanel().setBackground(dashboardView.getHoveredColor());
+            }
+            
+            @Override
+            public void mouseExited(MouseEvent ev){
+                super.mouseExited(ev);
+                dashboardView.getReservesPanel().setBackground(dashboardView.getReservesPanelColor());
+            }
+            
+            @Override
+            public void mousePressed(MouseEvent ev){
+                super.mousePressed(ev);
+                dashboardView.getReservesPanel().setBackground(dashboardView.getClickedColor());
+            }
+            
+            @Override
+            public void mouseReleased(MouseEvent ev){
+                super.mouseReleased(ev);
+                dashboardView.unClickAll();
+                dashboardView.reservesPanelSelected();
+                livresController.getLivreView().UpdateView(livresCrud.getAllLivresInReservation(true));
+            }
+        });
+    }
+    
+    private void addBookClicked(){
+        livresController.addBook();
+        updateMenu();
+    }
+    
+    private void deleteBookClicked(){
+        livresController.deleteBook();
+        updateMenu();
     }
     
     private void reservationClicked(){
@@ -154,6 +310,7 @@ public class DashboardController {
                 new AddReservationController(connexion, livresCrud, adherentsCrud, (int)table.getValueAt(rows[0], 0));
             }else{
                 reservationsCrud.deleteReservationByLivre(Integer.parseInt(table.getValueAt(rows[0], 0).toString()));
+                reservationsCrud.UpdateView();
             }
         }else{
             for(int row : rows){
@@ -161,6 +318,7 @@ public class DashboardController {
             }
             reservationsCrud.UpdateView();
         }
+        updateMenu();
     }
     
     private void empruntClicked(){
@@ -188,10 +346,10 @@ public class DashboardController {
             }
             empruntsCrud.updateView();
         }
+        updateMenu();
     }
     
     private void selectionChanged(){
-        rechercheTextFieldLoosFocus();
         JTable table=dashboardView.getLivresView().getLivresTable();
         int[] rows=dashboardView.getLivresView().getLivresTable().getSelectedRows();
         if(rows.length == 1){

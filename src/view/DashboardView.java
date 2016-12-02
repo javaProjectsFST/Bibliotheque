@@ -1,8 +1,10 @@
 
 package view;
 
+import java.awt.Color;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -16,12 +18,112 @@ public class DashboardView extends JPanel {
     private final ImageIcon reserveIcon;
     private final ImageIcon cancelReserveIcon;
     
+    private final Color selectedColor;
+    private final Color unSelectedColor;
+    private final Color clickedColor;
+    private final Color hoveredColor;
+
+    private Color toutPanelColor;
+    private Color empruntePanelColor;
+    private Color dateLimitePanelColor;
+    private Color reservesPanelColor;
+    
+    private int selectedIndex;
+    
     public DashboardView() {
         initComponents();
         cancelEmpruntIcon=new ImageIcon(getClass().getResource("/resources/cancel_emprunt-book.png"));
         empruntIcon=new ImageIcon(getClass().getResource("/resources/emprunt-book.png"));
         reserveIcon=new ImageIcon(getClass().getResource("/resources/reserve-book.png"));
         cancelReserveIcon=new ImageIcon(getClass().getResource("/resources/cancel_reserve-book.png"));
+        
+        selectedColor=Color.decode("#abb8c5");
+        clickedColor=Color.decode("#8c98a4");
+        unSelectedColor=Color.decode("#ececec");
+        hoveredColor=Color.decode("#b8cfe5");
+        
+        toutPanelColor=selectedColor;
+        empruntePanelColor=unSelectedColor;
+        dateLimitePanelColor=unSelectedColor;
+        reservesPanelColor=unSelectedColor;
+        
+        selectedIndex=1;
+    }
+    
+    public int getSelectedIndex(){
+        return selectedIndex;
+    }
+    
+    public Color getSelectedColor() {
+        return selectedColor;
+    }
+
+    public Color getUnSelectedColor() {
+        return unSelectedColor;
+    }
+
+    public Color getClickedColor() {
+        return clickedColor;
+    }
+
+    public Color getHoveredColor() {
+        return hoveredColor;
+    }
+    
+    public void updateMenu(){
+        toutPanel.setBackground(toutPanelColor);
+        empruntesPanel.setBackground(empruntePanelColor);
+        dateLimitePanel.setBackground(dateLimitePanelColor);
+        reservesPanel.setBackground(reservesPanelColor);
+    }
+    
+    public void unClickAll(){
+        selectedIndex=0;
+        toutPanelColor=unSelectedColor;
+        empruntePanelColor=unSelectedColor;
+        dateLimitePanelColor=unSelectedColor;
+        reservesPanelColor=unSelectedColor;
+        updateMenu();
+    }
+    
+    public void toutPanelSelected() {
+        selectedIndex=1;
+        toutPanelColor=selectedColor;
+        updateMenu();
+    }
+    
+    public void emprentePanelSelected() {
+        selectedIndex=2;
+        empruntePanelColor=selectedColor;
+        updateMenu();
+    }
+    
+    public void dateLimitePanelSelected() {
+        selectedIndex=3;
+        dateLimitePanelColor=selectedColor;
+        updateMenu();
+    }
+    
+    public void reservesPanelSelected() {
+        selectedIndex=2;
+        reservesPanelColor=selectedColor;
+        updateMenu();
+    }
+    
+    public Color getToutPanelColor() {
+        return toutPanelColor;
+    }
+
+    public Color getEmpruntePanelColor() {
+        return empruntePanelColor;
+    }
+
+    public Color getDateLimitePanelColor() {
+        return dateLimitePanelColor;
+    }
+
+    public Color getReservesPanelColor() {
+        return reservesPanelColor;
     }
     
     public LivresView getLivresView(){
@@ -105,8 +207,38 @@ public class DashboardView extends JPanel {
         return dateLimiteNumber;
     }
     
+    public JPanel getReservesPanel(){
+        return reservesPanel;
+    }
+    
+    public JLabel getReservesNumber(){
+        return reservesNumber;
+    }
+    
     public JTextField getRechercheTextField(){
         return rechercheTextField;
+    }
+    
+    public void setComboForLivre(){
+        comboBox.addItem("Titre");
+        comboBox.addItem("Auteur");
+        comboBox.addItem("Editeur");
+    }
+    
+    public void setComboForEmploye(){
+        
+    }
+    
+    public void setComboForAdherent(){
+        
+    }
+    
+    public JComboBox getComboBox(){
+        return comboBox;
+    }
+    
+    public JButton getLogoutButton(){
+        return logoutButton;
     }
     
     @SuppressWarnings("unchecked")
@@ -133,7 +265,9 @@ public class DashboardView extends JPanel {
         deleteBookButton = new javax.swing.JButton();
         makeReservationButton = new javax.swing.JButton();
         empruntButton = new javax.swing.JButton();
+        logoutButton = new javax.swing.JButton();
         rechercheTextField = new javax.swing.JTextField();
+        comboBox = new javax.swing.JComboBox<>();
 
         setMaximumSize(new java.awt.Dimension(1800, 680));
         setMinimumSize(new java.awt.Dimension(1800, 680));
@@ -177,7 +311,7 @@ public class DashboardView extends JPanel {
                 .addContainerGap(8, Short.MAX_VALUE))
         );
 
-        toutPanel.setBackground(new java.awt.Color(153, 153, 153));
+        toutPanel.setBackground(new java.awt.Color(171, 184, 197));
         toutPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
@@ -313,6 +447,10 @@ public class DashboardView extends JPanel {
         empruntButton.setEnabled(false);
         empruntButton.setFocusable(false);
 
+        logoutButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/logout.png"))); // NOI18N
+        logoutButton.setToolTipText("Ajouter un Livre");
+        logoutButton.setFocusable(false);
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -326,7 +464,9 @@ public class DashboardView extends JPanel {
                 .addComponent(empruntButton, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(makeReservationButton, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(logoutButton, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(17, 17, 17))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -334,10 +474,15 @@ public class DashboardView extends JPanel {
             .addComponent(addBookButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(makeReservationButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(empruntButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(logoutButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         rechercheTextField.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         rechercheTextField.setText("Recherche");
+
+        comboBox.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        comboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Titre", "Auteur", "Editeur" }));
+        comboBox.setFocusable(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -350,6 +495,8 @@ public class DashboardView extends JPanel {
             .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1800, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(comboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(rechercheTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(35, 35, 35))
         );
@@ -360,7 +507,9 @@ public class DashboardView extends JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
-                        .addComponent(rechercheTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(rechercheTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(comboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, 0)
                         .addComponent(tabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 569, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
@@ -377,6 +526,7 @@ public class DashboardView extends JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addBookButton;
+    private javax.swing.JComboBox<String> comboBox;
     private javax.swing.JLabel dateLimiteNumber;
     private javax.swing.JPanel dateLimitePanel;
     private javax.swing.JButton deleteBookButton;
@@ -390,6 +540,7 @@ public class DashboardView extends JPanel {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private view.LivresView livresView;
+    private javax.swing.JButton logoutButton;
     private javax.swing.JButton makeReservationButton;
     private javax.swing.JTextField rechercheTextField;
     private javax.swing.JLabel reservesNumber;

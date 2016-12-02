@@ -36,6 +36,8 @@
           <Component id="jPanel2" alignment="1" pref="1800" max="32767" attributes="0"/>
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace max="32767" attributes="0"/>
+              <Component id="comboBox" min="-2" pref="199" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Component id="rechercheTextField" min="-2" pref="261" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
           </Group>
@@ -48,7 +50,10 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <EmptySpace pref="35" max="32767" attributes="0"/>
-                      <Component id="rechercheTextField" min="-2" pref="32" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="rechercheTextField" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
+                          <Component id="comboBox" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
+                      </Group>
                       <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
                       <Component id="tabbedPane" min="-2" pref="569" max="-2" attributes="0"/>
                   </Group>
@@ -177,7 +182,7 @@
         <Container class="javax.swing.JPanel" name="toutPanel">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="99" green="99" red="99" type="rgb"/>
+              <Color blue="c5" green="b8" red="ab" type="rgb"/>
             </Property>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Hand Cursor"/>
@@ -357,6 +362,8 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="makeReservationButton" min="-2" pref="85" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
+                  <Component id="logoutButton" min="-2" pref="85" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -366,6 +373,7 @@
               <Component id="addBookButton" alignment="1" max="32767" attributes="0"/>
               <Component id="makeReservationButton" alignment="0" max="32767" attributes="0"/>
               <Component id="empruntButton" alignment="0" max="32767" attributes="0"/>
+              <Component id="logoutButton" alignment="0" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
       </Layout>
@@ -412,6 +420,15 @@
             <Property name="focusable" type="boolean" value="false"/>
           </Properties>
         </Component>
+        <Component class="javax.swing.JButton" name="logoutButton">
+          <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/resources/logout.png"/>
+            </Property>
+            <Property name="toolTipText" type="java.lang.String" value="Ajouter un Livre"/>
+            <Property name="focusable" type="boolean" value="false"/>
+          </Properties>
+        </Component>
       </SubComponents>
     </Container>
     <Component class="javax.swing.JTextField" name="rechercheTextField">
@@ -421,6 +438,24 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Recherche"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JComboBox" name="comboBox">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Dialog" size="18" style="0"/>
+        </Property>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="3">
+            <StringItem index="0" value="Titre"/>
+            <StringItem index="1" value="Auteur"/>
+            <StringItem index="2" value="Editeur"/>
+          </StringArray>
+        </Property>
+        <Property name="focusable" type="boolean" value="false"/>
+      </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+      </AuxValues>
     </Component>
   </SubComponents>
 </Form>

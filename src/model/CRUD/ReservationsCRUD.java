@@ -18,6 +18,18 @@ public class ReservationsCRUD {
         this.livresCrud=livresCrud;
     }
     
+    public int getReservationsCount(){
+        try{
+            PreparedStatement prepare=connexion.prepareStatement("SELECT COUNT(*) FROM reservation");
+            ResultSet rs=prepare.executeQuery();
+            rs.next();
+            return rs.getInt(1);
+        }catch(SQLException ex){
+            ex.printStackTrace();
+            return -1;
+        }
+    }
+    
     public void UpdateView(){
         livresCrud.updateView();
     }
