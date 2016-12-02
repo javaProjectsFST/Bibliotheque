@@ -11,9 +11,9 @@ import javax.swing.JTextField;
 import javax.swing.table.TableCellRenderer;
 import net.proteanit.sql.DbUtils;
 
-public class AddEmpruntLivreView extends javax.swing.JPanel {
+public class AddEmpruntView extends javax.swing.JPanel {
 
-    public AddEmpruntLivreView() {
+    public AddEmpruntView() {
         initComponents();
     }
     

@@ -13,6 +13,8 @@ import model.CRUD.AdherentsCRUD;
 import model.CRUD.EmpruntsCRUD;
 import model.CRUD.LivresCRUD;
 import model.CRUD.ReservationsCRUD;
+import model.entities.Emprunt;
+import model.entities.Reservation;
 
 public class DashboardController {
     private final DashboardView dashboardView;
@@ -92,7 +94,7 @@ public class DashboardController {
         int[] rows=table.getSelectedRows();
         if(rows.length==1){
             if(table.getValueAt(rows[0], 7)==null){
-                
+                new AddReservationController(connexion, livresCrud, adherentsCrud, (int)table.getValueAt(rows[0], 0));
             }else{
                 reservationsCrud.deleteReservationByLivre(Integer.parseInt(table.getValueAt(rows[0], 0).toString()));
             }
@@ -108,10 +110,20 @@ public class DashboardController {
         JTable table=dashboardView.getLivresView().getLivresTable();
         int[] rows=table.getSelectedRows();
         if(rows.length == 1){
-            if(table.getValueAt(rows[0], 5)==null){
-                new AddEmpruntLivreController(connexion, livresCrud, adherentsCrud, (int)table.getValueAt(rows[0],0));
+            if(table.getValueAt(rows[0], 5)==null && table.getValueAt(rows[0], 7)==null){
+                new AddEmpruntController(connexion, livresCrud, adherentsCrud, (int)table.getValueAt(rows[0],0));
+            }else if(table.getValueAt(rows[0], 5)==null && table.getValueAt(rows[0], 7)!=null){
+                Reservation rs=reservationsCrud.getReservationByLivre(Integer.parseInt(table.getValueAt(rows[0], 0).toString()));
+                String loginAdherent=rs.getLoginAdherentRes();
+                int choix=dashboardView.showEmpruntMessage(loginAdherent);
+                if(choix==0){
+                    reservationsCrud.deleteReservationByLivre(Integer.parseInt(table.getValueAt(rows[0], 0).toString()));
+                    Emprunt emp=new Emprunt(Integer.parseInt(table.getValueAt(rows[0], 0).toString()), loginAdherent);
+                    empruntsCrud.addEmprent(emp);
+                }
             }else{
                 empruntsCrud.deleteEmprentByLivre(Integer.parseInt(table.getValueAt(rows[0], 0).toString()));
+                empruntsCrud.updateView();
             }
         }else{
             for(int row : rows){

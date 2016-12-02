@@ -31,6 +31,7 @@ public class ReservationsCRUD {
             prepare.setDate(4, reservation.getDateLimiteReservation());
             
             prepare.executeUpdate();
+            UpdateView();
             prepare.close();
             return true;
         } catch (SQLException ex) {

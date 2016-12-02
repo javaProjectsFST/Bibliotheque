@@ -3,6 +3,7 @@ package view;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
@@ -71,6 +72,11 @@ public class DashboardView extends JPanel {
     public void setCanceReserveIcon(){
         makeReservationButton.setToolTipText("Annuler une reservation");
         makeReservationButton.setIcon(cancelReserveIcon);
+    }
+    
+    public int showEmpruntMessage(String login){
+        String[] options={"Oui", "Annuler"};
+        return JOptionPane.showOptionDialog(this, "Ce livre est reservé par l'adherent de login '"+login+"', voulez vous le lui emprunter?", "Confirmation", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
     }
     
     @SuppressWarnings("unchecked")

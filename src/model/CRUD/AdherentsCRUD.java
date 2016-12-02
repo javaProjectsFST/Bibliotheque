@@ -192,13 +192,17 @@ public class AdherentsCRUD {
         }
     }
     
-    public ResultSet getAllAdherents(boolean details){
+    public ResultSet getAllAdherents(boolean details, boolean emprunt){
          try {
             PreparedStatement prepare=null;
             if(details){
                 prepare=connexion.prepareStatement("select * from adherent");
             }else{
-                prepare=connexion.prepareStatement("SELECT a.Login, a.Prenom, a.Nom, a.Email, COUNT(e.IdLivreEmp) 'Nombre Emprunt' FROM adherent a LEFT JOIN emprunt e ON a.Login=e.LoginAdherentEmp GROUP BY a.Login");
+                if(emprunt){
+                    prepare=connexion.prepareStatement("SELECT a.Login, a.Prenom, a.Nom, a.Email, COUNT(e.IdLivreEmp) 'Nombre Emprunt' FROM adherent a LEFT JOIN emprunt e ON a.Login=e.LoginAdherentEmp GROUP BY a.Login");
+                }else{
+                    prepare=connexion.prepareStatement("SELECT a.Login, a.Prenom, a.Nom, a.Email, COUNT(r.IdLivreRes) 'Nombre Reservation' FROM adherent a LEFT JOIN reservation r ON a.Login=r.LoginAdherentRes GROUP BY a.Login");
+                }
             }
             ResultSet resultat=prepare.executeQuery();
             if(resultat.next()){

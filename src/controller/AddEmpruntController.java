@@ -16,23 +16,23 @@ import model.CRUD.AdherentsCRUD;
 import model.CRUD.EmpruntsCRUD;
 import model.CRUD.LivresCRUD;
 import model.entities.Emprunt;
-import view.AddEmpruntLivreView;
+import view.AddEmpruntView;
 
-public class AddEmpruntLivreController {
+public class AddEmpruntController {
     
     private final Connection connexion;
     private final AdherentsCRUD adherentsCrud;
     private final LivresCRUD livresCrud;
     private final EmpruntsCRUD empruntsCrud;
-    private final AddEmpruntLivreView addEmpruntLivreView;
+    private final AddEmpruntView addEmpruntLivreView;
     private final int livreId;
     
-    public AddEmpruntLivreController(Connection connexion, LivresCRUD livresCrud, AdherentsCRUD adherentsCrud, int livreId){
+    public AddEmpruntController(Connection connexion, LivresCRUD livresCrud, AdherentsCRUD adherentsCrud, int livreId){
         this.connexion=connexion;
         this.adherentsCrud=adherentsCrud;
         this.livresCrud=livresCrud;
         this.empruntsCrud=new EmpruntsCRUD(this.connexion, livresCrud);
-        this.addEmpruntLivreView=new AddEmpruntLivreView();
+        this.addEmpruntLivreView=new AddEmpruntView();
         this.livreId=livreId;
         
         initView();
@@ -41,7 +41,7 @@ public class AddEmpruntLivreController {
     }
     
     private void initView(){
-        ResultSet rs=adherentsCrud.getAllAdherents(false);
+        ResultSet rs=adherentsCrud.getAllAdherents(false, true);
         if(rs!=null){
             addEmpruntLivreView.UpdateView(rs);
         }
@@ -76,7 +76,7 @@ public class AddEmpruntLivreController {
                 String searched=addEmpruntLivreView.getRechercheTextField().getText();
                 ResultSet rs=null;
                 if(searched.equals("Recherche")){
-                    rs=adherentsCrud.getAllAdherents(false);
+                    rs=adherentsCrud.getAllAdherents(false, true);
                     addEmpruntLivreView.UpdateView(rs);
                 }else{
                     switch((String)addEmpruntLivreView.getComboBox().getSelectedItem()){
