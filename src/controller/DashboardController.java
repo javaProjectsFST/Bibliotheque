@@ -8,9 +8,11 @@ import view.DashboardView;
 import java.sql.Connection;
 import javax.swing.JComponent;
 import javax.swing.JPopupMenu;
+import javax.swing.JTable;
 import model.CRUD.AdherentsCRUD;
 import model.CRUD.EmpruntsCRUD;
 import model.CRUD.LivresCRUD;
+import model.CRUD.ReservationsCRUD;
 
 public class DashboardController {
     private final DashboardView dashboardView;
@@ -23,6 +25,7 @@ public class DashboardController {
 //    public final EmployesCRUD employesCrud;
     private final int connectedIndex;
     private final EmpruntsCRUD empruntsCrud;
+    private final ReservationsCRUD reservationsCrud;
     private JPopupMenu m;
     
     
@@ -37,7 +40,8 @@ public class DashboardController {
         
         this.livresCrud=new LivresCRUD(connexion, this.livresController.getLivreView());
         this.adherentsCrud=new AdherentsCRUD(connexion, this.adherentsController.getAdherentView());
-        this.empruntsCrud=new EmpruntsCRUD(connexion, this.livresCrud, this.adherentsCrud);
+        this.empruntsCrud=new EmpruntsCRUD(connexion, this.livresCrud);
+        this.reservationsCrud=new ReservationsCRUD(connexion, livresCrud);
         initView();
         initController();
     }
@@ -79,65 +83,117 @@ public class DashboardController {
         dashboardView.getAddBookButton().addActionListener(e->livresController.addBook());
         dashboardView.getDeleteBookButton().addActionListener(e->livresController.deleteBook());
         dashboardView.getLivresView().getLivresTable().getSelectionModel().addListSelectionListener(e -> selectionChanged());
-        dashboardView.getMakeReservationButton().addActionListener(e->livresController.reserveBook());
         dashboardView.getMakeReservationButton().addActionListener(e->reservationClicked());
         dashboardView.getEmpruntButton().addActionListener(e->empruntClicked());
     }
     
     private void reservationClicked(){
-        int row=dashboardView.getLivresView().getLivresTable().getSelectedRow();
-        if(!(dashboardView.getLivresView().getLivresTable().getValueAt(row, 6)==null) && !(dashboardView.getLivresView().getLivresTable().getValueAt(row, 6).equals(""))){
-            
+        JTable table=dashboardView.getLivresView().getLivresTable();
+        int[] rows=table.getSelectedRows();
+        if(rows.length==1){
+            if(table.getValueAt(rows[0], 7)==null){
+                
+            }else{
+                reservationsCrud.deleteReservationByLivre(Integer.parseInt(table.getValueAt(rows[0], 0).toString()));
+            }
         }else{
-            
+            for(int row : rows){
+                reservationsCrud.deleteReservationByLivre(Integer.parseInt(table.getValueAt(row, 0).toString()));
+            }
+            reservationsCrud.UpdateView();
         }
     }
     
     private void empruntClicked(){
-        if(dashboardView.getLivresView().getLivresTable().getSelectedRowCount()==1){
-            int row=dashboardView.getLivresView().getLivresTable().getSelectedRow();
-            if(dashboardView.getLivresView().getLivresTable().getValueAt(row, 5)==null){
-                new AddEmpruntLivreController(connexion, livresCrud, adherentsCrud, (int)dashboardView.getLivresView().getLivresTable().getValueAt(row,0));
+        JTable table=dashboardView.getLivresView().getLivresTable();
+        int[] rows=table.getSelectedRows();
+        if(rows.length == 1){
+            if(table.getValueAt(rows[0], 5)==null){
+                new AddEmpruntLivreController(connexion, livresCrud, adherentsCrud, (int)table.getValueAt(rows[0],0));
             }else{
-                empruntsCrud.deleteEmprentByLivre(Integer.parseInt(dashboardView.getLivresView().getLivresTable().getValueAt(row, 0).toString()));
+                empruntsCrud.deleteEmprentByLivre(Integer.parseInt(table.getValueAt(rows[0], 0).toString()));
             }
         }else{
-            int[] rows=dashboardView.getLivresView().getLivresTable().getSelectedRows();
-            if(dashboardView.getLivresView().getLivresTable().getValueAt(rows[0], 5)==null){
-                return;
-            }else{
-                for(int i=rows.length-1; i>0; i--){
-                    if(dashboardView.getLivresView().getLivresTable().getValueAt(rows[i], 5)==null)
-                        return;
-                }
-                for(int i=rows.length-1; i>=0; i--){
-                    empruntsCrud.deleteEmprentByLivre(Integer.parseInt(dashboardView.getLivresView().getLivresTable().getValueAt(rows[i], 0).toString()));
-                }
+            for(int row : rows){
+                empruntsCrud.deleteEmprentByLivre(Integer.parseInt(table.getValueAt(row, 0).toString()));
             }
+            empruntsCrud.updateView();
         }
     }
     
     private void selectionChanged(){
-        int row=dashboardView.getLivresView().getLivresTable().getSelectedRow();
-        if(row!=-1){
-            if(dashboardView.getLivresView().getLivresTable().getValueAt(row, 5)!=null || dashboardView.getLivresView().getLivresTable().getValueAt(row, 7)!=null){
-                dashboardView.getMakeReservationButton().setEnabled(false);
-            }else{
-                dashboardView.getMakeReservationButton().setEnabled(true);
-            }
-            if(dashboardView.getLivresView().getLivresTable().getValueAt(row, 5)!=null){
+        JTable table=dashboardView.getLivresView().getLivresTable();
+        int[] rows=dashboardView.getLivresView().getLivresTable().getSelectedRows();
+        if(rows.length == 1){
+            if(table.getValueAt(rows[0], 5)!=null){
                 dashboardView.setCancelEmpruntIcon();
+                dashboardView.getEmpruntButton().setEnabled(true);
+                
+                dashboardView.setReserverIcon();
+                dashboardView.getMakeReservationButton().setEnabled(false);
+                dashboardView.getDeleteBookButton().setEnabled(false);
+            }else if(table.getValueAt(rows[0], 7)!=null){
+                dashboardView.setEmpruntIcon();
+                dashboardView.getEmpruntButton().setEnabled(true);
+                
+                dashboardView.setCanceReserveIcon();
+                dashboardView.getMakeReservationButton().setEnabled(true);
+                dashboardView.getDeleteBookButton().setEnabled(false);
             }else{
                 dashboardView.setEmpruntIcon();
+                dashboardView.getEmpruntButton().setEnabled(true);
+                
+                dashboardView.setReserverIcon();
+                dashboardView.getMakeReservationButton().setEnabled(true);
+                
+                dashboardView.getDeleteBookButton().setEnabled(true);
             }
-            dashboardView.getEmpruntButton().setEnabled(true);
-            dashboardView.getDeleteBookButton().setEnabled(true);
+        }else if(rows.length > 1){
+            if(table.getValueAt(rows[0], 5)!=null){
+                for(int row : rows){
+                    if(table.getValueAt(row, 5)==null){
+                        disableLivreButtons();
+                        return;
+                    }
+                }
+                dashboardView.setCancelEmpruntIcon();
+                dashboardView.getEmpruntButton().setEnabled(true);
+                
+                dashboardView.setReserverIcon();
+                dashboardView.getMakeReservationButton().setEnabled(false);
+                dashboardView.getDeleteBookButton().setEnabled(false);
+            }else if(table.getValueAt(rows[0], 7)!=null){
+                for(int row : rows){
+                    if(table.getValueAt(row, 7)==null){
+                        disableLivreButtons();
+                        return;
+                    }
+                }
+                dashboardView.setEmpruntIcon();
+                dashboardView.getEmpruntButton().setEnabled(false);
+                
+                dashboardView.setCanceReserveIcon();
+                dashboardView.getMakeReservationButton().setEnabled(true);
+                dashboardView.getDeleteBookButton().setEnabled(false);
+            }else{
+                dashboardView.setEmpruntIcon();
+                dashboardView.getEmpruntButton().setEnabled(false);
+                
+                dashboardView.setReserverIcon();
+                dashboardView.getMakeReservationButton().setEnabled(false);
+                dashboardView.getDeleteBookButton().setEnabled(true);
+            }
         }else{
-            dashboardView.setEmpruntIcon();
-            dashboardView.getDeleteBookButton().setEnabled(false);
-            dashboardView.getMakeReservationButton().setEnabled(false);
-            dashboardView.getEmpruntButton().setEnabled(false);
+            disableLivreButtons();
         }
+    }
+    
+    private void disableLivreButtons(){
+        dashboardView.setReserverIcon();
+        dashboardView.setReserverIcon();
+        dashboardView.getEmpruntButton().setEnabled(false);
+        dashboardView.getMakeReservationButton().setEnabled(false);
+        dashboardView.getDeleteBookButton().setEnabled(false);
     }
     
     private int i=0;

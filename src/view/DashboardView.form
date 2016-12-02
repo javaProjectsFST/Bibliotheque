@@ -164,7 +164,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/resources/reserve-book.png"/>
             </Property>
-            <Property name="toolTipText" type="java.lang.String" value="Faire/Annuler une reservation."/>
+            <Property name="toolTipText" type="java.lang.String" value="Faire une reservation"/>
             <Property name="enabled" type="boolean" value="false"/>
             <Property name="focusable" type="boolean" value="false"/>
           </Properties>
@@ -177,7 +177,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/resources/emprunt-book.png"/>
             </Property>
-            <Property name="toolTipText" type="java.lang.String" value="Faire/Annuler un emprunt"/>
+            <Property name="toolTipText" type="java.lang.String" value="Faire un emprunt"/>
             <Property name="enabled" type="boolean" value="false"/>
             <Property name="focusable" type="boolean" value="false"/>
           </Properties>

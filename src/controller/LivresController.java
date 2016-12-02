@@ -29,8 +29,8 @@ public class LivresController {
         this.sortColumn = 1;
         this.livresCrud = new LivresCRUD(connexion, this.livreView);
         this.adherentsCrud = new AdherentsCRUD(connexion, adherentView);
-        this.empruntsCrud = new EmpruntsCRUD(connexion, livresCrud, adherentsCrud);
-        this.reservationsCRUD=new ReservationsCRUD(connexion);
+        this.empruntsCrud = new EmpruntsCRUD(connexion, livresCrud);
+        this.reservationsCRUD=new ReservationsCRUD(connexion, livresCrud);
         
         initView();
         initController();

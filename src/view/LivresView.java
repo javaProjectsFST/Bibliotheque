@@ -102,7 +102,6 @@ public class LivresView extends javax.swing.JPanel{
         setMinimumSize(new java.awt.Dimension(0, 0));
         setPreferredSize(new java.awt.Dimension(1600, 600));
 
-        livreTable.setAutoCreateRowSorter(true);
         livreTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null, null},

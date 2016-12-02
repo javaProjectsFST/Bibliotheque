@@ -10,10 +10,16 @@ import java.sql.ResultSet;
 import model.entities.Reservation;
 
 public class ReservationsCRUD {
-    private Connection connexion;
-
-    public ReservationsCRUD(Connection connexion) {
+    private final Connection connexion;
+    private final LivresCRUD livresCrud;
+    
+    public ReservationsCRUD(Connection connexion, LivresCRUD livresCrud) {
         this.connexion = connexion;
+        this.livresCrud=livresCrud;
+    }
+    
+    public void UpdateView(){
+        livresCrud.updateView();
     }
     
     public boolean addReservation(Reservation reservation){

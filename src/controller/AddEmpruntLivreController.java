@@ -31,7 +31,7 @@ public class AddEmpruntLivreController {
         this.connexion=connexion;
         this.adherentsCrud=adherentsCrud;
         this.livresCrud=livresCrud;
-        this.empruntsCrud=new EmpruntsCRUD(this.connexion, livresCrud, adherentsCrud);
+        this.empruntsCrud=new EmpruntsCRUD(this.connexion, livresCrud);
         this.addEmpruntLivreView=new AddEmpruntLivreView();
         this.livreId=livreId;
         

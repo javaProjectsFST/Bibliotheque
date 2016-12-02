@@ -105,7 +105,7 @@ public class LivresCRUD {
             if(!details){
                 prepare=connexion.prepareStatement("select * from livre");
             }else{
-                prepare=connexion.prepareStatement("SELECT LivreId, Titre, Auteur, Editeur, DateEdition, DateEmprunt, DateLimiteEmprunt, DateReservation, DateLimiteReservation FROM (SELECT * FROM livre l LEFT JOIN emprunt e ON e.IdLivreEmp = l.LivreId LEFT JOIN reservation r ON r.IdLivreRes = l.LivreId) AS T");
+                prepare=connexion.prepareStatement("SELECT LivreId, Titre, Auteur, Editeur, DateEdition, DateEmprunt, DateLimiteEmprunt, DateReservation, DateLimiteReservation FROM (SELECT * FROM livre l LEFT JOIN emprunt e ON e.IdLivreEmp = l.LivreId LEFT JOIN reservation r ON r.IdLivreRes = l.LivreId) AS T ORDER BY Titre");
             }
             ResultSet resultat=prepare.executeQuery();
             if(resultat.next()){

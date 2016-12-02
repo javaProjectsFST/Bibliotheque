@@ -10,11 +10,15 @@ public class DashboardView extends JPanel {
 
     private final ImageIcon cancelEmpruntIcon;
     private final ImageIcon empruntIcon;
+    private final ImageIcon reserveIcon;
+    private final ImageIcon cancelReserveIcon;
     
     public DashboardView() {
         initComponents();
         cancelEmpruntIcon=new ImageIcon(getClass().getResource("/resources/cancel_emprunt-book.png"));
         empruntIcon=new ImageIcon(getClass().getResource("/resources/emprunt-book.png"));
+        reserveIcon=new ImageIcon(getClass().getResource("/resources/reserve-book.png"));
+        cancelReserveIcon=new ImageIcon(getClass().getResource("/resources/cancel_reserve-book.png"));
     }
     
     public LivresView getLivresView(){
@@ -50,11 +54,23 @@ public class DashboardView extends JPanel {
     }
     
     public void setEmpruntIcon(){
+        empruntButton.setToolTipText("Faire un emprunt");
         empruntButton.setIcon(empruntIcon);
     }
     
     public void setCancelEmpruntIcon(){
+        empruntButton.setToolTipText("Annuler un emprunt");
         empruntButton.setIcon(cancelEmpruntIcon);
+    }
+    
+    public void setReserverIcon(){
+        makeReservationButton.setToolTipText("Faire une reservation");
+        makeReservationButton.setIcon(reserveIcon);
+    }
+    
+    public void setCanceReserveIcon(){
+        makeReservationButton.setToolTipText("Annuler une reservation");
+        makeReservationButton.setIcon(cancelReserveIcon);
     }
     
     @SuppressWarnings("unchecked")
@@ -106,7 +122,7 @@ public class DashboardView extends JPanel {
         deleteBookButton.setFocusable(false);
 
         makeReservationButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/reserve-book.png"))); // NOI18N
-        makeReservationButton.setToolTipText("Faire/Annuler une reservation.");
+        makeReservationButton.setToolTipText("Faire une reservation");
         makeReservationButton.setEnabled(false);
         makeReservationButton.setFocusable(false);
         makeReservationButton.addActionListener(new java.awt.event.ActionListener() {
@@ -116,7 +132,7 @@ public class DashboardView extends JPanel {
         });
 
         empruntButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/emprunt-book.png"))); // NOI18N
-        empruntButton.setToolTipText("Faire/Annuler un emprunt");
+        empruntButton.setToolTipText("Faire un emprunt");
         empruntButton.setEnabled(false);
         empruntButton.setFocusable(false);
 
