@@ -3,9 +3,11 @@ package view;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
+import javax.swing.JTextField;
 
 public class DashboardView extends JPanel {
 
@@ -79,6 +81,34 @@ public class DashboardView extends JPanel {
         return JOptionPane.showOptionDialog(this, "Ce livre est reservé par l'adherent de login '"+login+"', voulez vous le lui emprunter?", "Confirmation", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
     }
     
+    public JPanel getToutPanel(){
+        return toutPanel;
+    }
+    
+    public JLabel getToutNumber(){
+        return toutNumber;
+    }
+    
+    public JPanel getEmpruntesPanel(){
+        return empruntesPanel;
+    }
+    
+    public JLabel getEmpruntesNumber(){
+        return empruntesNumber;
+    }
+    
+    public JPanel getDateLimitePanel(){
+        return dateLimitePanel;
+    }
+    
+    public JLabel getDateLimiteNumber(){
+        return dateLimiteNumber;
+    }
+    
+    public JTextField getRechercheTextField(){
+        return rechercheTextField;
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -86,11 +116,24 @@ public class DashboardView extends JPanel {
         tabbedPane = new javax.swing.JTabbedPane();
         livresView = new view.LivresView();
         jPanel1 = new javax.swing.JPanel();
+        empruntesPanel = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        empruntesNumber = new javax.swing.JLabel();
+        toutPanel = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        toutNumber = new javax.swing.JLabel();
+        dateLimitePanel = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
+        dateLimiteNumber = new javax.swing.JLabel();
+        reservesPanel = new javax.swing.JPanel();
+        jLabel7 = new javax.swing.JLabel();
+        reservesNumber = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         addBookButton = new javax.swing.JButton();
         deleteBookButton = new javax.swing.JButton();
         makeReservationButton = new javax.swing.JButton();
         empruntButton = new javax.swing.JButton();
+        rechercheTextField = new javax.swing.JTextField();
 
         setMaximumSize(new java.awt.Dimension(1800, 680));
         setMinimumSize(new java.awt.Dimension(1800, 680));
@@ -102,16 +145,144 @@ public class DashboardView extends JPanel {
         tabbedPane.addTab("Livres", livresView);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jPanel1.setPreferredSize(new java.awt.Dimension(197, 261));
+
+        empruntesPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        empruntesPanel.setPreferredSize(new java.awt.Dimension(142, 30));
+
+        jLabel3.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel3.setText("Empruntés");
+
+        empruntesNumber.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        empruntesNumber.setText("(51)");
+
+        javax.swing.GroupLayout empruntesPanelLayout = new javax.swing.GroupLayout(empruntesPanel);
+        empruntesPanel.setLayout(empruntesPanelLayout);
+        empruntesPanelLayout.setHorizontalGroup(
+            empruntesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(empruntesPanelLayout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(empruntesNumber)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        empruntesPanelLayout.setVerticalGroup(
+            empruntesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(empruntesPanelLayout.createSequentialGroup()
+                .addGap(4, 4, 4)
+                .addGroup(empruntesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(empruntesNumber))
+                .addContainerGap(8, Short.MAX_VALUE))
+        );
+
+        toutPanel.setBackground(new java.awt.Color(153, 153, 153));
+        toutPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+        jLabel1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jLabel1.setText("Tout");
+
+        toutNumber.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        toutNumber.setText("(115)");
+
+        javax.swing.GroupLayout toutPanelLayout = new javax.swing.GroupLayout(toutPanel);
+        toutPanel.setLayout(toutPanelLayout);
+        toutPanelLayout.setHorizontalGroup(
+            toutPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(toutPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(toutNumber)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        toutPanelLayout.setVerticalGroup(
+            toutPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(toutPanelLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(toutPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(toutNumber))
+                .addGap(4, 4, 4))
+        );
+
+        dateLimitePanel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+        jLabel5.setText("Date Limite Depassé");
+
+        dateLimiteNumber.setText("(15)");
+
+        javax.swing.GroupLayout dateLimitePanelLayout = new javax.swing.GroupLayout(dateLimitePanel);
+        dateLimitePanel.setLayout(dateLimitePanelLayout);
+        dateLimitePanelLayout.setHorizontalGroup(
+            dateLimitePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(dateLimitePanelLayout.createSequentialGroup()
+                .addGap(40, 40, 40)
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(dateLimiteNumber)
+                .addContainerGap(17, Short.MAX_VALUE))
+        );
+        dateLimitePanelLayout.setVerticalGroup(
+            dateLimitePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(dateLimitePanelLayout.createSequentialGroup()
+                .addGap(7, 7, 7)
+                .addGroup(dateLimitePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(dateLimiteNumber))
+                .addContainerGap(8, Short.MAX_VALUE))
+        );
+
+        reservesPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        reservesPanel.setPreferredSize(new java.awt.Dimension(142, 30));
+
+        jLabel7.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel7.setText("Reservés");
+
+        reservesNumber.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        reservesNumber.setText("(24)");
+
+        javax.swing.GroupLayout reservesPanelLayout = new javax.swing.GroupLayout(reservesPanel);
+        reservesPanel.setLayout(reservesPanelLayout);
+        reservesPanelLayout.setHorizontalGroup(
+            reservesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(reservesPanelLayout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addComponent(jLabel7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(reservesNumber)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        reservesPanelLayout.setVerticalGroup(
+            reservesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(reservesPanelLayout.createSequentialGroup()
+                .addGap(4, 4, 4)
+                .addGroup(reservesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(reservesNumber))
+                .addContainerGap(8, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 193, Short.MAX_VALUE)
+            .addComponent(toutPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(empruntesPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)
+            .addComponent(dateLimitePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(reservesPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 254, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(toutPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(empruntesPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(dateLimitePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(reservesPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         jPanel2.setBackground(new java.awt.Color(204, 204, 204));
@@ -165,15 +336,22 @@ public class DashboardView extends JPanel {
             .addComponent(empruntButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
+        rechercheTextField.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        rechercheTextField.setText("Recherche");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(tabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 1603, Short.MAX_VALUE))
+                .addComponent(tabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 1594, Short.MAX_VALUE))
             .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1800, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(rechercheTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(35, 35, 35))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -181,11 +359,13 @@ public class DashboardView extends JPanel {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                        .addComponent(rechercheTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, 0)
                         .addComponent(tabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 569, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(107, 107, 107)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -197,13 +377,26 @@ public class DashboardView extends JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addBookButton;
+    private javax.swing.JLabel dateLimiteNumber;
+    private javax.swing.JPanel dateLimitePanel;
     private javax.swing.JButton deleteBookButton;
     private javax.swing.JButton empruntButton;
+    private javax.swing.JLabel empruntesNumber;
+    private javax.swing.JPanel empruntesPanel;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private view.LivresView livresView;
     private javax.swing.JButton makeReservationButton;
+    private javax.swing.JTextField rechercheTextField;
+    private javax.swing.JLabel reservesNumber;
+    private javax.swing.JPanel reservesPanel;
     private javax.swing.JTabbedPane tabbedPane;
+    private javax.swing.JLabel toutNumber;
+    private javax.swing.JPanel toutPanel;
     // End of variables declaration//GEN-END:variables
 
 }

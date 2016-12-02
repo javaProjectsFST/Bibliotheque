@@ -2,11 +2,17 @@ package controller;
 
 import java.awt.Dimension;
 import java.awt.Point;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import view.DashboardView;
 import java.sql.Connection;
+import javax.swing.BorderFactory;
 import javax.swing.JComponent;
+import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JTable;
 import model.CRUD.AdherentsCRUD;
@@ -67,12 +73,18 @@ public class DashboardController {
         }
     }
     
+    private void rechercheTextFieldLoosFocus(){
+        dashboardView.getRechercheTextField().setFocusable(false);
+        dashboardView.getRechercheTextField().setFocusable(true);
+    }
+    
     private void initController(){
         dashboardView.addMouseListener(new MouseAdapter(){
             @Override
             public void mousePressed(MouseEvent ev){
                 super.mousePressed(ev);
                 livresController.looseTableFocus();
+                rechercheTextFieldLoosFocus();
             }
         });
         dashboardView.getTabbedPane().addMouseListener(new MouseAdapter(){
@@ -80,6 +92,7 @@ public class DashboardController {
             public void mousePressed(MouseEvent ev){
                 super.mousePressed(ev);
                 livresController.looseTableFocus();
+                rechercheTextFieldLoosFocus();
             }
         });
         dashboardView.getAddBookButton().addActionListener(e->livresController.addBook());
@@ -87,6 +100,50 @@ public class DashboardController {
         dashboardView.getLivresView().getLivresTable().getSelectionModel().addListSelectionListener(e -> selectionChanged());
         dashboardView.getMakeReservationButton().addActionListener(e->reservationClicked());
         dashboardView.getEmpruntButton().addActionListener(e->empruntClicked());
+        
+        dashboardView.getRechercheTextField().addFocusListener(new FocusListener(){
+            @Override
+            public void focusGained(FocusEvent e) {
+                if(dashboardView.getRechercheTextField().getText().equals("Recherche")){
+                    dashboardView.getRechercheTextField().setCaretPosition(0);
+                }
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                if(dashboardView.getRechercheTextField().getText().isEmpty())
+                    dashboardView.getRechercheTextField().setText("Recherche");
+            }
+        });
+        dashboardView.getRechercheTextField().addMouseListener(new MouseAdapter(){
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                super.mouseReleased(e);
+                if(dashboardView.getRechercheTextField().getText().equals("Recherche"))
+                    dashboardView.getRechercheTextField().setCaretPosition(0);
+            }
+        });
+        dashboardView.getRechercheTextField().addKeyListener(new KeyListener(){
+            @Override
+            public void keyTyped(KeyEvent e) {}
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if(dashboardView.getRechercheTextField().getText().equals("Recherche")){
+                    dashboardView.getRechercheTextField().setText("");
+                }
+                ((JPanel)dashboardView.getRechercheTextField().getParent()).setBorder(BorderFactory.createEmptyBorder());
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+                dashboardView.getLivresView().looseTableFocus();
+                if(dashboardView.getRechercheTextField().getText().isEmpty()){
+                    dashboardView.getRechercheTextField().setText("Recherche");
+                    dashboardView.getRechercheTextField().setCaretPosition(0);
+                }
+            }
+        });
     }
     
     private void reservationClicked(){
@@ -134,6 +191,7 @@ public class DashboardController {
     }
     
     private void selectionChanged(){
+        rechercheTextFieldLoosFocus();
         JTable table=dashboardView.getLivresView().getLivresTable();
         int[] rows=dashboardView.getLivresView().getLivresTable().getSelectedRows();
         if(rows.length == 1){
@@ -206,17 +264,5 @@ public class DashboardController {
         dashboardView.getEmpruntButton().setEnabled(false);
         dashboardView.getMakeReservationButton().setEnabled(false);
         dashboardView.getDeleteBookButton().setEnabled(false);
-    }
-    
-    private int i=0;
-    private void showMenu(JComponent c){
-        if(i==0){
-            Point p=c.getLocation();
-            m.show(c, p.x-313, p.y+c.getHeight()-2);
-            i=1;
-        }else{
-            m.setVisible(false);
-            i=0;
-        }
     }
 }
