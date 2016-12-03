@@ -33,11 +33,11 @@ public class GeneralController{
         dashboardController=new DashboardController(connexion, connectedIndex, this);
         mainFrame.addDashboardView(dashboardController.getDashboardView());
         mainFrame.getCardLayout().next(mainFrame.getContainer());
-        System.out.println(connectedIndex);
     }
     
     public void logout(){
-        mainFrame.getCardLayout().previous(mainFrame.getContainer());
+        mainFrame.getCardLayout().removeLayoutComponent(mainFrame.getContainer().getComponent(1));
+//        mainFrame.getCardLayout().previous(mainFrame.getContainer());
         connectedIndex=-1;
     }
     
