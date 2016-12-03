@@ -4,7 +4,7 @@ package controller;
 import view.AdherentsView;
 import model.CRUD.AdherentsCRUD;
 import java.sql.Connection;
-import javax.swing.JPanel;
+import java.sql.ResultSet;
 
 public class AdherentsController {
     private AdherentsView adherentView;
@@ -25,7 +25,10 @@ public class AdherentsController {
     }
     
     private void initView(){
-        
+        ResultSet rs=adherentsCrud.getAllAdherents(true, false);
+        if(rs!=null){
+            adherentView.UpdateView(rs);
+        }
     }
     
     private void initController(){

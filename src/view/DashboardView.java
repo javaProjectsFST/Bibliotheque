@@ -131,11 +131,11 @@ public class DashboardView extends JPanel {
     }
     
     public AdherentsView getAdherentsView(){
-        return null;
+        return adherentsView;
     }
     
     public EmployesView getEmployesView(){
-        return null;
+        return employesView;
     }
     
     public JButton getAddBookButton(){
@@ -220,17 +220,24 @@ public class DashboardView extends JPanel {
     }
     
     public void setComboForLivre(){
+        comboBox.removeAllItems();
         comboBox.addItem("Titre");
         comboBox.addItem("Auteur");
         comboBox.addItem("Editeur");
     }
     
     public void setComboForEmploye(){
-        
+        comboBox.removeAllItems();
+        comboBox.addItem("Login");
+        comboBox.addItem("Prenom");
+        comboBox.addItem("Nom");
     }
     
     public void setComboForAdherent(){
-        
+        comboBox.removeAllItems();
+        comboBox.addItem("Login");
+        comboBox.addItem("Prenom");
+        comboBox.addItem("Nom");
     }
     
     public JComboBox getComboBox(){
@@ -249,13 +256,75 @@ public class DashboardView extends JPanel {
         return detailsButton;
     }
     
+    private void allInvisible(){
+        detailsButton.setVisible(false);
+        toutPanel.setVisible(false);
+        empruntesPanel.setVisible(false);
+        dateLimitePanel.setVisible(false);
+        reservesPanel.setVisible(false);
+        addBookButton.setVisible(false);
+        deleteBookButton.setVisible(false);
+        empruntButton.setVisible(false);
+        makeReservationButton.setVisible(false);
+        emailButton.setVisible(false);
+        addAdherentButton.setVisible(false);
+        removeAdherentButton.setVisible(false);
+        addEmployeButton.setVisible(false);
+        removeEmployeButton.setVisible(false);
+    }
+    
+    public void livreTabVisible(){
+        allInvisible();
+        detailsButton.setVisible(true);
+        statisticPanel.setVisible(true);
+        addBookButton.setVisible(true);
+        deleteBookButton.setVisible(true);
+        empruntButton.setVisible(true);
+        makeReservationButton.setVisible(true);
+        emailButton.setVisible(true);
+        toutPanel.setVisible(true);
+        empruntesPanel.setVisible(true);
+        dateLimitePanel.setVisible(true);
+        reservesPanel.setVisible(true);
+    }
+    
+    public void adherentTabVisible(){
+        allInvisible();
+        addAdherentButton.setVisible(true);
+        removeAdherentButton.setVisible(true);
+    }
+    
+    public void employeTabVisible(){
+        allInvisible();
+        addEmployeButton.setVisible(true);
+        removeEmployeButton.setVisible(true);
+    }
+    
+    public JButton getAddAdherentButton(){
+        return addAdherentButton;
+    }
+    
+    public JButton getRemoveAdherentButton(){
+        return removeAdherentButton;
+    }
+    
+    public JButton getAddEmployeButton(){
+        return addEmployeButton;
+    }
+    
+    public JButton getRemoveEmployeButton(){
+        return removeEmployeButton;
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         tabbedPane = new javax.swing.JTabbedPane();
         livresView = new view.LivresView();
-        jPanel1 = new javax.swing.JPanel();
+        adherentsView = new view.AdherentsView();
+        employesView = new view.EmployesView();
+        statisticPanel = new javax.swing.JPanel();
         empruntesPanel = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         empruntesNumber = new javax.swing.JLabel();
@@ -275,6 +344,10 @@ public class DashboardView extends JPanel {
         empruntButton = new javax.swing.JButton();
         logoutButton = new javax.swing.JButton();
         emailButton = new javax.swing.JButton();
+        addAdherentButton = new javax.swing.JButton();
+        removeAdherentButton = new javax.swing.JButton();
+        addEmployeButton = new javax.swing.JButton();
+        removeEmployeButton = new javax.swing.JButton();
         rechercheTextField = new javax.swing.JTextField();
         comboBox = new javax.swing.JComboBox<>();
         detailsButton = new javax.swing.JButton();
@@ -287,9 +360,11 @@ public class DashboardView extends JPanel {
         tabbedPane.setFocusable(false);
         tabbedPane.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         tabbedPane.addTab("Livres", livresView);
+        tabbedPane.addTab("Adherents", adherentsView);
+        tabbedPane.addTab("Employes", employesView);
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jPanel1.setPreferredSize(new java.awt.Dimension(197, 261));
+        statisticPanel.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        statisticPanel.setPreferredSize(new java.awt.Dimension(197, 261));
 
         empruntesPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         empruntesPanel.setPreferredSize(new java.awt.Dimension(142, 30));
@@ -408,18 +483,18 @@ public class DashboardView extends JPanel {
                 .addContainerGap(8, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout statisticPanelLayout = new javax.swing.GroupLayout(statisticPanel);
+        statisticPanel.setLayout(statisticPanelLayout);
+        statisticPanelLayout.setHorizontalGroup(
+            statisticPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(toutPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(empruntesPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)
             .addComponent(dateLimitePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(reservesPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        statisticPanelLayout.setVerticalGroup(
+            statisticPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(statisticPanelLayout.createSequentialGroup()
                 .addComponent(toutPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(empruntesPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -471,6 +546,44 @@ public class DashboardView extends JPanel {
             }
         });
 
+        addAdherentButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/add-usr.png"))); // NOI18N
+        addAdherentButton.setToolTipText("Ajouter un adherent");
+        addAdherentButton.setFocusable(false);
+        addAdherentButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addAdherentButtonActionPerformed(evt);
+            }
+        });
+
+        removeAdherentButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/remove-usr.png"))); // NOI18N
+        removeAdherentButton.setToolTipText("Supprimer un adherent");
+        removeAdherentButton.setEnabled(false);
+        removeAdherentButton.setFocusable(false);
+        removeAdherentButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                removeAdherentButtonActionPerformed(evt);
+            }
+        });
+
+        addEmployeButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/add-usr.png"))); // NOI18N
+        addEmployeButton.setToolTipText("Ajouter un adherent");
+        addEmployeButton.setFocusable(false);
+        addEmployeButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addEmployeButtonActionPerformed(evt);
+            }
+        });
+
+        removeEmployeButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/remove-usr.png"))); // NOI18N
+        removeEmployeButton.setToolTipText("Supprimer un adherent");
+        removeEmployeButton.setEnabled(false);
+        removeEmployeButton.setFocusable(false);
+        removeEmployeButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                removeEmployeButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -486,6 +599,14 @@ public class DashboardView extends JPanel {
                 .addComponent(makeReservationButton, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(emailButton, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(addAdherentButton, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(removeAdherentButton, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(addEmployeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(removeEmployeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(logoutButton, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(17, 17, 17))
@@ -498,6 +619,10 @@ public class DashboardView extends JPanel {
             .addComponent(empruntButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(logoutButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(emailButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(addAdherentButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(removeAdherentButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(addEmployeButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(removeEmployeButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         rechercheTextField.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
@@ -508,7 +633,7 @@ public class DashboardView extends JPanel {
         comboBox.setFocusable(false);
 
         detailsButton.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        detailsButton.setText("Détailles");
+        detailsButton.setText("Détails");
         detailsButton.setEnabled(false);
         detailsButton.setFocusable(false);
 
@@ -518,7 +643,7 @@ public class DashboardView extends JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(statisticPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(detailsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, 0)))
@@ -545,7 +670,7 @@ public class DashboardView extends JPanel {
                         .addComponent(tabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 569, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(107, 107, 107)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(statisticPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(detailsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))))
@@ -560,15 +685,35 @@ public class DashboardView extends JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_emailButtonActionPerformed
 
+    private void addAdherentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addAdherentButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_addAdherentButtonActionPerformed
+
+    private void removeAdherentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeAdherentButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_removeAdherentButtonActionPerformed
+
+    private void addEmployeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addEmployeButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_addEmployeButtonActionPerformed
+
+    private void removeEmployeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeEmployeButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_removeEmployeButtonActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton addAdherentButton;
     private javax.swing.JButton addBookButton;
+    private javax.swing.JButton addEmployeButton;
+    private view.AdherentsView adherentsView;
     private javax.swing.JComboBox<String> comboBox;
     private javax.swing.JLabel dateLimiteNumber;
     private javax.swing.JPanel dateLimitePanel;
     private javax.swing.JButton deleteBookButton;
     private javax.swing.JButton detailsButton;
     private javax.swing.JButton emailButton;
+    private view.EmployesView employesView;
     private javax.swing.JButton empruntButton;
     private javax.swing.JLabel empruntesNumber;
     private javax.swing.JPanel empruntesPanel;
@@ -576,14 +721,16 @@ public class DashboardView extends JPanel {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private view.LivresView livresView;
     private javax.swing.JButton logoutButton;
     private javax.swing.JButton makeReservationButton;
     private javax.swing.JTextField rechercheTextField;
+    private javax.swing.JButton removeAdherentButton;
+    private javax.swing.JButton removeEmployeButton;
     private javax.swing.JLabel reservesNumber;
     private javax.swing.JPanel reservesPanel;
+    private javax.swing.JPanel statisticPanel;
     private javax.swing.JTabbedPane tabbedPane;
     private javax.swing.JLabel toutNumber;
     private javax.swing.JPanel toutPanel;

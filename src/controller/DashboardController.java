@@ -73,6 +73,8 @@ public class DashboardController {
     
     private void initView(){
         updateMenu();
+        dashboardView.setComboForLivre();
+        dashboardView.livreTabVisible();
         switch(connectedIndex){
             case 1:
                 break;
@@ -114,12 +116,15 @@ public class DashboardController {
                 switch(index){
                     case 0:
                         dashboardView.setComboForLivre();
+                        dashboardView.livreTabVisible();
                         break;
                     case 1:
                         dashboardView.setComboForAdherent();
+                        dashboardView.adherentTabVisible();
                         break;
                     case 2:
                         dashboardView.setComboForEmploye();
+                        dashboardView.employeTabVisible();
                         break;
                     default:
                         break;
@@ -130,6 +135,7 @@ public class DashboardController {
         dashboardView.getAddBookButton().addActionListener(e->addBookClicked());
         dashboardView.getDeleteBookButton().addActionListener(e->deleteBookClicked());
         dashboardView.getLivresView().getLivresTable().getSelectionModel().addListSelectionListener(e -> selectionChanged());
+        dashboardView.getAdherentsView().getAdherentsTable().getSelectionModel().addListSelectionListener(e -> empruntTableSelectionChanged());
         dashboardView.getMakeReservationButton().addActionListener(e->reservationClicked());
         dashboardView.getEmpruntButton().addActionListener(e->empruntClicked());
         
@@ -302,6 +308,24 @@ public class DashboardController {
         dashboardView.getLogoutButton().addActionListener(e->logout());
         dashboardView.getEmailButton().addActionListener(e->sendEmail());
         dashboardView.getDetailsButton().addActionListener(e->detailsClicked());
+        dashboardView.getRemoveAdherentButton().addActionListener(e->removeAdherentClicked());
+    }
+    
+    private void removeAdherentClicked(){
+        JTable table=dashboardView.getAdherentsView().getAdherentsTable();
+        int[] rows=table.getSelectedRows();
+        for(int row : rows){
+            adherentsCrud.deleteAdherentBy(table.getValueAt(row, 0).toString());
+        }
+        adherentsCrud.updateView();
+    }
+    
+    private void empruntTableSelectionChanged(){
+        int row=dashboardView.getAdherentsView().getAdherentsTable().getSelectedRow();
+        if(row!=-1)
+            dashboardView.getRemoveAdherentButton().setEnabled(true);
+        else
+            dashboardView.getRemoveAdherentButton().setEnabled(false);
     }
     
     private void detailsClicked(){

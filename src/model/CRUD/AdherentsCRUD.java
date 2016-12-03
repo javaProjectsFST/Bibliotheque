@@ -30,6 +30,7 @@ public class AdherentsCRUD {
             prepare.setString(4, adherent.getEmail());
             
             prepare.executeUpdate();
+            updateView();
             prepare.close();
             return true;
             
@@ -186,6 +187,7 @@ public class AdherentsCRUD {
             prepare.setString(5,adherent.getEmail());
             prepare.setString(6,login);
             prepare.executeUpdate();
+            updateView();
             prepare.close();
             return true;
         }catch(SQLException ex) {
@@ -197,7 +199,7 @@ public class AdherentsCRUD {
          try {
             PreparedStatement prepare=null;
             if(details){
-                prepare=connexion.prepareStatement("select * from adherent");
+                prepare=connexion.prepareStatement("select Login, Prenom, Nom, Email from adherent");
             }else{
                 if(emprunt){
                     prepare=connexion.prepareStatement("SELECT a.Login, a.Prenom, a.Nom, a.Email, COUNT(e.IdLivreEmp) 'Nombre Emprunt' FROM adherent a LEFT JOIN emprunt e ON a.Login=e.LoginAdherentEmp GROUP BY a.Login");
@@ -216,6 +218,13 @@ public class AdherentsCRUD {
             return null;
         }
          
+    }
+    
+    public void updateView(){
+        ResultSet rs=getAllAdherents(true, false);
+        if(rs!=null){
+            adherentView.UpdateView(rs);
+        }
     }
     
     public void sendAvetMail(Livre livre, Adherent adherent, Emprunt emprunt){

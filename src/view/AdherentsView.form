@@ -50,7 +50,7 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JTable" name="livreTable">
+        <Component class="javax.swing.JTable" name="adherentsTable">
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
               <Table columnCount="9" rowCount="40">
@@ -126,7 +126,7 @@
             </Property>
           </Properties>
           <AuxValues>
-            <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JTable(){&#xa;    public Component prepareRenderer(&#xa;        TableCellRenderer renderer, int row, int column)&#xa;    {&#xa;        Component c = super.prepareRenderer(renderer, row, column);&#xa;&#xa;        if(column==0 &amp;&amp; row==0)&#xa;        this.getTableHeader().setReorderingAllowed(false);&#xa;&#xa;        if(column==0){&#xa;            this.getColumn(&quot;LivreId&quot;).setPreferredWidth(0);&#xa;            this.getColumn(&quot;LivreId&quot;).setMaxWidth(0);&#xa;            this.getColumn(&quot;LivreId&quot;).setMinWidth(0);&#xa;&#xa;            this.getColumn(&quot;DateEmprunt&quot;).setPreferredWidth(0);&#xa;            this.getColumn(&quot;DateEmprunt&quot;).setMaxWidth(0);&#xa;            this.getColumn(&quot;DateEmprunt&quot;).setMinWidth(0);&#xa;&#xa;            this.getColumn(&quot;DateLimiteEmprunt&quot;).setPreferredWidth(0);&#xa;            this.getColumn(&quot;DateLimiteEmprunt&quot;).setMaxWidth(0);&#xa;            this.getColumn(&quot;DateLimiteEmprunt&quot;).setMinWidth(0);&#xa;&#xa;            this.getColumn(&quot;DateReservation&quot;).setPreferredWidth(0);&#xa;            this.getColumn(&quot;DateReservation&quot;).setMaxWidth(0);&#xa;            this.getColumn(&quot;DateReservation&quot;).setMinWidth(0);&#xa;&#xa;            this.getColumn(&quot;DateLimiteReservation&quot;).setPreferredWidth(0);&#xa;            this.getColumn(&quot;DateLimiteReservation&quot;).setMaxWidth(0);&#xa;            this.getColumn(&quot;DateLimiteReservation&quot;).setMinWidth(0);&#xa;        }&#xa;&#xa;        Object dateEmp=this.getModel().getValueAt(row, 5);&#xa;        Object dateRes=this.getModel().getValueAt(row, 7);&#xa;        if(!isRowSelected(row)){&#xa;            if(dateEmp!=null){&#xa;                try {&#xa;                    SimpleDateFormat format = new SimpleDateFormat(&quot;yyyy-MM-dd&quot;);&#xa;                    java.util.Date parsed = format.parse(livreTable.getModel().getValueAt(row, 6).toString());&#xa;                    Date dateLim = new Date(parsed.getTime());&#xa;&#xa;                    Calendar calendar = Calendar.getInstance();&#xa;                    Date date=new Date(calendar.getTime().getTime());&#xa;&#xa;                    if(date.after(dateLim)){&#xa;                        c.setBackground(Color.decode(&quot;#feb5b5&quot;));&#xa;                    }else{&#xa;                        c.setBackground(Color.decode(&quot;#CCFFCC&quot;));&#xa;                    }&#xa;                } catch (java.text.ParseException ex) {&#xa;                    ex.printStackTrace();&#xa;                }&#xa;            }else if(dateRes!=null){&#xa;                c.setBackground(Color.decode(&quot;#CCFFFF&quot;));&#xa;            }else{&#xa;                c.setBackground(row%2==0 ? Color.white : Color.decode(&quot;#f3f3f3&quot;));&#xa;            }&#xa;        }else{&#xa;            c.setBackground(Color.decode(&quot;#b8cfe5&quot;));&#xa;        }&#xa;        return c;&#xa;    }&#xa;}"/>
+            <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JTable(){&#xa;    public Component prepareRenderer(&#xa;        TableCellRenderer renderer, int row, int column)&#xa;    {&#xa;        Component c = super.prepareRenderer(renderer, row, column);&#xa;&#xa;        if(column==0 &amp;&amp; row==0)&#xa;        this.getTableHeader().setReorderingAllowed(false);&#xa;&#xa;        if(!isRowSelected(row)){&#xa;            c.setBackground(row%2==0 ? Color.white : Color.decode(&quot;#f3f3f3&quot;));&#xa;        }&#xa;        return c;&#xa;    }&#xa;}"/>
           </AuxValues>
         </Component>
       </SubComponents>
@@ -137,26 +137,7 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace pref="621" max="32767" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                              <Component id="bluePanel" alignment="0" max="32767" attributes="0"/>
-                              <Component id="greenPanel" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="resLabel" min="-2" max="-2" attributes="0"/>
-                              <Component id="empLabel" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
-                      <Group type="102" attributes="0">
-                          <Component id="greenPanel1" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
-                          <Component id="empLabel1" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                  </Group>
-                  <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace pref="908" max="32767" attributes="0"/>
                   <Component id="depDateLimPanel" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -165,113 +146,14 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="1" attributes="0">
-                      <Component id="empLabel" min="-2" max="-2" attributes="0"/>
-                      <Component id="greenPanel" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <Component id="depDateLimPanel" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                      </Group>
-                      <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="empLabel1" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="greenPanel1" alignment="1" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace pref="16" max="32767" attributes="0"/>
-                          <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="bluePanel" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="resLabel" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
-                  </Group>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
+                  <Component id="depDateLimPanel" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace pref="22" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Container class="javax.swing.JPanel" name="bluePanel">
-          <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="ff" green="ff" red="cc" type="rgb"/>
-            </Property>
-            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-              <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
-                <LineBorder thickness="2"/>
-              </Border>
-            </Property>
-            <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[60, 20]"/>
-            </Property>
-            <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[60, 20]"/>
-            </Property>
-          </Properties>
-
-          <Layout>
-            <DimensionLayout dim="0">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-              </Group>
-            </DimensionLayout>
-            <DimensionLayout dim="1">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="16" max="32767" attributes="0"/>
-              </Group>
-            </DimensionLayout>
-          </Layout>
-        </Container>
-        <Container class="javax.swing.JPanel" name="greenPanel">
-          <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="cc" green="ff" red="cc" type="rgb"/>
-            </Property>
-            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-              <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
-                <LineBorder thickness="2"/>
-              </Border>
-            </Property>
-            <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[60, 20]"/>
-            </Property>
-            <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[60, 20]"/>
-            </Property>
-          </Properties>
-
-          <Layout>
-            <DimensionLayout dim="0">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="56" max="32767" attributes="0"/>
-              </Group>
-            </DimensionLayout>
-            <DimensionLayout dim="1">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="16" max="32767" attributes="0"/>
-              </Group>
-            </DimensionLayout>
-          </Layout>
-        </Container>
-        <Component class="javax.swing.JLabel" name="empLabel">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Dialog" size="18" style="1"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="Emprunt&#xe9;"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JLabel" name="resLabel">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Dialog" size="18" style="1"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="Reserv&#xe9;"/>
-          </Properties>
-        </Component>
         <Container class="javax.swing.JPanel" name="depDateLimPanel">
 
           <Layout>
@@ -283,45 +165,6 @@
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <EmptySpace min="0" pref="48" max="32767" attributes="0"/>
-              </Group>
-            </DimensionLayout>
-          </Layout>
-        </Container>
-        <Component class="javax.swing.JLabel" name="empLabel1">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Dialog" size="18" style="1"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="Date Limite Depass&#xe9;"/>
-          </Properties>
-        </Component>
-        <Container class="javax.swing.JPanel" name="greenPanel1">
-          <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="b5" green="b5" red="fe" type="rgb"/>
-            </Property>
-            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-              <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
-                <LineBorder thickness="2"/>
-              </Border>
-            </Property>
-            <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[60, 20]"/>
-            </Property>
-            <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[60, 20]"/>
-            </Property>
-          </Properties>
-
-          <Layout>
-            <DimensionLayout dim="0">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="56" max="32767" attributes="0"/>
-              </Group>
-            </DimensionLayout>
-            <DimensionLayout dim="1">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="16" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
           </Layout>

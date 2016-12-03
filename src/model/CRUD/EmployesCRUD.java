@@ -142,9 +142,13 @@ public class EmployesCRUD {
         }
     }
     
-    public ResultSet getAllEmployes(){
+    public ResultSet getAllEmployes(boolean details){
         try {
-            PreparedStatement prepare=connexion.prepareStatement("select * from employe");
+            PreparedStatement prepare=null;
+            if(details)
+                prepare=connexion.prepareStatement("select * from employe");
+            else
+                prepare=connexion.prepareStatement("select Login, Nom, Prenom, Email FROM employe");
             ResultSet resultat=prepare.executeQuery();
             
             if(resultat.next()){
