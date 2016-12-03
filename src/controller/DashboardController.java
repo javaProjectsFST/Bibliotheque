@@ -10,6 +10,7 @@ import java.awt.event.MouseEvent;
 import view.DashboardView;
 import java.sql.Connection;
 import java.sql.Date;
+import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import javax.swing.BorderFactory;
@@ -192,14 +193,40 @@ public class DashboardController {
                     searched="";
                 else
                     searched=dashboardView.getRechercheTextField().getText();
-                if(dashboardView.getSelectedIndex()==1)
-                    livresController.searchByFor(dashboardView.getComboBox().getSelectedIndex(), searched);
-                else if(dashboardView.getSelectedIndex()==2)
-                    livresController.searchByForInEmprunt(dashboardView.getComboBox().getSelectedIndex(), searched);
-                else if(dashboardView.getSelectedIndex()==3)
-                    livresController.searchByForInDateLim(dashboardView.getComboBox().getSelectedIndex(), searched);
-                else if(dashboardView.getSelectedIndex()==4)
-                    livresController.searchByForInReservation(dashboardView.getComboBox().getSelectedIndex(), searched);
+                if(dashboardView.getTabbedPane().getSelectedIndex()==0){
+                    if(dashboardView.getSelectedIndex()==1)
+                        livresController.searchByFor(dashboardView.getComboBox().getSelectedIndex(), searched);
+                    else if(dashboardView.getSelectedIndex()==2)
+                        livresController.searchByForInEmprunt(dashboardView.getComboBox().getSelectedIndex(), searched);
+                    else if(dashboardView.getSelectedIndex()==3)
+                        livresController.searchByForInDateLim(dashboardView.getComboBox().getSelectedIndex(), searched);
+                    else if(dashboardView.getSelectedIndex()==4)
+                        livresController.searchByForInReservation(dashboardView.getComboBox().getSelectedIndex(), searched);
+                }else if(dashboardView.getTabbedPane().getSelectedIndex()==1){
+                    int i=dashboardView.getComboBox().getSelectedIndex();
+                    if(i==0){
+                        ResultSet rs=adherentsCrud.searchAdherentByLogin(searched);
+                        dashboardView.getAdherentsView().UpdateView(rs);
+                    }else if(i==1){
+                        ResultSet rs=adherentsCrud.searchAdherentByLastName(searched);
+                        dashboardView.getAdherentsView().UpdateView(rs);
+                    }else if(i==2){
+                        ResultSet rs=adherentsCrud.searchAdherentByName(searched);
+                        dashboardView.getAdherentsView().UpdateView(rs);
+                    }
+                }else if(dashboardView.getTabbedPane().getSelectedIndex()==2){
+                    int i=dashboardView.getComboBox().getSelectedIndex();
+                    if(i==0){
+                        ResultSet rs=employesCrud.searchEmployeByLogin(searched);
+                        dashboardView.getEmployesView().UpdateView(rs);
+                    }else if(i==1){
+                        ResultSet rs=employesCrud.searchEmployeByName(searched);
+                        dashboardView.getEmployesView().UpdateView(rs);
+                    }else if(i==2){
+                        ResultSet rs=employesCrud.searchEmployeByLastName(searched);
+                        dashboardView.getEmployesView().UpdateView(rs);
+                    }
+                }
             }
         });
         

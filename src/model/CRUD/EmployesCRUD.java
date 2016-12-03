@@ -174,6 +174,39 @@ public class EmployesCRUD {
         }
     }
     
+    public ResultSet searchEmployeByLogin(String login){
+        try{
+            PreparedStatement prepare=connexion.prepareStatement("select Login, Nom, Prenom, Email FROM employe WHERE Login Like ?");
+            prepare.setString(1, login+"%");
+            ResultSet resultat=prepare.executeQuery();
+            return resultat;
+        }catch(SQLException e){
+            return null;
+        }
+    }
+    
+    public ResultSet searchEmployeByName(String name){
+        try{
+            PreparedStatement prepare=connexion.prepareStatement("select Login, Nom, Prenom, Email FROM employe WHERE Prenom Like ?");
+            prepare.setString(1, name+"%");
+            ResultSet resultat=prepare.executeQuery();
+            return resultat;
+        }catch(SQLException e){
+            return null;
+        }
+    }
+    
+    public ResultSet searchEmployeByLastName(String lastName){
+        try{
+            PreparedStatement prepare=connexion.prepareStatement("select Login, Nom, Prenom, Email FROM employe WHERE Nom Like ?");
+            prepare.setString(1, lastName+"%");
+            ResultSet resultat=prepare.executeQuery();
+            return resultat;
+        }catch(SQLException e){
+            return null;
+        }
+    }
+    
     public boolean sendPasswordMail(Employe employe){
         return true;
     }
