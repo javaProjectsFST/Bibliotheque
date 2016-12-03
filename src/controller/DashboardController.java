@@ -1,5 +1,6 @@
 package controller;
 
+import controller.main.GeneralController;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
@@ -8,8 +9,11 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import view.DashboardView;
 import java.sql.Connection;
-import java.sql.ResultSet;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import javax.swing.BorderFactory;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.event.ChangeEvent;
@@ -18,7 +22,9 @@ import model.CRUD.AdherentsCRUD;
 import model.CRUD.EmpruntsCRUD;
 import model.CRUD.LivresCRUD;
 import model.CRUD.ReservationsCRUD;
+import model.entities.Adherent;
 import model.entities.Emprunt;
+import model.entities.Livre;
 import model.entities.Reservation;
 
 public class DashboardController {
@@ -33,12 +39,14 @@ public class DashboardController {
     private final int connectedIndex;
     private final EmpruntsCRUD empruntsCrud;
     private final ReservationsCRUD reservationsCrud;
+    private final GeneralController general;
     
     
-    public DashboardController(Connection connexion, int connectedIndex) {
+    public DashboardController(Connection connexion, int connectedIndex, GeneralController general) {
         this.dashboardView = new DashboardView();
         this.connexion = connexion;
         this.connectedIndex=connectedIndex;
+        this.general=general;
         
         this.livresController=new LivresController(dashboardView.getLivresView(), dashboardView.getAdherentsView(), connexion);
         this.adherentsController = new AdherentsController(this.dashboardView.getAdherentsView(), connexion);
@@ -290,6 +298,28 @@ public class DashboardController {
                 livresController.getLivreView().UpdateView(livresCrud.getAllLivresInReservation(true));
             }
         });
+        
+        dashboardView.getLogoutButton().addActionListener(e->logout());
+        dashboardView.getEmailButton().addActionListener(e->sendEmail());
+        dashboardView.getDetailsButton().addActionListener(e->detailsClicked());
+    }
+    
+    private void detailsClicked(){
+        int row=dashboardView.getLivresView().getLivresTable().getSelectedRow();
+        new LivreDetailsController(connexion, livresCrud, Integer.parseInt(dashboardView.getLivresView().getLivresTable().getValueAt(row, 0).toString()));
+    }
+    
+    private void sendEmail(){
+        JTable table=dashboardView.getLivresView().getLivresTable();
+        Livre livre=livresCrud.getLivreBy(Integer.parseInt(table.getValueAt(table.getSelectedRow(), 0).toString()));
+        Emprunt emp=empruntsCrud.getEmprentByLivre(livre.getId());
+        Adherent adherent=adherentsCrud.getAdherentBy(emp.getLoginAdherentEmp());
+        adherentsCrud.sendAvetMail(livre, adherent, emp);
+        JOptionPane.showMessageDialog(dashboardView, "Un email d'avertissement à été envoyer à l'adherent concerné");
+    }
+    
+    private void logout(){
+        general.logout();
     }
     
     private void addBookClicked(){
@@ -352,75 +382,105 @@ public class DashboardController {
     private void selectionChanged(){
         JTable table=dashboardView.getLivresView().getLivresTable();
         int[] rows=dashboardView.getLivresView().getLivresTable().getSelectedRows();
-        if(rows.length == 1){
-            if(table.getValueAt(rows[0], 5)!=null){
-                dashboardView.setCancelEmpruntIcon();
-                dashboardView.getEmpruntButton().setEnabled(true);
+        try {
+            if(rows.length == 1){
+                dashboardView.getDetailsButton().setEnabled(true);
+                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
                 
-                dashboardView.setReserverIcon();
-                dashboardView.getMakeReservationButton().setEnabled(false);
-                dashboardView.getDeleteBookButton().setEnabled(false);
-            }else if(table.getValueAt(rows[0], 7)!=null){
-                dashboardView.setEmpruntIcon();
-                dashboardView.getEmpruntButton().setEnabled(true);
-                
-                dashboardView.setCanceReserveIcon();
-                dashboardView.getMakeReservationButton().setEnabled(true);
-                dashboardView.getDeleteBookButton().setEnabled(false);
-            }else{
-                dashboardView.setEmpruntIcon();
-                dashboardView.getEmpruntButton().setEnabled(true);
-                
-                dashboardView.setReserverIcon();
-                dashboardView.getMakeReservationButton().setEnabled(true);
-                
-                dashboardView.getDeleteBookButton().setEnabled(true);
-            }
-        }else if(rows.length > 1){
-            if(table.getValueAt(rows[0], 5)!=null){
-                for(int row : rows){
-                    if(table.getValueAt(row, 5)==null){
-                        disableLivreButtons();
-                        return;
-                    }
+                Date dateLim=null;
+                Date date=null;
+                if(table.getValueAt(rows[0], 6)!=null){
+                    java.util.Date parsed = format.parse(table.getValueAt(rows[0], 6).toString());
+                    dateLim= new Date(parsed.getTime());
+                    Calendar calendar = Calendar.getInstance();
+                    date=new Date(calendar.getTime().getTime());
                 }
-                dashboardView.setCancelEmpruntIcon();
-                dashboardView.getEmpruntButton().setEnabled(true);
-                
-                dashboardView.setReserverIcon();
-                dashboardView.getMakeReservationButton().setEnabled(false);
-                dashboardView.getDeleteBookButton().setEnabled(false);
-            }else if(table.getValueAt(rows[0], 7)!=null){
-                for(int row : rows){
-                    if(table.getValueAt(row, 7)==null){
-                        disableLivreButtons();
-                        return;
-                    }
+                if(table.getValueAt(rows[0], 5)!=null && date!=null && dateLim!=null && date.after(dateLim)){
+                    dashboardView.getEmailButton().setEnabled(true);
+                    
+                    dashboardView.setCancelEmpruntIcon();
+                    dashboardView.getEmpruntButton().setEnabled(true);
+                    dashboardView.setReserverIcon();
+                    dashboardView.getMakeReservationButton().setEnabled(false);
+                    dashboardView.getDeleteBookButton().setEnabled(false);
+                }else if(table.getValueAt(rows[0], 5)!=null){
+                    dashboardView.setCancelEmpruntIcon();
+                    dashboardView.getEmpruntButton().setEnabled(true);
+
+                    dashboardView.setReserverIcon();
+                    dashboardView.getMakeReservationButton().setEnabled(false);
+                    dashboardView.getDeleteBookButton().setEnabled(false);
+                    dashboardView.getEmailButton().setEnabled(false);
+                }else if(table.getValueAt(rows[0], 7)!=null){
+                    dashboardView.setEmpruntIcon();
+                    dashboardView.getEmpruntButton().setEnabled(true);
+
+                    dashboardView.setCanceReserveIcon();
+                    dashboardView.getMakeReservationButton().setEnabled(true);
+                    dashboardView.getDeleteBookButton().setEnabled(false);
+                    dashboardView.getEmailButton().setEnabled(false);
+                }else{
+                    dashboardView.setEmpruntIcon();
+                    dashboardView.getEmpruntButton().setEnabled(true);
+
+                    dashboardView.setReserverIcon();
+                    dashboardView.getMakeReservationButton().setEnabled(true);
+
+                    dashboardView.getDeleteBookButton().setEnabled(true);
+                    dashboardView.getEmailButton().setEnabled(false);
                 }
-                dashboardView.setEmpruntIcon();
-                dashboardView.getEmpruntButton().setEnabled(false);
-                
-                dashboardView.setCanceReserveIcon();
-                dashboardView.getMakeReservationButton().setEnabled(true);
-                dashboardView.getDeleteBookButton().setEnabled(false);
+            }else if(rows.length > 1){
+                dashboardView.getDetailsButton().setEnabled(false);
+                dashboardView.getEmailButton().setEnabled(false);
+                if(table.getValueAt(rows[0], 5)!=null){
+                    for(int row : rows){
+                        if(table.getValueAt(row, 5)==null){
+                            disableLivreButtons();
+                            return;
+                        }
+                    }
+                    dashboardView.setCancelEmpruntIcon();
+                    dashboardView.getEmpruntButton().setEnabled(true);
+
+                    dashboardView.setReserverIcon();
+                    dashboardView.getMakeReservationButton().setEnabled(false);
+                    dashboardView.getDeleteBookButton().setEnabled(false);
+                }else if(table.getValueAt(rows[0], 7)!=null){
+                    for(int row : rows){
+                        if(table.getValueAt(row, 7)==null){
+                            disableLivreButtons();
+                            return;
+                        }
+                    }
+                    dashboardView.setEmpruntIcon();
+                    dashboardView.getEmpruntButton().setEnabled(false);
+
+                    dashboardView.setCanceReserveIcon();
+                    dashboardView.getMakeReservationButton().setEnabled(true);
+                    dashboardView.getDeleteBookButton().setEnabled(false);
+                }else{
+                    dashboardView.setEmpruntIcon();
+                    dashboardView.getEmpruntButton().setEnabled(false);
+
+                    dashboardView.setReserverIcon();
+                    dashboardView.getMakeReservationButton().setEnabled(false);
+                    dashboardView.getDeleteBookButton().setEnabled(true);
+                }
             }else{
-                dashboardView.setEmpruntIcon();
-                dashboardView.getEmpruntButton().setEnabled(false);
-                
-                dashboardView.setReserverIcon();
-                dashboardView.getMakeReservationButton().setEnabled(false);
-                dashboardView.getDeleteBookButton().setEnabled(true);
+                disableLivreButtons();
             }
-        }else{
-            disableLivreButtons();
+        } catch (java.text.ParseException ex) {
+                ex.printStackTrace();
         }
     }
     
     private void disableLivreButtons(){
         dashboardView.setReserverIcon();
-        dashboardView.setReserverIcon();
+        dashboardView.setEmpruntIcon();
         dashboardView.getEmpruntButton().setEnabled(false);
         dashboardView.getMakeReservationButton().setEnabled(false);
         dashboardView.getDeleteBookButton().setEnabled(false);
+        dashboardView.getEmailButton().setEnabled(false);
+        dashboardView.getDetailsButton().setEnabled(false);
     }
 }

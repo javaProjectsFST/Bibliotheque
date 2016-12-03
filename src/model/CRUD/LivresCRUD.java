@@ -235,9 +235,11 @@ public class LivresCRUD {
             prepare.setDate(4, livre.getDateEdition());
             prepare.setInt(5,livreId);
             prepare.executeUpdate();
+            updateView();
             prepare.close();
             return true;
         }catch(SQLException ex) {
+            ex.printStackTrace();
             return false;
         }
        
@@ -256,6 +258,17 @@ public class LivresCRUD {
             resultat.beforeFirst();
             return (resultat);
         } catch (SQLException ex) {
+            return null;
+        }
+    }
+    
+    public ResultSet getLivreDetails(int livreId){
+        try{
+            PreparedStatement prepare=connexion.prepareStatement("SELECT LivreId, Titre, Auteur, Editeur, DateEdition, LoginAdherentEmp, DateEmprunt, DateLimiteEmprunt, LoginAdherentRes, DateReservation, DateLimiteReservation FROM (SELECT * FROM livre l LEFT JOIN emprunt e ON e.IdLivreEmp = l.LivreId LEFT JOIN reservation r ON r.IdLivreRes = l.LivreId WHERE l.LivreId=?) AS T ORDER BY Titre");
+            prepare.setInt(1, livreId);
+            return prepare.executeQuery();
+        }catch(SQLException e){
+            e.printStackTrace();
             return null;
         }
     }

@@ -22,16 +22,22 @@ public class GeneralController{
         this.connexion=connexion;
         this.loginController=new LoginController(connexion);
         
+        connectedIndex=-1;
         this.mainFrame=new MainFrame(loginController.getLoginView());
         loginController.getLoginView().getRootPane().setDefaultButton(loginController.getLoginView().getConnectButton());
     }
     
     public void toNextView(int connectedIndex){
         connectedIndex=connectedIndex;
-        dashboardController=new DashboardController(connexion, connectedIndex);
+        dashboardController=new DashboardController(connexion, connectedIndex, this);
         mainFrame.addDashboardView(dashboardController.getDashboardView());
         mainFrame.getCardLayout().next(mainFrame.getContainer());
         System.out.println(connectedIndex);
+    }
+    
+    public void logout(){
+       mainFrame.getCardLayout().previous(mainFrame.getContainer());
+       connectedIndex=-1;
     }
     
     public MainFrame getMainFrame(){

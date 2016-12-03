@@ -1,6 +1,7 @@
 
 package controller;
 
+import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import view.LivresView;
@@ -9,9 +10,12 @@ import model.CRUD.EmpruntsCRUD;
 import model.CRUD.LivresCRUD;
 import model.CRUD.ReservationsCRUD;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import javax.swing.JTable;
-import net.proteanit.sql.DbUtils;
+import model.entities.Livre;
 import view.AdherentsView;
 
 public class LivresController {
@@ -58,6 +62,28 @@ public class LivresController {
                 looseTableFocus();
             }
         });
+        livreView.getLivresTable().getModel().addTableModelListener(e->tableChanged());
+    }
+    
+    private void tableChanged(){
+        try {
+            JTable table=livreView.getLivresTable();
+            int row=table.getSelectedRow();
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+            java.util.Date parsed = format.parse(table.getValueAt(row, 4).toString());
+            Date date = new Date(parsed.getTime());
+            
+            Livre livre=new Livre();
+            livre.setId(Integer.parseInt(table.getValueAt(row, 0).toString()));
+            livre.setTitre(table.getValueAt(row, 1).toString());
+            livre.setAuteur(table.getValueAt(row, 2).toString());
+            livre.setEditeur(table.getValueAt(row, 3).toString());
+            livre.setDateEdition(date);
+            
+            livresCrud.updateLivre(livre.getId(), livre);
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
     }
     
     public LivresView getLivreView(){

@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import model.entities.Adherent;
+import model.entities.Emprunt;
 import model.entities.Livre;
 import view.AdherentsView;
 
@@ -217,9 +218,10 @@ public class AdherentsCRUD {
          
     }
     
-    public void sendAvetMail(Livre livre){
-    
-        
+    public void sendAvetMail(Livre livre, Adherent adherent, Emprunt emprunt){
+        String message="Bonjour "+adherent.getPrenom()+" "+adherent.getNom()+",\n\n     Votre période d'emprunt de "+emprunt.getDateEmprunt()+" à "+emprunt.getDateLimiteEmprunt()+" du livre '"+livre.getTitre()+"' a éxpiré , veillez rendre ce dernier le plutôt possible à la bibliothèque!";
+        String object="Bibliotheque - Alerte";
+        new Thread(()->MainClass.sendMail(adherent.getEmail(), object, message)).start();
     }
     
     public void sendPasswordMail(Adherent adherent){

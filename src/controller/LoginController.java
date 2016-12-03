@@ -217,16 +217,19 @@ public class LoginController {
         if(!mdpEmpty && !loginEmpty){
             if(login.equals("Admin") && mdp.equals("Admin")){
                 loginView.getLoaderPanel().setVisible(false);
+                reset();
                 MainClass.generalController.toNextView(1);
             }else{
                 Adherent adherent=adherentsCrud.getAdherentBy(login, mdp);
                 if(adherent!=null){
                     loginView.getLoaderPanel().setVisible(false);
+                    reset();
                     MainClass.generalController.toNextView(2);
                 }else{
                     Employe employe=employesCrud.getEmployeBy(login, mdp);
                     if(employe!=null){
                         loginView.getLoaderPanel().setVisible(false);
+                        reset();
                         MainClass.generalController.toNextView(3);
                     }else{
                         loginView.getLoaderPanel().setVisible(false);

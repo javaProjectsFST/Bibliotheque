@@ -241,6 +241,14 @@ public class DashboardView extends JPanel {
         return logoutButton;
     }
     
+    public JButton getEmailButton(){
+        return emailButton;
+    }
+    
+    public JButton getDetailsButton(){
+        return detailsButton;
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -266,8 +274,10 @@ public class DashboardView extends JPanel {
         makeReservationButton = new javax.swing.JButton();
         empruntButton = new javax.swing.JButton();
         logoutButton = new javax.swing.JButton();
+        emailButton = new javax.swing.JButton();
         rechercheTextField = new javax.swing.JTextField();
         comboBox = new javax.swing.JComboBox<>();
+        detailsButton = new javax.swing.JButton();
 
         setMaximumSize(new java.awt.Dimension(1800, 680));
         setMinimumSize(new java.awt.Dimension(1800, 680));
@@ -448,8 +458,18 @@ public class DashboardView extends JPanel {
         empruntButton.setFocusable(false);
 
         logoutButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/logout.png"))); // NOI18N
-        logoutButton.setToolTipText("Ajouter un Livre");
+        logoutButton.setToolTipText("Deconnexion");
         logoutButton.setFocusable(false);
+
+        emailButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/email.png"))); // NOI18N
+        emailButton.setToolTipText("Envoyer un email d'alerte");
+        emailButton.setEnabled(false);
+        emailButton.setFocusable(false);
+        emailButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                emailButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -464,6 +484,8 @@ public class DashboardView extends JPanel {
                 .addComponent(empruntButton, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(makeReservationButton, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(emailButton, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(logoutButton, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(17, 17, 17))
@@ -475,6 +497,7 @@ public class DashboardView extends JPanel {
             .addComponent(makeReservationButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(empruntButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(logoutButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(emailButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         rechercheTextField.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
@@ -484,14 +507,22 @@ public class DashboardView extends JPanel {
         comboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Titre", "Auteur", "Editeur" }));
         comboBox.setFocusable(false);
 
+        detailsButton.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        detailsButton.setText("Détailles");
+        detailsButton.setEnabled(false);
+        detailsButton.setFocusable(false);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(tabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 1594, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(detailsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, 0)))
+                .addComponent(tabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 1591, Short.MAX_VALUE))
             .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1800, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -515,6 +546,8 @@ public class DashboardView extends JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(107, 107, 107)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(detailsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -523,6 +556,10 @@ public class DashboardView extends JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_makeReservationButtonActionPerformed
 
+    private void emailButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emailButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_emailButtonActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addBookButton;
@@ -530,6 +567,8 @@ public class DashboardView extends JPanel {
     private javax.swing.JLabel dateLimiteNumber;
     private javax.swing.JPanel dateLimitePanel;
     private javax.swing.JButton deleteBookButton;
+    private javax.swing.JButton detailsButton;
+    private javax.swing.JButton emailButton;
     private javax.swing.JButton empruntButton;
     private javax.swing.JLabel empruntesNumber;
     private javax.swing.JPanel empruntesPanel;
