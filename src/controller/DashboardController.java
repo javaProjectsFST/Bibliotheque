@@ -76,13 +76,17 @@ public class DashboardController {
     private void initView(){
         updateMenu();
         dashboardView.setComboForLivre();
-        dashboardView.livreTabVisible();
+        dashboardView.livreTabVisible(connectedIndex);
         switch(connectedIndex){
             case 1:
                 break;
             case 2:
+                dashboardView.getTabbedPane().remove(2);
+                dashboardView.getTabbedPane().remove(1);
                 break;
             case 3:
+                dashboardView.getTabbedPane().remove(2);
+                dashboardView.getTabbedPane().remove(1);
                 break;
             default:
                 break;
@@ -118,15 +122,15 @@ public class DashboardController {
                 switch(index){
                     case 0:
                         dashboardView.setComboForLivre();
-                        dashboardView.livreTabVisible();
+                        dashboardView.livreTabVisible(connectedIndex);
                         break;
                     case 1:
                         dashboardView.setComboForAdherent();
-                        dashboardView.adherentTabVisible();
+                        dashboardView.adherentTabVisible(connectedIndex);
                         break;
                     case 2:
                         dashboardView.setComboForEmploye();
-                        dashboardView.employeTabVisible();
+                        dashboardView.employeTabVisible(connectedIndex);
                         break;
                     default:
                         break;
@@ -314,6 +318,7 @@ public class DashboardController {
         dashboardView.getRemoveAdherentButton().addActionListener(e->removeAdherentClicked());
         dashboardView.getAddAdherentButton().addActionListener(e->new AddAdherentController(connexion, dashboardView.getAdherentsView()));
         dashboardView.getRemoveEmployeButton().addActionListener(e->removeEmployeClicked());
+        dashboardView.getAddEmployeButton().addActionListener(e->new AddEmployeController(connexion, dashboardView.getEmployesView()));
     }
     
     private void removeEmployeClicked(){

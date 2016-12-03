@@ -4,6 +4,7 @@ package controller.main;
 import view.MainFrame;
 import controller.DashboardController;
 import controller.LoginController;
+import java.awt.Component;
 import java.sql.Connection;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -36,8 +37,8 @@ public class GeneralController{
     }
     
     public void logout(){
-       mainFrame.getCardLayout().previous(mainFrame.getContainer());
-       connectedIndex=-1;
+        mainFrame.getCardLayout().previous(mainFrame.getContainer());
+        connectedIndex=-1;
     }
     
     public MainFrame getMainFrame(){

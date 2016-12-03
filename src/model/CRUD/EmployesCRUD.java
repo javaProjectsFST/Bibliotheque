@@ -19,16 +19,18 @@ public class EmployesCRUD {
     
     public boolean addEmploye(Employe employe){
          try {
-            PreparedStatement prepare=connexion.prepareStatement("INSERT INTO employe (Login,MdpEmploye,Prenom,Nom) VALUES (?,?,?,?,?)");
+            PreparedStatement prepare=connexion.prepareStatement("INSERT INTO employe (Login,MdpEmploye,Prenom,Nom,Email) VALUES (?,?,?,?,?)");
             prepare.setString(1, employe.getLogin());
             prepare.setString(2, employe.getMdp());
             prepare.setString(3, employe.getPrenom() );
             prepare.setString(4, employe.getNom());
             prepare.setString(5, employe.getEmail());
             prepare.executeUpdate();
+            updateView();
             prepare.close();
             return true;
         } catch (SQLException ex) {
+            ex.printStackTrace();
             return false;
         }
     }

@@ -273,28 +273,54 @@ public class DashboardView extends JPanel {
         removeEmployeButton.setVisible(false);
     }
     
-    public void livreTabVisible(){
+    public void gerantInterface(){
         allInvisible();
-        detailsButton.setVisible(true);
+    }
+    
+    public void livreTabVisible(int connectedIndex){
+        allInvisible();
+        switch(connectedIndex){
+            case 1:
+                empruntButton.setVisible(false);
+                makeReservationButton.setVisible(false);
+                emailButton.setVisible(false);
+                addBookButton.setVisible(true);
+                deleteBookButton.setVisible(true);
+                detailsButton.setVisible(true);
+                break;
+            case 2:
+                empruntButton.setVisible(false);
+                makeReservationButton.setVisible(false);
+                emailButton.setVisible(false);
+                addBookButton.setVisible(false);
+                deleteBookButton.setVisible(false);
+                detailsButton.setVisible(false);
+                break;
+            case 3:
+                empruntButton.setVisible(true);
+                makeReservationButton.setVisible(true);
+                emailButton.setVisible(true);
+                addBookButton.setVisible(false);
+                deleteBookButton.setVisible(false);
+                detailsButton.setVisible(true);
+                break;
+            default:
+                break;
+        }
         statisticPanel.setVisible(true);
-        addBookButton.setVisible(true);
-        deleteBookButton.setVisible(true);
-        empruntButton.setVisible(true);
-        makeReservationButton.setVisible(true);
-        emailButton.setVisible(true);
         toutPanel.setVisible(true);
         empruntesPanel.setVisible(true);
         dateLimitePanel.setVisible(true);
         reservesPanel.setVisible(true);
     }
     
-    public void adherentTabVisible(){
+    public void adherentTabVisible(int connectedIndex){
         allInvisible();
         addAdherentButton.setVisible(true);
         removeAdherentButton.setVisible(true);
     }
     
-    public void employeTabVisible(){
+    public void employeTabVisible(int connectedIndex){
         allInvisible();
         addEmployeButton.setVisible(true);
         removeEmployeButton.setVisible(true);
