@@ -36,9 +36,8 @@ public class GeneralController{
     }
     
     public void logout(){
-        mainFrame.getCardLayout().removeLayoutComponent(mainFrame.getContainer().getComponent(1));
-//        mainFrame.getCardLayout().previous(mainFrame.getContainer());
         connectedIndex=-1;
+        mainFrame.getContainer().remove(1);
     }
     
     public MainFrame getMainFrame(){

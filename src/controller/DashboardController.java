@@ -370,6 +370,10 @@ public class DashboardController {
         JOptionPane.showMessageDialog(dashboardView, "Un email d'avertissement à été envoyer à l'adherent concerné");
     }
     
+    public void updateView(){
+        initView();
+    }
+    
     private void logout(){
         general.logout();
     }
