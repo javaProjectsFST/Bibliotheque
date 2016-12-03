@@ -1,25 +1,32 @@
 
 package controller;
 
-import view.AjoutAdherentView;
+import controller.main.MainClass;
+import java.awt.Window;
 import model.CRUD.AdherentsCRUD;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.sql.Connection;
+import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 import model.entities.Adherent;
+import view.AddAdherentView;
+import view.AdherentsView;
 
 public class AddAdherentController {
-    private AdherentsCRUD adherentCrud;
-    private AjoutAdherentView ajoutAdherentView;
-    private Connection connexion;
+    private final AdherentsCRUD adherentCrud;
+    private final AddAdherentView ajoutAdherentView;
+    private final Connection connexion;
+    private final AdherentsView adherentView;
     
-    public AddAdherentController(AjoutAdherentView ajoutAdherentView, Connection connexion){
-//        this.adsherentCrud=new AdherentsCRUD(connexion,);
-        this.ajoutAdherentView=ajoutAdherentView;
+    public AddAdherentController(Connection connexion, AdherentsView adherentView){
+        this.adherentCrud=new AdherentsCRUD(connexion, adherentView);
+        this.ajoutAdherentView=new AddAdherentView();
         this.connexion=connexion;
+        this.adherentView=adherentView;
         
         initView();
         initController();
+        
+        JOptionPane.showOptionDialog(null, this.ajoutAdherentView, "Ajouter un  Adherent", 0, JOptionPane.PLAIN_MESSAGE, null, new String[]{}, "");
     }
     
     public void initView(){
@@ -27,16 +34,16 @@ public class AddAdherentController {
     }
     
     public void initController(){
-        ajoutAdherentView.getAjoutButton().addActionListener(new ActionListener(){
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                addAdherent();
-            }
-        });
+        ajoutAdherentView.getAjouterButton().addActionListener(e->addAdherent());
+        ajoutAdherentView.getResetButton().addActionListener(e-> reset());
     }
     
-    private boolean validEmail (String email){
-        return(true);
+    private void reset(){
+        ajoutAdherentView.getMdpTextField().setText("");
+        ajoutAdherentView.getLoginTextField().setText("");
+        ajoutAdherentView.getNomTextField().setText("");
+        ajoutAdherentView.getPrenomTextField().setText("");
+        ajoutAdherentView.getEmailTextField().setText("");
     }
     
     private boolean addAdherent(){
@@ -46,17 +53,42 @@ public class AddAdherentController {
         String prenom=ajoutAdherentView.getPrenomTextField().getText();
         String email=ajoutAdherentView.getEmailTextField().getText();
        
-        if(validEmail(email))
-        {
-            Adherent adherent=new Adherent(mdp,login,nom,prenom,email);
-            
-           if (!adherentCrud.addAdherent(adherent)){
-              
-               return(false);
-           }   
+        if(nom.isEmpty()){
+            JOptionPane.showMessageDialog(ajoutAdherentView, "Champs nom est obligatoire!");
+            return false;
+        }else if(prenom.isEmpty()){
+            JOptionPane.showMessageDialog(ajoutAdherentView, "Champs prenom est obligatoire!");
+            return false;
+        }else if(email.isEmpty()){
+            JOptionPane.showMessageDialog(ajoutAdherentView, "Champs email est obligatoire!");
+            return false;
+        }else if(login.isEmpty()){
+            JOptionPane.showMessageDialog(ajoutAdherentView, "Champs login est obligatoire!");
+            return false;
+        }else if(mdp.isEmpty()){
+            JOptionPane.showMessageDialog(ajoutAdherentView, "Champs mot de passe est obligatoire!");
+            return false;
+        }else if(!MainClass.isValidEmail(email)){
+            JOptionPane.showMessageDialog(ajoutAdherentView, "Email Invalid!");
+            return false;
         }else{
-            return(false);
+            if(adherentCrud.getAdherentBy(login)!=null){
+                JOptionPane.showMessageDialog(ajoutAdherentView, "Login existant!");
+                return false;
+            }else{
+                Adherent adherent=new Adherent();
+                adherent.setNom(nom);
+                adherent.setPrenom(prenom);
+                adherent.setEmail(email);
+                adherent.setLogin(login);
+                adherent.setMdp(mdp);
+                
+                if(adherentCrud.addAdherent(adherent)){
+                    ((Window)SwingUtilities.getWindowAncestor(this.ajoutAdherentView)).dispose();
+                    return true;
+                }
+                return false;
+            }
         }
-        return true;
     }
 }

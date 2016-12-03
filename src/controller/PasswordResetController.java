@@ -25,7 +25,7 @@ public class PasswordResetController {
     public PasswordResetController(Connection connexion){
         this.passwordResetView=new PasswordResetView();
         this.adherentsCrud=new AdherentsCRUD(connexion, null);
-        this.employesCrud=new EmployesCRUD(connexion);
+        this.employesCrud=new EmployesCRUD(connexion, null);
         initView();
         initController();
         JOptionPane.showOptionDialog(null, this.passwordResetView, "Compte Oublié", 0, JOptionPane.PLAIN_MESSAGE, null, new String[]{}, "");

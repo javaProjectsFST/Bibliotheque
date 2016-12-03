@@ -34,6 +34,7 @@ public class AdherentsView extends javax.swing.JPanel{
     
     public void UpdateView(ResultSet rs) {
         adherentsTable.setModel(DbUtils.resultSetToTableModel(rs));
+        int i=0;
     }
     
     public JTable getAdherentsTable(){

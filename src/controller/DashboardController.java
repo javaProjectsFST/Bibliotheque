@@ -19,6 +19,7 @@ import javax.swing.JTable;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import model.CRUD.AdherentsCRUD;
+import model.CRUD.EmployesCRUD;
 import model.CRUD.EmpruntsCRUD;
 import model.CRUD.LivresCRUD;
 import model.CRUD.ReservationsCRUD;
@@ -35,7 +36,7 @@ public class DashboardController {
     private final EmployesController employesController;
     public final LivresCRUD livresCrud;
     public final AdherentsCRUD adherentsCrud;
-//    public final EmployesCRUD employesCrud;
+    public final EmployesCRUD employesCrud;
     private final int connectedIndex;
     private final EmpruntsCRUD empruntsCrud;
     private final ReservationsCRUD reservationsCrud;
@@ -56,6 +57,7 @@ public class DashboardController {
         this.adherentsCrud=new AdherentsCRUD(connexion, this.adherentsController.getAdherentView());
         this.empruntsCrud=new EmpruntsCRUD(connexion, this.livresCrud);
         this.reservationsCrud=new ReservationsCRUD(connexion, livresCrud);
+        this.employesCrud=new EmployesCRUD(connexion, dashboardView.getEmployesView());
         initView();
         initController();
     }
@@ -135,7 +137,8 @@ public class DashboardController {
         dashboardView.getAddBookButton().addActionListener(e->addBookClicked());
         dashboardView.getDeleteBookButton().addActionListener(e->deleteBookClicked());
         dashboardView.getLivresView().getLivresTable().getSelectionModel().addListSelectionListener(e -> selectionChanged());
-        dashboardView.getAdherentsView().getAdherentsTable().getSelectionModel().addListSelectionListener(e -> empruntTableSelectionChanged());
+        dashboardView.getAdherentsView().getAdherentsTable().getSelectionModel().addListSelectionListener(e -> adherentTableSelectionChanged());
+        dashboardView.getEmployesView().getEmployessTable().getSelectionModel().addListSelectionListener(e->employeTableSelectionChanged());
         dashboardView.getMakeReservationButton().addActionListener(e->reservationClicked());
         dashboardView.getEmpruntButton().addActionListener(e->empruntClicked());
         
@@ -309,6 +312,17 @@ public class DashboardController {
         dashboardView.getEmailButton().addActionListener(e->sendEmail());
         dashboardView.getDetailsButton().addActionListener(e->detailsClicked());
         dashboardView.getRemoveAdherentButton().addActionListener(e->removeAdherentClicked());
+        dashboardView.getAddAdherentButton().addActionListener(e->new AddAdherentController(connexion, dashboardView.getAdherentsView()));
+        dashboardView.getRemoveEmployeButton().addActionListener(e->removeEmployeClicked());
+    }
+    
+    private void removeEmployeClicked(){
+        JTable table=dashboardView.getEmployesView().getEmployessTable();
+        int[] rows=table.getSelectedRows();
+        for(int row : rows){
+            employesCrud.deleteEmployeBy(table.getValueAt(row, 0).toString());
+        }
+        employesCrud.updateView();
     }
     
     private void removeAdherentClicked(){
@@ -320,7 +334,16 @@ public class DashboardController {
         adherentsCrud.updateView();
     }
     
-    private void empruntTableSelectionChanged(){
+    private void employeTableSelectionChanged(){
+        int row=dashboardView.getEmployesView().getEmployessTable().getSelectedRow();
+        if(row!=-1){
+            dashboardView.getRemoveEmployeButton().setEnabled(true);
+        }else{
+            dashboardView.getRemoveEmployeButton().setEnabled(false);
+        }
+    }
+    
+    private void adherentTableSelectionChanged(){
         int row=dashboardView.getAdherentsView().getAdherentsTable().getSelectedRow();
         if(row!=-1)
             dashboardView.getRemoveAdherentButton().setEnabled(true);

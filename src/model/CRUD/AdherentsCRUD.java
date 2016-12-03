@@ -27,7 +27,7 @@ public class AdherentsCRUD {
             prepare.setString(2, adherent.getMdp());
             prepare.setString(3, adherent.getPrenom() );
             prepare.setString(4, adherent.getNom());
-            prepare.setString(4, adherent.getEmail());
+            prepare.setString(5, adherent.getEmail());
             
             prepare.executeUpdate();
             updateView();
@@ -35,6 +35,7 @@ public class AdherentsCRUD {
             return true;
             
         } catch (SQLException ex) {
+            ex.printStackTrace();
             return false;
         }
         

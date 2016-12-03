@@ -14,7 +14,7 @@ public class EmployesController {
     public EmployesController(EmployesView employesView, Connection connexion) {
         this.employesView = employesView;
         this.connexion = connexion;
-        this.employesCrud = new EmployesCRUD(connexion);
+        this.employesCrud = new EmployesCRUD(connexion, employesView);
         
         initView();
         initController();
@@ -28,7 +28,6 @@ public class EmployesController {
     }
     
     private void initController(){
-        
     }
     
     private void sortBy(){

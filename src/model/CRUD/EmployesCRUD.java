@@ -5,14 +5,16 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Vector;
 import model.entities.Employe;
+import view.EmployesView;
 
 public class EmployesCRUD {
-    private Connection connexion;    
+    private final Connection connexion;    
+    private final EmployesView employesView;
 
-    public EmployesCRUD(Connection connexion) {
+    public EmployesCRUD(Connection connexion, EmployesView employesView) {
         this.connexion = connexion;
+        this.employesView=employesView;
     }
     
     public boolean addEmploye(Employe employe){
@@ -114,12 +116,13 @@ public class EmployesCRUD {
     
     public boolean deleteEmployeBy(String login){
          try{
-             PreparedStatement prepare=connexion.prepareStatement("DELETE FROM employe WHERE MdpEmploye=?");
+             PreparedStatement prepare=connexion.prepareStatement("DELETE FROM employe WHERE Login=?");
              prepare.setString(1,login);
              prepare.executeUpdate();
              prepare.close();
              return true;
         }catch(SQLException ex) {
+            ex.printStackTrace();
             return false;
         }
     }
@@ -139,6 +142,13 @@ public class EmployesCRUD {
             return true;
         }catch(SQLException ex) {
             return false;
+        }
+    }
+    
+    public void updateView(){
+        ResultSet rs=getAllEmployes(false);
+        if(rs!=null){
+            employesView.UpdateView(rs);
         }
     }
     
