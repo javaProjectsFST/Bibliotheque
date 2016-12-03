@@ -228,15 +228,15 @@ public class AdherentsCRUD {
         }
     }
     
-    public void sendAvetMail(Livre livre, Adherent adherent, Emprunt emprunt){
+    public boolean sendAvetMail(Livre livre, Adherent adherent, Emprunt emprunt){
         String message="Bonjour "+adherent.getPrenom()+" "+adherent.getNom()+",\n\n     Votre période d'emprunt de "+emprunt.getDateEmprunt()+" à "+emprunt.getDateLimiteEmprunt()+" du livre '"+livre.getTitre()+"' a éxpiré , veillez rendre ce dernier le plutôt possible à la bibliothèque!";
         String object="Bibliotheque - Alerte";
-        new Thread(()->MainClass.sendMail(adherent.getEmail(), object, message)).start();
+        return MainClass.sendMail(adherent.getEmail(), object, message);
     }
     
-    public void sendPasswordMail(Adherent adherent){
+    public boolean sendPasswordMail(Adherent adherent){
         String message="Bonjour "+adherent.getPrenom()+" "+adherent.getNom()+",\n\n     Votre login est: "+adherent.getLogin()+"\n     Votre mot de passe est: "+adherent.getMdp();
         String object="Bibliotheque - Votre Compte";
-        new Thread(()->MainClass.sendMail(adherent.getEmail(), object, message)).start();
+        return MainClass.sendMail(adherent.getEmail(), object, message);
     }
 }

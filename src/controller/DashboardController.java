@@ -366,8 +366,8 @@ public class DashboardController {
         Livre livre=livresCrud.getLivreBy(Integer.parseInt(table.getValueAt(table.getSelectedRow(), 0).toString()));
         Emprunt emp=empruntsCrud.getEmprentByLivre(livre.getId());
         Adherent adherent=adherentsCrud.getAdherentBy(emp.getLoginAdherentEmp());
-        adherentsCrud.sendAvetMail(livre, adherent, emp);
-        JOptionPane.showMessageDialog(dashboardView, "Un email d'avertissement à été envoyer à l'adherent concerné");
+        if(adherentsCrud.sendAvetMail(livre, adherent, emp))
+            JOptionPane.showMessageDialog(dashboardView, "Un email d'avertissement à été envoyer à l'adherent concerné");
     }
     
     public void updateView(){

@@ -79,8 +79,8 @@ public class PasswordResetController {
         String mail=this.passwordResetView.getEmailTextField().getText();
         Adherent adherent=adherentsCrud.getAdherentByEmail(mail);
         if(adherent!=null){
-            adherentsCrud.sendPasswordMail(adherent);
-            JOptionPane.showMessageDialog(this.passwordResetView, "Un email contenant vos informations vous à été envoyé.", "Email Enovyé", JOptionPane.PLAIN_MESSAGE);
+            if(adherentsCrud.sendPasswordMail(adherent))
+                JOptionPane.showMessageDialog(this.passwordResetView, "Un email contenant vos informations vous à été envoyé.", "Email Enovyé", JOptionPane.PLAIN_MESSAGE);
             ((Window)SwingUtilities.getWindowAncestor(this.passwordResetView)).dispose();
         }else{
             Employe employe=employesCrud.getEmployeByEmail(mail);

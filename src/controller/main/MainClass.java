@@ -14,6 +14,7 @@ import javax.mail.Transport;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class MainClass extends JPanel{
@@ -89,7 +90,7 @@ public class MainClass extends JPanel{
             e.printStackTrace();
             return(false);
         }catch (MessagingException e) {
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Connexion internet non établie!");
             return(false);
         }
     }

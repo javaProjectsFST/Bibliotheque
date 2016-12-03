@@ -43,8 +43,19 @@ public class AddLivreController {
     }
     
     private boolean isValidForm(String titre, String auteur, String editeur, Date date){
-        if(titre.isEmpty() || auteur.isEmpty() || editeur.isEmpty() || date.toString().isEmpty())
+        if(titre.isEmpty()){
+            JOptionPane.showMessageDialog(addLivreView, "Le champs titre est obligatoire!");
             return false;
+        }else if(auteur.isEmpty()){
+            JOptionPane.showMessageDialog(addLivreView, "Le champs auteur est obligatoire!");
+            return false;
+        }else if(editeur.isEmpty()){
+            JOptionPane.showMessageDialog(addLivreView, "Le champs editeur est obligatoire!");
+            return false;
+        }else if(date.toString().isEmpty()){
+            JOptionPane.showMessageDialog(addLivreView, "Le champs date edition est obligatoire!");
+            return false;
+        }
         return true;
     }
     
@@ -52,11 +63,16 @@ public class AddLivreController {
         String titre=addLivreView.getTitreTextField().getText();
         String auteur=addLivreView.getAuteurTextField().getText();
         String editeur=addLivreView.getEditeurTextField().getText();
-        Date date=new Date(addLivreView.getDateEditionDatePicker().getDate().getTime());
-        if(isValidForm(titre, auteur, editeur, date)){
-            Livre livre=new Livre(titre, auteur, editeur, date);
-            livreCrud.addLivre(livre);
-            ((Window)SwingUtilities.getWindowAncestor(this.addLivreView)).dispose();
+        Date date=null;
+        if(addLivreView.getDateEditionDatePicker().getDate()!=null){
+            date=new Date(addLivreView.getDateEditionDatePicker().getDate().getTime());
+            if(isValidForm(titre, auteur, editeur, date)){
+                Livre livre=new Livre(titre, auteur, editeur, date);
+                livreCrud.addLivre(livre);
+                ((Window)SwingUtilities.getWindowAncestor(this.addLivreView)).dispose();
+            }
+        }else{
+            JOptionPane.showMessageDialog(addLivreView, "Le champs date edition est obligatoire!");
         }
     }
     
