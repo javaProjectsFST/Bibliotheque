@@ -1,4 +1,0 @@
-Link: http://www.phpmyadmin.co/
-Server: sql8.freemysqlhosting.net
-User: sql8145007
-Password: xysgX4HhML
